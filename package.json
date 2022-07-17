@@ -1,0 +1,21 @@
+{
+  "name": "my-project",
+  "source": "src/index.html",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "engines": {
+    "node": ">= 14"
+  },
+  "targets": {
+    "default": {
+      "sourceMap": true,
+      "context": "browser"
+    }
+  },
+  "scripts": {
+    "dev": "parcel",
+    "build": "parcel build"
+  },
+  "devDependencies": {
+    "parcel": "latest"
+  }
+}
