@@ -1,6 +1,6 @@
 {
   "name": "my-project",
-  "source": "src/index.html",
+  "source": "src/index.hbs",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "engines": {
     "node": ">= 14"
@@ -16,6 +16,12 @@
     "build": "parcel build"
   },
   "devDependencies": {
-    "parcel": "latest"
+    "@anikin/parcel-transformer-handlebars": "^1.0.9",
+    "@parcel/transformer-sass": "^2.6.2",
+    "parcel": "latest",
+    "sass": "^1.53.0"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.7"
   }
 }
