@@ -1,7 +1,11 @@
-// const Handlebars = require("handlebars");
+const express = require('express');
 
-// var source = document.getElementById("entry-template").innerHTML;
-// var template = Handlebars.compile(source);
+const app = express();
+const PORT = 3000;
 
-// var context = { title: "My New Post", body: "This is my first post!" };
-// var html = template(context);
+app.use('/', express.static(`${__dirname}/../dist/`));
+app.use('/login/', express.static(`${__dirname}/../dist/login/`));
+
+app.listen(PORT, () => {
+  console.log(`Сервер запущен на ${PORT} порту!`);
+});
