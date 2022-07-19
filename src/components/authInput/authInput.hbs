@@ -1,7 +1,7 @@
 <div class="auth-input">
-	<label for="{{name}}">{{label}}</label>
-	<input name="{{name}}" type="{{type}}" value="{{value}}"/>
   {{#if errorText}}
 	  <span>{{errorText}}</span>
   {{/if}}
+	<input name="{{name}}" id="{{name}}" type="{{type}}" value="{{value}}" placeholder=" "/>
+	<label for="{{name}}">{{label}}</label>
 </div>
