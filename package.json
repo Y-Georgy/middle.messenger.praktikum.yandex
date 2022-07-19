@@ -2,7 +2,8 @@
   "name": "my-project",
   "source": [
     "src/pages/index.html",
-    "src/pages/login/index.html"
+    "src/pages/login/index.html",
+    "src/pages/register/index.html"
   ],
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "engines": {

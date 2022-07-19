@@ -11,7 +11,7 @@ const loginInput = authInput('login', 'Логин', 'Иванов', 'Невер�
 const passwordInput = authInput('password', 'Пароль','Иванов', '', 'password');
 
 const button = buttonSubmit('Вход');
-const registerLink = link('register', 'Нет аккаунта?')
+const registerLink = link('register', 'Зарегистрироваться')
 
 const content = title + loginInput + passwordInput + button + registerLink;
 const authSection = authLayout(content);
