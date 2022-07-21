@@ -1,8 +1,8 @@
-import authTitle from '../../components/authTitle/authTitle';
+import authTitle from '../../components/authTitle';
 import authLayout from '../../layouts/auth/auth';
-import authInput from '../../components/authInput/authInput';
-import buttonSubmit from '../../components/buttonSubmit/buttonSubmit';
-import link from '../../components/link/link';
+import authInput from '../../components/authInput';
+import buttonSubmit from '../../components/buttonSubmit';
+import link from '../../components/link';
 import form from '../../components/form/form';
 
 const container = document.querySelector('.main');

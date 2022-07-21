@@ -1,10 +1,7 @@
 {
   "name": "my-project",
   "source": [
-    "src/pages/index.html",
-    "src/pages/login/index.html",
-    "src/pages/register/index.html",
-    "src/pages/profile/index.html"
+    "src/pages/index.html"
   ],
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "engines": {
@@ -17,8 +14,8 @@
     }
   },
   "scripts": {
-    "start": "node ./src/app.js ",
-    "devserver": "nodemon ./src/app.js ",
+    "start": "node ./app.js ",
+    "devserver": "nodemon ./app.js ",
     "dev": "parcel",
     "build": "parcel build"
   },
