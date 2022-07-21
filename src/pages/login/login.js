@@ -1,8 +1,8 @@
-import { authTitle } from '../../components/authTitle/authTitle';
-import { authLayout } from '../../layouts/auth/auth';
-import { authInput } from '../../components/authInput/authInput';
-import { buttonSubmit } from '../../components/buttonSubmit/buttonSubmit';
-import { link } from '../../components/link/link';
+import authTitle from '../../components/authTitle/authTitle';
+import authLayout from '../../layouts/auth/auth';
+import authInput from '../../components/authInput/authInput';
+import buttonSubmit from '../../components/buttonSubmit/buttonSubmit';
+import link from '../../components/link/link';
 
 const container = document.querySelector('.main');
 const title = authTitle('Вход');

@@ -1,6 +1,6 @@
 import auth from "./auth.hbs"
 import "./auth.scss";
 
-export const authLayout = ( content ) => (
+export default ( content ) => (
   auth({ content })
 );

@@ -1,9 +1,9 @@
-import { authTitle } from '../../components/authTitle/authTitle';
-import { authLayout } from '../../layouts/auth/auth';
-import { authInput } from '../../components/authInput/authInput';
-import { buttonSubmit } from '../../components/buttonSubmit/buttonSubmit';
-import { link } from '../../components/link/link';
-import { form } from '../../components/form/form';
+import authTitle from '../../components/authTitle/authTitle';
+import authLayout from '../../layouts/auth/auth';
+import authInput from '../../components/authInput/authInput';
+import buttonSubmit from '../../components/buttonSubmit/buttonSubmit';
+import link from '../../components/link/link';
+import form from '../../components/form/form';
 
 const container = document.querySelector('.main');
 const title = authTitle('Вход');
