@@ -1,4 +1,4 @@
 import link from "./link.hbs"
-import './link.scss';
+import styles from './link.module.scss';
 
-export default link;
+export default (props) => link({...props, styles});

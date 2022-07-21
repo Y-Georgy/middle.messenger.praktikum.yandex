@@ -1,4 +1,4 @@
 import authTitle from "./authTitle.hbs";
-import './authTitle.scss';
+import styles from './authTitle.module.scss';
 
-export default authTitle;
+export default (props) => authTitle({...props, styles});
