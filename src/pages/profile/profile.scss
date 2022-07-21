@@ -1,0 +1,27 @@
+@use "../base.scss";
+@import url(../../../static/normalize.css);
+@import url(../../../static/fonts/fonts.scss);
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+
+  h1 {
+    margin-bottom: 40px;
+  }
+  
+  .auth-input {
+    margin-bottom: 16px;
+
+    &:last-of-type {
+      margin-bottom: 47px;
+    }
+  }
+
+  button {
+    margin-top: auto;
+    margin-bottom: 14px;
+  }
+}
