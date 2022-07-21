@@ -1,7 +1,7 @@
-@use "../../pages/base.scss";
+@import "../../pages/variables.scss";
 
 .submit-button {
-  background-color: base.$secondary-color;
+  background-color: $secondary-color;
   font-size: 13px;
   line-height: 13px;
   font-weight: 500;
@@ -11,6 +11,8 @@
   box-sizing: border-box;
   border-radius: 8px;
   border: none;
+  margin-top: auto;
+  margin-bottom: 14px;
 
   &:hover {
     opacity: 0.8;

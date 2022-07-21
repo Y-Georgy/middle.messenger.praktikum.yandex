@@ -1,7 +1,7 @@
-@use "../../pages/base.scss";
+@import "../../pages/variables.scss";
 
 .link {
-  color: base.$secondary-color;
+  color: $secondary-color;
   font-size: 11px;
   line-height: 11px;
   font-weight: 500;

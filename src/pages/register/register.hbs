@@ -1,0 +1,12 @@
+<form name="register" class="register">
+  {{> title title="Регистрация" }}
+  {{> input name="login" label="Логин" value="ivanivanov" errorText="" type="text" }}
+  {{> input name="first_name" label="Имя" value="Иван" errorText="" type="text" }}
+  {{> input name="second_name" label="Фамилия" value="Иванов" errorText="" type="text" }}
+  {{> input name="phone" label="Телефон" value="+7 (909) 967 30 30" errorText="" type="tel" }}
+  {{> input name="password" label="Пароль" value="12345678" errorText="" type="password" }}
+  {{> input name="password-check" label="Пароль (еще раз)" value="12345678" errorText="Пароли не совпадают" type="password" }}
+  {{> buttonSubmit text="Зарегистрироваться" }}
+  {{> link href="login" text="Войти" }}
+</form>
+

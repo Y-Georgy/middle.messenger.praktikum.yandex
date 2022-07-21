@@ -1,27 +1,18 @@
-@use "../base.scss";
-@import url(../../../static/normalize.css);
-@import url(../../../static/fonts/fonts.scss);
-
-.body {
+#main {
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
 
-  h1 {
-    margin-bottom: 40px;
-  }
-  
-  .auth-input {
-    margin-bottom: 16px;
-
-    &:last-of-type {
-      margin-bottom: 47px;
-    }
-  }
-
-  button {
-    margin-top: auto;
-    margin-bottom: 14px;
+  .register {
+    display: flex;
+    flex-direction: column;
+    width: 340px;
+    min-height: 450px;
+    padding: 50px 30px 30px;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    border-radius: 12px;
+    margin: 0 auto;
+    box-sizing: border-box;
   }
 }

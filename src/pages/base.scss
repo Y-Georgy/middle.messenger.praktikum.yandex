@@ -1,9 +1,7 @@
-$font-stack: Inter, Helvetica, sans-serif;
-$primary-color: #1e1e1e;
-$secondary-color: #3369F3;
+@import "./variables";
 
 body {
-  font-family: $font-stack;
+  font-family: Inter, Helvetica, sans-serif;
   font-weight: 400;
   color: $primary-color;
 }

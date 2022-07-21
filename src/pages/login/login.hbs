@@ -1,6 +1,6 @@
-<form name="login" class="auth">
+<form name="login" class={{styles.auth}}>
   {{> title title="Вход" }}
-  {{> input name="login" label="Логин" value="Иванов" errorText="Неверный логин" }}
+  {{> input name="login" label="Логин" value="Иванов" errorText="Неверный логин" type="text"}}
   {{> input name="password" label="Пароль" value="Иванов" errorText="" type="password" }}
   {{> buttonSubmit text="Вход" }}
   {{> link href="register" text="Зарегистрироваться" }}

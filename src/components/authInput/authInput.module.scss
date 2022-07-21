@@ -1,7 +1,11 @@
 .auth-input {
 	display: flex;
 	flex-direction: column-reverse;
-
+  margin-bottom: 16px;
+  &:last-of-type {
+    margin-bottom: 47px;
+  }
+  
 	label {
 		font-weight: 500;
 		font-size: 9px;

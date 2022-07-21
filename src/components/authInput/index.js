@@ -1,5 +1,8 @@
 // import Handlebars from 'handlebars';
 import authInput from './authInput.hbs'
-import './authInput.scss'
+import * as styles from './authInput.module.scss'
 
-export default authInput;
+export default (props) => {
+  console.log(props);
+  return authInput({...props, styles })
+};

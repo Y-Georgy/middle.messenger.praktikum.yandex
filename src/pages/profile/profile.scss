@@ -1,8 +1,4 @@
-@use "../base.scss";
-@import url(../../../static/normalize.css);
-@import url(../../../static/fonts/fonts.scss);
-
-.body {
+#main {
   display: flex;
   flex-direction: column;
   justify-content: center;
