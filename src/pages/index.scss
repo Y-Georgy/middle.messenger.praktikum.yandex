@@ -1,3 +1,8 @@
 @use "./base.scss";
 @import url(../../static/normalize.css);
 @import url(../../static/fonts/fonts.scss);
+
+#main {
+    display: flex;
+    min-height: 100vh;
+}
