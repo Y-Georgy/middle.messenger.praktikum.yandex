@@ -2,6 +2,14 @@
     {{> avatar imageLink="https://i.pinimg.com/474x/b6/14/86/b6148613c57f320a1a257cad5dccf061--art.jpg"}}
     <h1>Екатерина</h1>
     <form>
-
+        {{> input name="email" label="Почта" value="pochta@yandex.ru" type="email" disabled="disabled"}}
+        {{> input name="login" label="Логин" value="kate" type="text" disabled="disabled"}}
+        {{> input name="first_name" label="Имя" value="Екатерина" type="text" disabled="disabled"}}
+        {{> input name="second_name" label="Фамилия" value="Иванова" type="text" disabled="disabled"}}
+        {{> input name="nick" label="Имя в чате" value="Kate" type="text" disabled="disabled"}}
+        {{> input name="phone" label="Телефон" value="+7(999)123-45-67 " type="tel" disabled="disabled"}}
     </form>
+    <a class="{{styles.link}}" href="">Изменить данные</a>
+    <a class="{{styles.link}}" href="">Изменить пароль</a>
+    <a class="{{styles.logout}}" href="">Выйти</a>
 </section>
