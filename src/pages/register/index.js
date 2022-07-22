@@ -11,4 +11,4 @@ Handlebars.registerPartial('input', input);
 Handlebars.registerPartial('buttonSubmit', buttonSubmit);
 Handlebars.registerPartial('link', link);
 
-export default (props) => register({...props, styles});
+export default register({styles});
