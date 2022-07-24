@@ -1,12 +1,12 @@
 {
   "name": "my-project",
+  "engines": {
+    "node": "14.17.3"
+  },
   "source": [
     "src/pages/index.html"
   ],
   "browserslist": "> 0.5%, last 2 versions, not dead",
-  "engines": {
-    "node": ">= 14"
-  },
   "targets": {
     "default": {
       "sourceMap": true,
