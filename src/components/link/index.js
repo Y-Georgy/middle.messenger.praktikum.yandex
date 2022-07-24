@@ -1,4 +1,4 @@
-import link from "./link.hbs"
-import styles from './link.module.scss';
+import template from "./template.hbs"
+import styles from './styles.module.scss';
 
-export default (props) => link({...props, styles});
+export default (props) => template({...props, styles});

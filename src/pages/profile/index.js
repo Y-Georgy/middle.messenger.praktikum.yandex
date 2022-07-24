@@ -3,7 +3,6 @@ import profileLayout from "../../layouts/profile";
 import avatar from "../../components/avatar";
 import template from "./template.hbs";
 import input from '../../components/profileInput';
-import button from '../../components/buttonSubmit';
 import popup from "../../components/popup"
 import popupContent from "./popupContent.hbs"
 import styles from "./styles.module.scss";
@@ -15,7 +14,8 @@ Handlebars.registerPartial('input', input);
 Handlebars.registerPartial('popup', popup);
 
 const styledPopupContent = popupContent({ styles: popupStyles});
+const isPopupOpen = ""; // type any for open popup
 
-const profilePage = profileLayout(template({styles, styledPopupContent}));
+const profilePage = profileLayout(template({styles, styledPopupContent, isPopupOpen}));
 
 export default profilePage;

@@ -10,10 +10,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
     background-color: #FBFBFB;
     border-right: 1px #EAEAEA solid;
     width: 64px;
-    height: 100%;
 
     .arrow-btn {
       margin: 0;

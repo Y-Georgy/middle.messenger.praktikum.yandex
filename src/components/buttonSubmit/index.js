@@ -1,4 +1,4 @@
-import buttonSubmit from "./buttonSubmit.hbs"
-import styles from './buttonSubmit.module.scss';
+import template from "./template.hbs"
+import styles from './styles.module.scss';
 
-export default (props) => buttonSubmit({...props, styles});
+export default (props) => template({...props, styles});

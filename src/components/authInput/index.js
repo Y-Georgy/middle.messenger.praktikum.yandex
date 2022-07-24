@@ -1,7 +1,7 @@
 // import Handlebars from 'handlebars';
-import authInput from './authInput.hbs'
-import * as styles from './authInput.module.scss'
+import template from './template.hbs'
+import * as styles from './styles.module.scss'
 
 export default (props) => (
-  authInput({...props, styles })
+  template({...props, styles })
 );
