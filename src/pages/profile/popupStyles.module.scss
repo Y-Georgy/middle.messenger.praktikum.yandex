@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
     input {
       display: none;
     }
@@ -28,7 +28,7 @@
       color: $secondary-color;
       max-width: 122px;
       text-align: center;
-      
+
       &:hover {
         cursor: pointer;
       }

@@ -1,6 +1,4 @@
-import template from './template.hbs'
-import * as styles from './styles.module.scss'
+import template from "./template.hbs";
+import * as styles from "./styles.module.scss";
 
-export default (props) => (
-  template({...props, styles })
-);
+export default (props) => template({ ...props, styles });

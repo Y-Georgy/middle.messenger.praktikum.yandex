@@ -1,13 +1,18 @@
 # Яндекс.Практикум - Курс "Мидл фронтенд разработчик"
+
 ### Проектная работа "Чат"
+
 ![N|Solid](https://img.shields.io/badge/-Приложение%20в%20разработке-red)
 ![N|Solid](https://img.shields.io/badge/-Георгий%20Ядрихинский-blue)
 [![N|Solid](https://img.shields.io/badge/-Посмотреть%20макет%20Figma-green)](https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link)
 [![N|Solid](https://img.shields.io/badge/-Посмотреть%20сайт%20на%20Netlify-orange)](https://project-chat.netlify.app/)
+
 #### Описание
+
 Web приложение для обмена сообщениями и фотографиями между зарегистрированными пользователями.
 
 #### Технологии
+
 ```
 Handlebars
 SASS

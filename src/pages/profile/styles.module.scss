@@ -23,14 +23,14 @@
       width: 100%;
     }
   }
- 
+
   .link {
     text-decoration: none;
     color: $secondary-color;
     font-size: 13px;
     line-height: 33px;
     font-weight: 500;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid #eaeaea;
     width: 510px;
 
     @media (max-width: 800px) {
@@ -46,15 +46,15 @@
       transition: opacity 0.3s ease-out;
     }
   }
-  
+
   .logout {
     text-decoration: none;
-    color: #FF0000;
+    color: #ff0000;
     font-size: 13px;
     line-height: 33px;
     font-weight: 500;
     width: 510px;
-    
+
     &:hover {
       opacity: 0.7;
       transition: opacity 0.3s ease-out;
@@ -65,4 +65,3 @@
     }
   }
 }
-
