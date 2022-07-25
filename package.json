@@ -19,7 +19,7 @@
   "scripts": {
     "prestart": "parcel build",
     "start": "node ./src/pages/app.js ",
-    "devserver": "nodemon ./src/pages/app.js ",
+    "devserver": "parcel build && nodemon ./src/pages/app.js ",
     "dev": "parcel",
     "build": "parcel build"
   },
