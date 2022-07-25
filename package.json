@@ -10,12 +10,15 @@
   "targets": {
     "default": {
       "sourceMap": true,
+      "includeNodeModules": [
+        "handlebars"
+      ],
       "context": "browser"
     }
   },
   "scripts": {
-    "start": "node ./app.js ",
-    "devserver": "nodemon ./app.js ",
+    "start": "node ./src/pages/app.js ",
+    "devserver": "nodemon ./src/pages/app.js ",
     "dev": "parcel",
     "build": "parcel build"
   },

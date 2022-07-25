@@ -4,7 +4,7 @@ import avatar from "../../components/avatar";
 import input from '../../components/profileInput';
 import buttonSubmit from '../../components/buttonSubmit';
 import template from "./template.hbs";
-import styles from "./styles.module.scss";
+import * as styles from "./styles.module.scss";
 
 Handlebars.registerPartial('avatar', avatar);
 Handlebars.registerPartial('input', input);

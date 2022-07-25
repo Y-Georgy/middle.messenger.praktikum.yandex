@@ -5,8 +5,8 @@ import template from "./template.hbs";
 import input from '../../components/profileInput';
 import popup from "../../components/popup"
 import popupContent from "./popupContent.hbs"
-import styles from "./styles.module.scss";
-import popupStyles from "./popupStyles.module.scss";
+import * as styles from "./styles.module.scss";
+import * as popupStyles from "./popupStyles.module.scss";
 
 
 Handlebars.registerPartial('avatar', avatar);

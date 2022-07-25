@@ -4,7 +4,7 @@ import title from '../../components/authTitle';
 import input from '../../components/authInput';
 import buttonSubmit from '../../components/buttonSubmit';
 import link from '../../components/link';
-import styles from  "./styles.module.scss";
+import * as styles from  "./styles.module.scss";
 
 Handlebars.registerPartial('title', title);
 Handlebars.registerPartial('input', input);
