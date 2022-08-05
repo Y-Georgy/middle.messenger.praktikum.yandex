@@ -1,0 +1,48 @@
+.avatar {
+  display: flex;
+  width: 130px;
+  height: 130px;
+  background: url("../../../static/icons/default-img-icon.svg") center no-repeat
+    #efefef;
+  border-radius: 65px;
+  margin-bottom: 21px;
+  position: relative;
+}
+
+.image {
+  width: 130px;
+  height: 130px;
+  border-radius: 65px;
+}
+
+.overlay {
+  display: flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 65px;
+  margin: 0;
+
+  p {
+    font-size: 13px;
+    line-height: 14px;
+    font-weight: 500;
+    text-align: center;
+    color: #fff;
+    max-width: 70px;
+    margin: auto;
+    display: none;
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+
+    p {
+      display: flex;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+.register {
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  min-height: 450px;
+  padding: 50px 30px 30px;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+  border-radius: 12px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  align-self: center;
+}

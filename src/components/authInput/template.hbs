@@ -1,0 +1,13 @@
+<div class={{styles.auth-input}}>
+  {{#if errorText}}
+    <span>{{errorText}}</span>
+  {{/if}}
+  <input
+    name="{{name}}"
+    id="{{name}}"
+    type="{{type}}"
+    value="{{value}}"
+    placeholder=" "
+  />
+  <label for="{{name}}">{{label}}</label>
+</div>

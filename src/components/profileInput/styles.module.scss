@@ -1,0 +1,36 @@
+@import "../../pages/variables.scss";
+
+.profile-input {
+  display: flex;
+  position: relative;
+
+  label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: $primary-color;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 33px;
+    cursor: text;
+  }
+
+  input {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 33px;
+    color: #999999;
+    border: none;
+    border-bottom: 1px solid #eaeaea;
+    width: 100%;
+    padding: 0;
+    text-align: right;
+    background-color: #fff;
+
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid #80a4ff;
+      transition: all 0.3s ease-out;
+    }
+  }
+}

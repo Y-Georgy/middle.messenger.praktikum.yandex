@@ -1,0 +1,22 @@
+@import "../../pages/variables.scss";
+
+.submit-button {
+  background-color: $secondary-color;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 500;
+  color: #fff;
+  min-width: 280px;
+  padding: 12px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: none;
+  margin-top: auto;
+  margin-bottom: 14px;
+
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 0.3s ease-out;
+    cursor: pointer;
+  }
+}
