@@ -1,5 +1,5 @@
-import mainPage from "./main";
 import login from "./login";
+import chat from "./chat";
 import register from "./register";
 import profile from "./profile";
 import changePassword from "./changePassword";
@@ -7,9 +7,9 @@ import page500 from "./500";
 import page404 from "./404";
 
 const path = window.location.pathname;
-const container = document.querySelector("#main");
+const container = document.querySelector("#main") as HTMLElement;
 
-if (path === "/") container.innerHTML = mainPage;
+if (path === "/") container.innerHTML = chat;
 else if (path === "/login") container.innerHTML = login;
 else if (path === "/register") container.innerHTML = register;
 else if (path === "/profile") container.innerHTML = profile;
