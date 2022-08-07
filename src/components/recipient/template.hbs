@@ -1,0 +1,27 @@
+{{!-- {
+  name: "Андрей",
+  avatarLink: '',
+  lastMessage: { 
+    text: '',
+    isMy: false,
+    time: '10:21'
+  },
+  unreadCount: 2
+} --}}
+
+<div class="{{styles.recipient}}">
+  <img
+      class="{{styles.image}}"
+      src="{{recipient.avatarLink}}"
+      alt="Аватар пользователя"
+    />
+  <div>
+    <p class="{{styles.name}}">{{recipient.name}}</p>
+    <p class="{{styles.message}}">
+      {{#if recipient.lastMessage.isMy}}<span>Вы: </span>{{/if}}
+      {{recipient.lastMessage}}
+    </p>
+  </div>
+  <p class="{{styles.time}}">{{recipient.lastMessage.time}}</p>
+   {{#if recipient.unreadCount}}<p class="{{styles.unreadCount}}">{{recipient.unreadCount}}</p>{{/if}}
+</div>
