@@ -1,10 +1,10 @@
 <section class="{{styles.section}}">
   <nav>
     <a href="/profile">Профиль</a>
-    <input type="text" placeholder="Поиск"/>
+    <input type="text" placeholder="Поиск" />
     <ul>
       {{#each recipients}}
-        <li>{{> recipient recipient=this}}</li>
+      <li>{{> recipient recipient=this}}</li>
       {{/each}}
     </ul>
   </nav>
@@ -12,11 +12,7 @@
     <div class="{{styles.currentRecipent}}">
       <div class="{{styles.avatarOverlay}}">
         {{#if currentRecipent.avatarLink}}
-          <img
-            class="{{styles.avatar}}"
-            src="{{currentRecipent.avatarLink}}"
-            alt="Аватар пользователя"
-          />
+        <img class="{{styles.avatar}}" src="{{currentRecipent.avatarLink}}" alt="Аватар пользователя" />
         {{/if}}
       </div>
       <h2>{{currentRecipent.name}}</h2>
@@ -26,5 +22,20 @@
         <span></span>
       </button>
     </div>
+    <ul class="{{styles.messages}}">
+      {{#each currentRecipent.messages}}
+      <li>
+        {{#if this.day}}
+        <h5>{{this.day}}</h5>
+        {{/if}}
+        {{> message message=this}}
+      </li>
+      {{/each}}
+    </ul>
+    <form class="{{styles.newMessage}}">
+      <button class="{{styles.attach}}" type="button"></button>
+      <input class="{{styles.inputText}}" type="text" placeholder="Сообщение"/>
+      <button class="{{styles.submit}}" type="submit"></button>
+    </form>
   </div>
 </section>
