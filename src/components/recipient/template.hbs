@@ -10,16 +10,20 @@
 } --}}
 
 <div class="{{styles.recipient}}">
-  <img
-      class="{{styles.image}}"
-      src="{{recipient.avatarLink}}"
-      alt="Аватар пользователя"
-    />
+  <div class="{{styles.avatarOverlay}}">
+    {{#if recipient.avatarLink}}
+      <img
+        class="{{styles.avatar}}"
+        src="{{recipient.avatarLink}}"
+        alt="Аватар пользователя"
+      />
+    {{/if}}
+  </div>
   <div>
-    <p class="{{styles.name}}">{{recipient.name}}</p>
+    <h3 class="{{styles.name}}">{{recipient.name}}</h3>
     <p class="{{styles.message}}">
       {{#if recipient.lastMessage.isMy}}<span>Вы: </span>{{/if}}
-      {{recipient.lastMessage}}
+      {{recipient.lastMessage.text}}
     </p>
   </div>
   <p class="{{styles.time}}">{{recipient.lastMessage.time}}</p>

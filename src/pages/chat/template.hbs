@@ -3,25 +3,9 @@
     <a href="/profile">Профиль</a>
     <input type="text" placeholder="Поиск"/>
     <ul>
-      <li>
-        {{> recipient }}
-      </li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
+      {{#each recipients}}
+        <li>{{> recipient recipient=this}}</li>
+      {{/each}}
     </ul>
   </nav>
   <div class="{{styles.chat}}">
