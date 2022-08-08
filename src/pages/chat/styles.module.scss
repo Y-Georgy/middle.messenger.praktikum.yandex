@@ -10,6 +10,7 @@
     padding: 21px 0;
     height: 100vh;
     overflow: hidden;
+    box-sizing: border-box;
 
     &::-webkit-scrollbar {
       width: 0;
@@ -109,8 +110,9 @@
     display: flex;
     flex-direction: column;
     padding: 10px 20px;
-    // width: 100%;
     flex: 1 1 auto;
+    box-sizing: border-box;
+    height: 100vh;
 
     .currentRecipent {
       display: flex;
