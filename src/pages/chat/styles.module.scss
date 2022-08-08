@@ -1,5 +1,6 @@
 .section {
   display: flex;
+  width: 100%;
 
   nav {
     display: flex;
@@ -97,6 +98,71 @@
           width: calc(100% - 20px);
           border-top:1px solid #EAEAEA;;
           content:"";
+        }
+      }
+    }
+  }
+
+  .chat {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    // width: 100%;
+    flex: 1 1 auto;
+
+    .currentRecipent {
+      display: flex;
+      border-bottom: 1px solid #EAEAEA;
+      width: 100%;
+      padding-bottom: 10px;
+
+      .avatarOverlay {
+        display: flex;
+        width: 34px;
+        height: 34px;
+        background: url("../../../static/icons/default-img-icon.svg") center no-repeat
+          #efefef;
+        background-size: 20px;
+        border-radius: 17px;
+        margin-right: 10px;
+        position: relative;
+      }
+      
+      .avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 17px;
+      }
+
+      h2 {
+        font-size: 13px;
+        line-height: 13px;
+        font-weight: 500;
+      }
+
+      button {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        padding: 0;
+        width: 34px;
+        height: 34px;
+        border-radius: 17px;
+        margin: 0 0 0 auto;
+        background-color: inherit;
+
+        span {
+          width: 3px;
+          height: 3px;
+          border-radius: 2px;
+          background-color: #1E1E1E;
+          margin-bottom: 3px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
         }
       }
     }

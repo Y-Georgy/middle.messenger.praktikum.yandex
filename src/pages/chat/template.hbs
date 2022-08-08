@@ -9,7 +9,22 @@
     </ul>
   </nav>
   <div class="{{styles.chat}}">
-
+    <div class="{{styles.currentRecipent}}">
+      <div class="{{styles.avatarOverlay}}">
+        {{#if currentRecipent.avatarLink}}
+          <img
+            class="{{styles.avatar}}"
+            src="{{currentRecipent.avatarLink}}"
+            alt="Аватар пользователя"
+          />
+        {{/if}}
+      </div>
+      <h2>{{currentRecipent.name}}</h2>
+      <button>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </div>
-  {{> link href="/" text="Назад к чатам" }}
 </section>
