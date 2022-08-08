@@ -33,5 +33,18 @@ currentRecipent = {...currentRecipent, messages: currentRecipent.messages.map((i
     } else {
         return item;
     }
-})}
+})};
+
+// const handleSubmit = (e) => {
+//     e.preventDefault();
+//     console.log('messageText:', e.target.message.value);
+// };
+
+// window.onload = function() {
+//     const newMessageForm = document.forms.newMessage;
+//     if (newMessageForm) {
+//         newMessageForm.addEventListener('submit', handleSubmit);
+//     }
+// };
+
 export default template({ styles, recipients, currentRecipent });
