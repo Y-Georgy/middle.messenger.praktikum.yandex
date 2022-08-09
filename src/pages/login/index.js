@@ -42,3 +42,19 @@ const loginPage = new LoginPage({
 });
 
 export default loginPage;
+
+// Обновление работает так
+// setTimeout(() => {
+//   loginPage.setProps({
+//     buttonSubmit: new ButtonSubmit({
+//       text: "Вход2"
+//     }).render()
+//   });
+// }, 3000);
+
+// setTimeout(() => {
+//   loginPage.setProps({
+//     title: new Title({ title: "Вход2" }).render()
+//   });
+// }, 5000);
+

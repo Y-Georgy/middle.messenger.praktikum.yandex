@@ -70,6 +70,9 @@ class Component {
 
   // Может переопределять пользователь, необязательно трогать
   componentDidUpdate(oldProps, newProps) {
+    // return Object.entries(newProps).some(([key, prop]) => (
+    //   oldProps[key] !== prop
+    // ))
     return true;
   }
 
