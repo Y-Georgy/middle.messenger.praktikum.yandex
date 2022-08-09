@@ -1,52 +1,44 @@
-import Handlebars from "handlebars";
 import template from "./template.hbs";
-import title from "../../components/authTitle";
-import input from "../../components/authInput";
-// import buttonSubmit from "../../components/buttonSubmit";
-import link from "../../components/link";
+import Title from "../../components/authTitle";
+import Input from "../../components/authInput";
+import Link from "../../components/link";
+import Component from "../../utils/Component";
+import ButtonSubmit from "../../components/buttonSubmit";
 import * as styles from "./styles.module.scss";
 
-Handlebars.registerPartial("title", title);
-Handlebars.registerPartial("input", input);
-// Handlebars.registerPartial("buttonSubmit", buttonSubmit);
-Handlebars.registerPartial("link", link);
+class LoginPage extends Component {
+  constructor(props) {
+    super("section", props);
+  }
 
-export default template({ styles });
+  render() {
+    return template({ ...this.props, styles });
+  }
+}
 
-// import Component from "../../utils/Component";
-// import ButtonSubmit from "../../components/buttonSubmit";
+const loginPage = new LoginPage({
+  title: new Title({ title: "Вход" }).render(),
+  buttonSubmit: new ButtonSubmit({
+    text: "Вход"
+  }).render(),
+  link: new Link({
+    href: "register",
+    text: "Зарегистрироваться"
+  }).render(),
+  inputLogin: new Input({
+    name: "login",
+    label: "Логин",
+    value: "Иванов",
+    errorText: "Неверный логин",
+    type: "text"
+  }).render(),
+  inputPassword: new Input({
+    name: "password",
+    label: "Пароль",
+    value: "Иванов",
+    errorText: "",
+    type: "password"
+  }).render(),
+});
 
-// // export default (props) => template({ ...props, styles });
-
-// class LoginPage extends Component {
-//   constructor(props) {
-// 		// Создаём враппер дом-элемент button
-//     super("section", props);
-//   }
-
-//   render() {
-//     return template({ ...this.props, styles });
-//   }
-// }
-
-// const loginPage = new LoginPage({
-//   title: `<h1>Title</h1>`,
-//   buttonSubmit: new ButtonSubmit({
-//     text: "Вход"
-//   })
-// });
-
-// export default loginPage();
-
-// // const button = new Button({
-// //   text: 'Вход',
-// // });
-
-// // render(".app", button);
-
-// // // Через секунду контент изменится сам, достаточно обновить пропсы
-// // setTimeout(() => {
-// // button.setProps({
-// //   text: 'Click me, please',
-// // });
-// // }, 1000);
+export default loginPage;

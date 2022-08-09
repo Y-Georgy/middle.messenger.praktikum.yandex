@@ -1,4 +1,15 @@
 import template from "./template.hbs";
+import Component from "../../utils/Component"
 import * as styles from "./styles.module.scss";
 
-export default (props) => template({ ...props, styles });
+class Link extends Component {
+  constructor(props) {
+    super("div", props);
+  }
+
+  render() {
+    return template({ ...this.props, styles });
+  }
+}
+
+export default Link;
