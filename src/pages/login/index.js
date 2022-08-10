@@ -8,7 +8,10 @@ import * as styles from "./styles.module.scss";
 
 class LoginPage extends Component {
   constructor(props) {
-    super("section", props, styles.wrapper);
+    super(props, "form", {
+      name: "login",
+      class: styles.auth,
+    });
   }
 
   render() {
@@ -19,25 +22,25 @@ class LoginPage extends Component {
 const loginPage = new LoginPage({
   title: new Title({ title: "Вход" }).render(),
   buttonSubmit: new ButtonSubmit({
-    text: "Вход"
+    text: "Вход",
   }).render(),
   link: new Link({
     href: "register",
-    text: "Зарегистрироваться"
+    text: "Зарегистрироваться",
   }).render(),
   inputLogin: new Input({
     name: "login",
     label: "Логин",
     value: "Иванов",
     errorText: "Неверный логин",
-    type: "text"
+    type: "text",
   }).render(),
   inputPassword: new Input({
     name: "password",
     label: "Пароль",
     value: "Иванов",
     errorText: "",
-    type: "password"
+    type: "password",
   }).render(),
 });
 
@@ -47,14 +50,13 @@ export default loginPage;
 setTimeout(() => {
   loginPage.setProps({
     buttonSubmit: new ButtonSubmit({
-      text: "Вход2"
-    }).render()
+      text: "Вход2",
+    }).render(),
   });
 }, 3000);
 
 setTimeout(() => {
   loginPage.setProps({
-    title: new Title({ title: "Вход2" }).render()
+    title: new Title({ title: "Вход2" }).render(),
   });
 }, 5000);
-

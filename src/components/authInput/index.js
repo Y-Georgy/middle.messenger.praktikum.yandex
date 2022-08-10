@@ -3,7 +3,7 @@ import Component from "../../utils/Component"
 import * as styles from "./styles.module.scss";
 class Input extends Component {
   constructor(props) {
-    super("div", props);
+    super(props, "div");
   }
 
   render() {

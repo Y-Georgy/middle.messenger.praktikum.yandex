@@ -4,7 +4,7 @@ import * as styles from "./styles.module.scss";
 
 class Link extends Component {
   constructor(props) {
-    super("div", props);
+    super(props, "div");
   }
 
   render() {

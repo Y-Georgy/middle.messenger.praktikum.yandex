@@ -4,7 +4,7 @@ import Component from "../../utils/Component"
 
 class Button extends Component {
   constructor(props) {
-    super("div", props);
+    super(props, "div");
   }
 
   render() {

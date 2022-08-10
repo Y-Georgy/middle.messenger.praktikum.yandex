@@ -6,7 +6,7 @@ import Component from "../../utils/Component";
 
 class Title extends Component {
   constructor(props) {
-    super("div", props);
+    super(props, "div");
   }
 
   render() {
