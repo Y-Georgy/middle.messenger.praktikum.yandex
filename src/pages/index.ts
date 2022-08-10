@@ -16,7 +16,7 @@ const path = window.location.pathname;
 // else if (path === "/profile") container.innerHTML = profile;
 // else if (path === "/change-password") container.innerHTML = changePassword;
 // else if (path === "/500") container.innerHTML = page500;
-// else container.innerHTML = page404;
 
 if (path === "/login") render("#main", loginPage);
+else render("#main", page404);
 
