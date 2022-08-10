@@ -1,4 +1,12 @@
-import EventBus from "./EventBus"
+import EventBus from "./EventBus";
+
+type TProps = Record<string, unknown>
+
+type TMeta = {
+  tagName: string,
+  attributes: Record<string, string>,
+  props: TProps
+};
 
 class Component {
   static EVENTS = {
@@ -8,15 +16,11 @@ class Component {
     FLOW_RENDER: "flow:render"
   };
 
-  _element = null;
-  _meta = null;
+  _element: HTMLElement;
+  _meta: TMeta;
+  props: TProps;
+  eventBus;
 
-  /** JSDoc
-     * @param {string} tagName
-     * @param {Object} props
-     *
-     * @returns {void}
-     */
   constructor( props = {}, tagName = "div", attributes = {}) {
     const eventBus = new EventBus();
     this._meta = {
@@ -42,7 +46,7 @@ class Component {
 
   _createResources() {
     const { tagName, attributes } = this._meta;
-    const newElem = this._createDocumentElement(tagName);
+    const newElem: HTMLElement = this._createDocumentElement(tagName);
     Object.entries(attributes).forEach(([key, value]) => {
       newElem.setAttribute(key, value);
     })
@@ -59,7 +63,7 @@ class Component {
   }
 
   // Может переопределять пользователь, необязательно трогать
-  componentDidMount(oldProps) {}
+  componentDidMount() {}
 
   dispatchComponentDidMount() {
     this.eventBus().emit(Component.EVENTS.FLOW_CDM);
@@ -89,12 +93,13 @@ class Component {
     Object.assign(this.props, nextProps);
   };
 
-  get element() {
+  get element(): HTMLElement {
     return this._element;
   }
 
   _render() {
     const block = this.render();
+    
     // Этот небезопасный метод для упрощения логики
     // Используйте шаблонизатор из npm или напишите свой безопасный
     // Нужно не в строку компилировать (или делать это правильно),
@@ -103,19 +108,21 @@ class Component {
   }
 
   // Может переопределять пользователь, необязательно трогать
-  render() {}
+  render(): string {
+    throw new Error('Функция render не переопределена')
+  }
 
   getContent() {
     return this.element;
   }
     
-  _makePropsProxy(props) {
+  _makePropsProxy(props: TProps) {
     // Можно и так передать this
     // Такой способ больше не применяется с приходом ES6+
     const self = this;
     
     return new Proxy(props, {
-      get(target, prop) {
+      get(target, prop: string) {
         if (prop.startsWith('_')) {
           throw new Error('Нет прав');
         }
@@ -123,7 +130,7 @@ class Component {
         const value = target[prop];
         return typeof value === "function" ? value.bind(target) : value;
       },
-      set(target, prop, value) {
+      set(target, prop: string, value) {
         if (prop.startsWith('_')) {
           throw new Error('Нет прав');
         }

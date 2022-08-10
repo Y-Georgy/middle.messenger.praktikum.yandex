@@ -7,10 +7,6 @@ import ButtonSubmit from "../../components/buttonSubmit";
 import * as styles from "./styles.module.scss";
 
 class LoginPage extends Component {
-  props: any;
-  setProps(nextProps: {}): void {
-  }
-
   constructor(props) {
     super(props, "form", {
       name: "login",
