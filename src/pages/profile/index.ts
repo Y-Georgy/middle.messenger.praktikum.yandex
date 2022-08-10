@@ -3,17 +3,10 @@ import Avatar from "../../components/avatar";
 import template from "./template.hbs";
 import Input from "../../components/profileInput";
 import Component from "../../utils/Component";
+import Popup from "../../components/popup";
+import PopupContent from "./popupContent";
+import ButtonSubmit from "../../components/buttonSubmit";
 import * as styles from "./styles.module.scss";
-// import Popup from "../../components/popup";
-// import popupContent from "./popupContent.hbs";
-// import * as popupStyles from "./popupStyles.module.scss";
-
-// const styledPopupContent = popupContent({ styles: popupStyles });
-// const isPopupOpen = ""; // type any for open popup
-
-// const profilePage = profileLayout(
-//   template({ styles, styledPopupContent, isPopupOpen })
-// );
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -24,6 +17,16 @@ class ProfilePage extends Component {
     return template({ ...this.props, styles });
   }
 }
+
+const popupContent = new PopupContent({
+  button: new ButtonSubmit({
+    text: "Поменять"
+  }).render()
+})
+
+const popup = new Popup({
+  content: popupContent.render()
+})
 
 const profileContent = new ProfilePage({
   avatar: new Avatar({}).render(),
@@ -69,6 +72,7 @@ const profileContent = new ProfilePage({
     type: "tel",
     disabled: "disabled",
   }).render(),
+  // popup: popup.render() // отобразить попап
 });
 
 const profilePage = new ProfileLayout({

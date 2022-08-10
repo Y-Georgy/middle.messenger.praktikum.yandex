@@ -159,8 +159,9 @@ class Component {
     this.getContent().style.display = "block";
   }
 
-  hide() {
-    this.getContent().style.display = "none";
+  hide() {   
+    // this.getContent().style.display = "none";
+    this._element.style.display = "none";
   }
 }
 
