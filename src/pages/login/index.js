@@ -8,7 +8,7 @@ import * as styles from "./styles.module.scss";
 
 class LoginPage extends Component {
   constructor(props) {
-    super("section", props);
+    super("section", props, styles.wrapper);
   }
 
   render() {
@@ -44,17 +44,17 @@ const loginPage = new LoginPage({
 export default loginPage;
 
 // Обновление работает так
-// setTimeout(() => {
-//   loginPage.setProps({
-//     buttonSubmit: new ButtonSubmit({
-//       text: "Вход2"
-//     }).render()
-//   });
-// }, 3000);
+setTimeout(() => {
+  loginPage.setProps({
+    buttonSubmit: new ButtonSubmit({
+      text: "Вход2"
+    }).render()
+  });
+}, 3000);
 
-// setTimeout(() => {
-//   loginPage.setProps({
-//     title: new Title({ title: "Вход2" }).render()
-//   });
-// }, 5000);
+setTimeout(() => {
+  loginPage.setProps({
+    title: new Title({ title: "Вход2" }).render()
+  });
+}, 5000);
 

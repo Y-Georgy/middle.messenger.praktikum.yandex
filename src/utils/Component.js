@@ -17,10 +17,11 @@ class Component {
      *
      * @returns {void}
      */
-  constructor(tagName = "div", props = {}) {
+  constructor(tagName = "div", props = {}, wrapperClassName = '') {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
+      wrapperClassName,
       props
     };
 
@@ -40,8 +41,10 @@ class Component {
   }
 
   _createResources() {
-    const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
+    const { tagName, wrapperClassName } = this._meta;
+    const newElem = this._createDocumentElement(tagName);
+    newElem.setAttribute('class', wrapperClassName);
+    this._element = newElem;
   }
 
   init() {
