@@ -19,20 +19,35 @@ class LoginPage extends Component {
   }
 }
 
+const handleSubmit = ( event ) => {
+  event.preventDefault();
+  const inputsNodeList = event.target.querySelectorAll('input');
+  const inputs: HTMLInputElement[] = Array.from(inputsNodeList);
+  const formValues: Record<string, string>  = {};
+  inputs.forEach(input => {
+    formValues[input.name] = input.value        
+  })
+  console.log(formValues); // data for api
+}
+
+const handleBlur = ( event ) => {
+  if (event.target.name === 'login') {
+    
+  } else if (event.target.name === 'password') {
+
+  }
+  console.log(event.target.name, 'blur'); 
+}
+
+const handleFocus = ( event ) => {
+  console.log(event.target.name, 'focus');
+}
+
 const loginPage = new LoginPage({
   events: {
-    // Названия события точно такие же, как и у первого аргумента addEventListener: 
-    // click, mouseEnter, ...
-    submit: event  => {
-      event.preventDefault();
-      const inputsNodeList = event.target.querySelectorAll('input');
-      const inputs: HTMLInputElement[] = Array.from(inputsNodeList);
-      const formValues: Record<string, string>  = {};
-      inputs.forEach(input => {
-        formValues[input.name] = input.value        
-      })
-      console.log(formValues); // data for api
-    },
+    submit: handleSubmit,
+    blur: handleBlur,
+    focus: handleFocus,
   },
   title: new Title({ title: "Вход" }).render(),
   buttonSubmit: new ButtonSubmit({
@@ -61,16 +76,16 @@ const loginPage = new LoginPage({
 export default loginPage;
 
 // Обновление работает так
-setTimeout(() => {
-  loginPage.setProps({
-    buttonSubmit: new ButtonSubmit({
-      text: "Вход2",
-    }).render(),
-  });
-}, 3000);
+// setTimeout(() => {
+//   loginPage.setProps({
+//     buttonSubmit: new ButtonSubmit({
+//       text: "Вход2",
+//     }).render(),
+//   });
+// }, 3000);
 
-setTimeout(() => {
-  loginPage.setProps({
-    title: new Title({ title: "Вход2" }).render(),
-  });
-}, 5000);
+// setTimeout(() => {
+//   loginPage.setProps({
+//     title: new Title({ title: "Вход2" }).render(),
+//   });
+// }, 5000);

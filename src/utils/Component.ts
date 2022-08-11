@@ -173,7 +173,7 @@ class Component {
     const {events = {}} = this.props;
 
     Object.keys(events).forEach(eventName => {
-      this._element.addEventListener(eventName, events[eventName]);
+      this._element.addEventListener(eventName, events[eventName], true);
     });
   }
   
@@ -181,7 +181,7 @@ class Component {
     const {events = {}} = this.props;
 
     Object.keys(events).forEach(eventName => {
-      this._element.removeEventListener(eventName, events[eventName]);
+      this._element.removeEventListener(eventName, events[eventName], true);
     });
   }
 
