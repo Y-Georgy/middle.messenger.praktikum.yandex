@@ -2,7 +2,10 @@ import EventBus from "./EventBus";
 
 type TProps = {
   [key: string]: unknown
-  events?: Record<string, (e) => void>
+  events?: Record<string, {
+    selector: string,
+    handler: (e) => void
+  }>
 }
 
 type TMeta = {
@@ -172,16 +175,23 @@ class Component {
   _addEvents() {
     const {events = {}} = this.props;
 
-    Object.keys(events).forEach(eventName => {
-      this._element.addEventListener(eventName, events[eventName]);
+    Object.entries(events).forEach(([eventName, { selector, handler }]) => {
+      const target = this._element.querySelector(selector);      
+
+      if (target) {        
+        target.addEventListener(eventName, handler);
+      }
     });
   }
   
   _removeEvents() {
     const {events = {}} = this.props;
-
-    Object.keys(events).forEach(eventName => {
-      this._element.removeEventListener(eventName, events[eventName]);
+    
+    Object.entries(events).forEach(([eventName, { selector, handler }]) => {
+      const target = this._element.querySelector(selector);      
+      if (target) {
+        target.removeEventListener(eventName, handler);
+      }
     });
   }
 

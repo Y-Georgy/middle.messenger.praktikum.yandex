@@ -19,20 +19,31 @@ class LoginPage extends Component {
   }
 }
 
+const handleSubmit = ( event ) => {
+  event.preventDefault();
+  const inputsNodeList = event.target.querySelectorAll('input');
+  const inputs: HTMLInputElement[] = Array.from(inputsNodeList);
+  const formValues: Record<string, string>  = {};
+  inputs.forEach(input => {
+    formValues[input.name] = input.value        
+  })
+  console.log(formValues); // data for api
+}
+
+const handleBlur = ( event ) => {
+  console.log(event.target.name, 'blur'); 
+}
+
+const handleFocus = ( event ) => {
+  console.log(event.target.name, 'focus');
+}
+
 const loginPage = new LoginPage({
   events: {
-    // Названия события точно такие же, как и у первого аргумента addEventListener: 
-    // click, mouseEnter, ...
-    submit: event  => {
-      event.preventDefault();
-      const inputsNodeList = event.target.querySelectorAll('input');
-      const inputs: HTMLInputElement[] = Array.from(inputsNodeList);
-      const formValues: Record<string, string>  = {};
-      inputs.forEach(input => {
-        formValues[input.name] = input.value        
-      })
-      console.log(formValues); // data for api
-    },
+    submit: {
+      selector: 'form',
+      handler: handleSubmit
+    }
   },
   title: new Title({ title: "Вход" }).render(),
   buttonSubmit: new ButtonSubmit({
@@ -48,6 +59,16 @@ const loginPage = new LoginPage({
     value: "Иванов",
     errorText: "Неверный логин",
     type: "text",
+    events: {
+      blur: {
+        selector: 'input',
+        handler: handleBlur
+      },
+      focus: {
+        selector: 'input',
+        handler: handleFocus
+      },
+    },
   }).render(),
   inputPassword: new Input({
     name: "password",
@@ -55,22 +76,32 @@ const loginPage = new LoginPage({
     value: "Иванов",
     errorText: "",
     type: "password",
+    events: {
+      blur: {
+        selector: 'input',
+        handler: handleBlur
+      },
+      focus: {
+        selector: 'input',
+        handler: handleFocus
+      },
+    },
   }).render(),
 });
 
 export default loginPage;
 
 // Обновление работает так
-setTimeout(() => {
-  loginPage.setProps({
-    buttonSubmit: new ButtonSubmit({
-      text: "Вход2",
-    }).render(),
-  });
-}, 3000);
+// setTimeout(() => {
+//   loginPage.setProps({
+//     buttonSubmit: new ButtonSubmit({
+//       text: "Вход2",
+//     }).render(),
+//   });
+// }, 3000);
 
-setTimeout(() => {
-  loginPage.setProps({
-    title: new Title({ title: "Вход2" }).render(),
-  });
-}, 5000);
+// setTimeout(() => {
+//   loginPage.setProps({
+//     title: new Title({ title: "Вход2" }).render(),
+//   });
+// }, 5000);
