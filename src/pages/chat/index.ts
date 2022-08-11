@@ -1,10 +1,9 @@
 import template from "./template.hbs";
-import Recipient from "../../components/recipient";
 import Message from "../../components/message";
 import Component from "../../utils/Component";
 import * as styles from "./styles.module.scss";
 
-const recipients = [
+let recipients = [
   {
     name: "Андрей",
     avatarLink:
@@ -30,6 +29,12 @@ const recipients = [
     unreadCount: 0,
   },
 ];
+
+recipients = recipients.map(item => {
+  item['styles'] = styles;
+  return item;
+})
+
 let currentRecipent = {
   name: "Андрей",
   avatarLink:
@@ -87,8 +92,6 @@ currentRecipent = {
 //     }
 // };
 
-// export default template({ styles, recipients, currentRecipent });
-
 class ChatPage extends Component {
   constructor(props) {
     super(props, "section", {
@@ -102,9 +105,7 @@ class ChatPage extends Component {
 }
 
 const chatPage = new ChatPage({
-  recipient: new Recipient({
-    recipient: recipients[0]
-  }).render(),
+  recipients:  recipients,
   currentRecipent: currentRecipent,
   message: new Message({
     message: currentRecipent.messages[0]
@@ -112,3 +113,11 @@ const chatPage = new ChatPage({
 });
 
 export default chatPage;
+
+// Тест обновления пропсов
+// setTimeout(() => {
+//   recipients.push(recipients[0])
+//   chatPage.setProps({
+//     recipients:  recipients
+//   });
+// }, 3000);
