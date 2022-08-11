@@ -1,6 +1,9 @@
 import EventBus from "./EventBus";
 
-type TProps = Record<string, unknown>
+type TProps = {
+  [key: string]: unknown
+  events?: Record<string, (e) => void>
+}
 
 type TMeta = {
   tagName: string,
@@ -104,7 +107,9 @@ class Component {
     // Используйте шаблонизатор из npm или напишите свой безопасный
     // Нужно не в строку компилировать (или делать это правильно),
     // либо сразу в DOM-элементы возвращать из compile DOM-ноду
+    this._removeEvents();
     this._element.innerHTML = block;
+    this._addEvents();
   }
 
   // Может переопределять пользователь, необязательно трогать
@@ -163,6 +168,23 @@ class Component {
     // this.getContent().style.display = "none";
     this._element.style.display = "none";
   }
+
+  _addEvents() {
+    const {events = {}} = this.props;
+
+    Object.keys(events).forEach(eventName => {
+      this._element.addEventListener(eventName, events[eventName]);
+    });
+  }
+  
+  _removeEvents() {
+    const {events = {}} = this.props;
+
+    Object.keys(events).forEach(eventName => {
+      this._element.removeEventListener(eventName, events[eventName]);
+    });
+  }
+
 }
 
 export default Component;
