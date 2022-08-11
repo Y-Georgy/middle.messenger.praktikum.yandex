@@ -1,5 +1,4 @@
 import template from "./template.hbs";
-import Message from "../../components/message";
 import Component from "../../utils/Component";
 import * as styles from "./styles.module.scss";
 
@@ -67,6 +66,7 @@ let currentRecipent = {
 currentRecipent = {
   ...currentRecipent,
   messages: currentRecipent.messages.map((item, i, arr) => {
+    item['styles'] = styles;
     if (i === 0) {
       item.day = item.date;
       return item;
@@ -107,9 +107,6 @@ class ChatPage extends Component {
 const chatPage = new ChatPage({
   recipients:  recipients,
   currentRecipent: currentRecipent,
-  message: new Message({
-    message: currentRecipent.messages[0]
-  }).render(),
 });
 
 export default chatPage;

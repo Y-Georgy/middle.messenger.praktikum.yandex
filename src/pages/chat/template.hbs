@@ -43,11 +43,17 @@
     </button>
   </div>
   <ul class="{{styles.messages}}">
-    {{!-- {{#each currentRecipent.messages}} --}}
+    {{#each currentRecipent.messages}}
     <li>
-      {{{ message }}}
+      {{#if this.day}}
+        <h5>{{this.day}}</h5>
+      {{/if}}
+      <div class="{{styles.message}}{{#if isMy}} {{styles.messageRight}}{{/if}}">
+        <p>{{this.text}}</p>
+        <span>{{this.time}}</span>
+      </div>
     </li>
-    {{!-- {{/each}} --}}
+    {{/each}}
   </ul>
   <form class="{{styles.newMessage}}" name="newMessage">
     <button class="{{styles.attach}}" type="button"></button>
