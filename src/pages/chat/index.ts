@@ -41,18 +41,21 @@ let currentRecipent = {
       isMy: false,
       time: "10:22",
       date: "20 июля",
+      day: ''
     },
     {
       text: "Текст очень и очень длинного сообщения.",
       isMy: true,
       time: "10:23",
       date: "20 июля",
+      day: ''
     },
     {
       text: "Текст очень и очень длинного сообщения. Текст очень и очень длинного сообщения. Текст очень и очень длинного сообщения.",
       isMy: false,
       time: "10:24",
       date: "20 июля",
+      day: ''
     },
   ],
 };
@@ -89,7 +92,7 @@ currentRecipent = {
 class ChatPage extends Component {
   constructor(props) {
     super(props, "section", {
-        class: styles.section
+      class: styles.section
     });
   }
 
@@ -99,53 +102,13 @@ class ChatPage extends Component {
 }
 
 const chatPage = new ChatPage({
-    recipient: new Recipient({
-        recipient: recipients[0]
-    }).render(),
-    ///////////////////////////////
-  inputEmail: new Input({
-    name: "email",
-    label: "Почта",
-    value: "pochta@yandex.ru",
-    type: "email",
-    disabled: "disabled",
+  recipient: new Recipient({
+    recipient: recipients[0]
   }).render(),
-  inputLogin: new Input({
-    name: "login",
-    label: "Логин",
-    value: "kate",
-    type: "text",
-    disabled: "disabled",
+  currentRecipent: currentRecipent,
+  message: new Message({
+    message: currentRecipent.messages[0]
   }).render(),
-  inputName: new Input({
-    name: "first_name",
-    label: "Имя",
-    value: "Екатерина",
-    type: "text",
-    disabled: "disabled",
-  }).render(),
-  inputSecondName: new Input({
-    name: "second_name",
-    label: "Фамилия",
-    value: "Иванова",
-    type: "text",
-    disabled: "disabled",
-  }).render(),
-  inputDisplayName: new Input({
-    name: "display_name",
-    label: "Имя в чате",
-    value: "Kate",
-    type: "text",
-    disabled: "disabled",
-  }).render(),
-  inputPhone: new Input({
-    name: "phone",
-    label: "Телефон",
-    value: "+7(999)123-45-67",
-    type: "tel",
-    disabled: "disabled",
-  }).render(),
-  // popup: popup.render() // отобразить попап
 });
 
 export default chatPage;

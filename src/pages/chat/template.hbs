@@ -23,14 +23,11 @@
     </button>
   </div>
   <ul class="{{styles.messages}}">
-    {{#each currentRecipent.messages}}
+    {{!-- {{#each currentRecipent.messages}} --}}
     <li>
-      {{#if this.day}}
-      <h5>{{this.day}}</h5>
-      {{/if}}
-      {{> message message=this}}
+      {{{ message }}}
     </li>
-    {{/each}}
+    {{!-- {{/each}} --}}
   </ul>
   <form class="{{styles.newMessage}}" name="newMessage">
     <button class="{{styles.attach}}" type="button"></button>

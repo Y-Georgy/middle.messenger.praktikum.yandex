@@ -1,3 +1,6 @@
+{{#if message.day}}
+  <h5>{{message.day}}</h5>
+{{/if}}
 <div class="{{styles.message}}{{#if isMy}} {{styles.messageRight}}{{/if}}">
   <p>{{message.text}}</p>
   <span>{{message.time}}</span>
