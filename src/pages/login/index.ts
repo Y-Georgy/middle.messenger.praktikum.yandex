@@ -20,6 +20,20 @@ class LoginPage extends Component {
 }
 
 const loginPage = new LoginPage({
+  events: {
+    // Названия события точно такие же, как и у первого аргумента addEventListener: 
+    // click, mouseEnter, ...
+    submit: event  => {
+      event.preventDefault();
+      const inputsNodeList = event.target.querySelectorAll('input');
+      const inputs: HTMLInputElement[] = Array.from(inputsNodeList);
+      const formValues: Record<string, string>  = {};
+      inputs.forEach(input => {
+        formValues[input.name] = input.value        
+      })
+      console.log(formValues); // data for api
+    },
+  },
   title: new Title({ title: "Вход" }).render(),
   buttonSubmit: new ButtonSubmit({
     text: "Вход",
