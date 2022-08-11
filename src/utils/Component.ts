@@ -2,7 +2,10 @@ import EventBus from "./EventBus";
 
 type TProps = {
   [key: string]: unknown
-  events?: Record<string, (e) => void>
+  events?: Record<string, {
+    selector: string,
+    handler: (e) => void
+  }>
 }
 
 type TMeta = {
