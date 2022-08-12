@@ -57,6 +57,8 @@ export function setErrors(oldErrors, newValues) {
       oldErrors[key] = isValidPassword(newValues[key])
     } else if (key === 'repeatPassword') {
       oldErrors[key] = isValidPassword(newValues[key])
+    } else if (key === 'password') {
+      oldErrors[key] = isValidPassword(newValues[key])
     } else if (key === 'email') {
       oldErrors[key] = isValidEmail(newValues[key])
     } else if (key === 'login') {
