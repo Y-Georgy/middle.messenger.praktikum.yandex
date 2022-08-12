@@ -1,10 +1,28 @@
 import template from "./template.hbs";
-import Title from "../../components/authTitle";
-import Input from "../../components/authInput";
-import ButtonSubmit from "../../components/buttonSubmit";
-import Link from "../../components/link";
 import Component from "../../utils/Component";
 import * as styles from "./styles.module.scss";
+import { getProps } from "./register";
+import { getFormData, isDisableForm, setErrors } from "../../utils/validation";
+
+const errors = {
+  login: '',
+  first_name: '',
+  second_name: '',
+  phone: '',
+  newPassword: '',
+  repeatPassword: '',
+}
+
+const values = {
+  login: '',
+  first_name: '',
+  second_name: '',
+  phone: '',
+  newPassword: '',
+  repeatPassword: '',
+}
+
+let isDisabledForm = false;
 
 class RegisterPage extends Component {
   constructor(props) {
@@ -19,57 +37,49 @@ class RegisterPage extends Component {
   }
 }
 
-const loginPage = new RegisterPage({
-  title: new Title({ title: "Регистрация" }).render(),
-  buttonSubmit: new ButtonSubmit({
-    text: "Зарегистрироваться",
-  }).render(),
-  link: new Link({
-    href: "login",
-    text: "Войти",
-  }).render(),
-  inputLogin: new Input({
-    name: "login",
-    label: "Логин",
-    value: "ivanivanov",
-    errorText: "",
-    type: "text",
-  }).render(),
-  inputName: new Input({
-    name: "first_name",
-    label: "Имя",
-    value: "Иван",
-    errorText: "",
-    type: "text",
-  }).render(),
-  inputSecondName: new Input({
-    name: "second_name",
-    label: "Фамилия",
-    value: "Иванов",
-    errorText: "",
-    type: "text",
-  }).render(),
-  inputPhone: new Input({
-    name: "phone",
-    label: "Телефон",
-    value: "+7 (909) 967 30 30",
-    errorText: "",
-    type: "tel",
-  }).render(),
-  inputPassword: new Input({
-    name: "password",
-    label: "Пароль",
-    value: "12345678",
-    errorText: "",
-    type: "password",
-  }).render(),
-  inputPasswordCheck: new Input({
-    name: "password-check",
-    label: "Пароль (еще раз)",
-    value: "12345678",
-    errorText: "Пароли не совпадают",
-    type: "password",
-  }).render(),
-});
+function handleSubmit(event) {  
+  event.preventDefault();
+  
+  Object.entries(getFormData(event)).forEach((([key, value]) => {
+    values[key] = value;
+  }))
 
-export default loginPage;
+  setErrors(errors, values);
+  isDisabledForm = isDisableForm(errors); 
+  
+  if (!isDisabledForm) {
+    console.log(values);
+  }
+  
+  registerPage.setProps(
+    getProps(errors, values, isDisabledForm)
+  )
+}
+
+function handleBlurOrFocus( event ) {
+  const { name, value } = event.target;
+  if (!name) {
+    return;
+  }
+  values[name] = value;
+  const obj = {};
+  obj[name] = value
+  setErrors(errors, obj);
+  const isDisabledForm = isDisableForm(errors); 
+
+  registerPage.setProps(
+    getProps(errors, values, isDisabledForm)
+  )
+}
+
+const registerPage = new RegisterPage({
+    events: {
+      submit: handleSubmit,
+      blur: handleBlurOrFocus,
+      focus: handleBlurOrFocus,
+    },
+    ...getProps(errors, values, isDisabledForm)
+  }
+);
+
+export default registerPage;

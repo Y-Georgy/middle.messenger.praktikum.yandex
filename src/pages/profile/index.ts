@@ -12,7 +12,7 @@ const errors = {
   second_name: '',
   display_name: '',
   phone: '',
-} 
+}
 
 const values = {
   email: 'username@mail.com',
