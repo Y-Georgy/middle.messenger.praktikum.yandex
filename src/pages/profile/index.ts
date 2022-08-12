@@ -53,12 +53,15 @@ function handleSubmit(event) {
 
   setErrors(errors, values);
   isDisabledForm = isDisableForm(errors); 
-
+  
+  if (!isDisabledForm) {
+    console.log(values);
+    isCanChangeData = false
+  }
+  
   profilePage.setProps({
     content: new ProfilePage(getProps(errors, values, isCanChangeData, isDisabledForm)).render()
   })
-
-  if (!isDisabledForm) console.log(values);
 }
 
 function handleBlurOrFocus( event ) {
