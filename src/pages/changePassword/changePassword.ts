@@ -16,6 +16,7 @@ export const changePasswordContentProps = (errors, isDisabledForm, values) => ({
       value: values.oldPassword,
       type: "password",
       disabled: false,
+      error: errors.oldPassword
     }).render(),
     inputNewPassword: new Input({
       name: "newPassword",
@@ -23,6 +24,7 @@ export const changePasswordContentProps = (errors, isDisabledForm, values) => ({
       value: values.newPassword,
       type: "password",
       disabled: false,
+      error: errors.newPassword
     }).render(),
     inputRepeatPassword: new Input({
       name: "repeatPassword",
@@ -30,8 +32,6 @@ export const changePasswordContentProps = (errors, isDisabledForm, values) => ({
       value: values.repeatPassword,
       type: "password",
       disabled: false,
+      error: errors.repeatPassword
     }).render(),
-    errorTextOldPassword: errors.oldPassword ? `'Поле "Старый пароль" ${errors.oldPassword}` : '',
-    errorTextNewPassword: errors.newPassword ? `Поле "Новый пароль" ${errors.newPassword}` : '',
-    errorTextRepeatPassword: errors.repeatPassword ? `Поле "Повторите новый пароль" ${errors.repeatPassword}` : ''
   })
