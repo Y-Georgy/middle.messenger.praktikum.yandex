@@ -306,12 +306,26 @@
       }
     }
 
-    .newMessage {
+    .newMessageForm {
       display: flex;
       align-items: center;
       border-top: 1px solid #EAEAEA;
       padding: 11px 0 0;
       margin-top: auto;
+      position: relative;
+
+      span {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        display: inline-flex;
+        background-color: #ff2f2f;
+        font-size: 11px;
+        line-height: 13px;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 5px;
+      }
 
       .attach {
         width: 28px;
@@ -368,6 +382,14 @@
           cursor: pointer;
           opacity: 0.7;
           transition: opacity 0.3s ease-out;
+        }
+
+        &:disabled {
+          background-color: #ccc;
+          &:hover {
+            cursor: default;
+            opacity: 1;
+          }
         }
       }
     }

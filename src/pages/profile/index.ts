@@ -73,7 +73,7 @@ function handleBlurOrFocus( event ) {
   const obj = {};
   obj[name] = value
   setErrors(errors, obj);
-  const isDisabledForm = isDisableForm(errors); 
+  const isDisabledForm = isDisableForm(errors);
 
   profilePage.setProps({
     content: new ProfilePage(getProps(errors, values, isCanChangeData, isDisabledForm)).render()

@@ -1,6 +1,17 @@
 import template from "./template.hbs";
 import Component from "../../utils/Component";
 import * as styles from "./styles.module.scss";
+import { setErrors } from "../../utils/validation";
+import { getProps } from "./chat";
+
+const errors = {
+  message: ''
+}
+const values = {
+  message: ''
+}
+
+let isDisabledFormMessage = false;
 
 let recipients = [
   {
@@ -104,17 +115,41 @@ class ChatPage extends Component {
   }
 }
 
+function handleSubmit(event) {  
+  event.preventDefault();
+  
+  const { name, value } = event.target.querySelector('#message');
+  if (!name) {
+    return;
+  }
+  values[name] = value;
+  const obj = {};
+  obj[name] = value
+  setErrors(errors, obj);
+  if (!errors.message) {
+    isDisabledFormMessage = false;
+    // Здесь пушим новое сообщение в чат
+  } else {
+    isDisabledFormMessage = true;
+    setTimeout(() => {
+      errors.message = '';
+      isDisabledFormMessage = false;
+      chatPage.setProps(
+        getProps(errors, isDisabledFormMessage, recipients, currentRecipent)
+      )
+    }, 2000)
+  }
+  chatPage.setProps(
+    getProps(errors, isDisabledFormMessage, recipients, currentRecipent)
+  )
+}
+
 const chatPage = new ChatPage({
-  recipients:  recipients,
-  currentRecipent: currentRecipent,
+  events: {
+    submit: handleSubmit,
+  },
+  ...getProps(errors, isDisabledFormMessage, recipients, currentRecipent)
 });
 
 export default chatPage;
 
-// Тест обновления пропсов
-// setTimeout(() => {
-//   recipients.push(recipients[0])
-//   chatPage.setProps({
-//     recipients:  recipients
-//   });
-// }, 3000);

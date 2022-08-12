@@ -55,9 +55,10 @@
     </li>
     {{/each}}
   </ul>
-  <form class="{{styles.newMessage}}" name="newMessage">
+  <form class="{{styles.newMessageForm}}" name="newMessage">
+    {{#if error}}<span>{{error}}</span>{{/if}}
     <button class="{{styles.attach}}" type="button"></button>
-    <input class="{{styles.inputText}}" type="text" placeholder="Сообщение" name="message" />
-    <button class="{{styles.submit}}" type="submit"></button>
+    <input class="{{styles.inputText}}" type="text" placeholder="Сообщение" name="message" id="message" />
+    <button class="{{styles.submit}}" type="submit" {{#if isDisabledFormMessage}}disabled{{/if}}></button>
   </form>
 </div>
