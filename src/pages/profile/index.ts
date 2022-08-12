@@ -15,11 +15,11 @@ const errors = {
 } 
 
 const values = {
-  email: '',
-  login: '',
-  first_name: '',
-  second_name: '',
-  display_name: '',
+  email: 'username@mail.com',
+  login: 'login',
+  first_name: 'First-Name',
+  second_name: 'Second-Name',
+  display_name: 'Nick',
   phone: '+79991112233',
 }
 

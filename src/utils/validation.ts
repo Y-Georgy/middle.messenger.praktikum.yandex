@@ -11,6 +11,7 @@ export const isValidMessage = (value: string): string => {
 }
 
 export const isValidEmail = (value: string): string => {
+  // const regex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/
   if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) return 'Не корретный e-mail'
   return ''
 }
@@ -29,8 +30,8 @@ export const isValidPassword = (value: string): string => {
 }
 
 export const isValidName = (value: string) => {
-  if (/^[А-ЯA-Z]/.test(value)) return 'Первая буква должна быть заглавной'
-  if (/[a-zA-Zа-яёА-ЯЁ\-]*/.test(value)) return 'Только кириллица, латиница и дефис'
+  if (!/^[А-ЯA-Z]/.test(value)) return 'Первая буква должна быть заглавной'
+  if (!/^[a-zA-Zа-яёА-ЯЁ\-]+$/.test(value)) return 'Только кириллица, латиница и дефис'
   return ''
 }
 
