@@ -5,6 +5,22 @@ export const isValidLogin = (value: string): string => {
   return ''
 }
 
+export const isValidMessage = (value: string): string => {
+  if (value.length === 0) return 'Сообщение не может быть пустым'
+  return '';
+}
+
+export const isValidEmail = (value: string): string => {
+  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) return 'Не корретный e-mail'
+  return ''
+}
+
+export const isValidPhone = (value: string): string => {
+  if (value.length < 10 || value.length > 15) return 'Допустимо от 10 до 15 цифр'
+  if (!/^\+?[0-9]+$/.test(value)) return 'Только цифры, может начинается с плюса'
+  return ''
+}
+
 export const isValidPassword = (value: string): string => {
   if (value.length < 8 || value.length > 40) return 'Допустимо от 8 до 40 символов'
   if (!/[А-ЯA-Z]/.test(value)) return 'Заглавная буква обязательна'
@@ -40,6 +56,18 @@ export function setErrors(oldErrors, newValues) {
       oldErrors[key] = isValidPassword(newValues[key])
     } else if (key === 'repeatPassword') {
       oldErrors[key] = isValidPassword(newValues[key])
+    } else if (key === 'email') {
+      oldErrors[key] = isValidEmail(newValues[key])
+    } else if (key === 'login') {
+      oldErrors[key] = isValidLogin(newValues[key])
+    } else if (key === 'first_name') {
+      oldErrors[key] = isValidName(newValues[key])
+    } else if (key === 'second_name') {
+      oldErrors[key] = isValidName(newValues[key])
+    } else if (key === 'phone') {
+      oldErrors[key] = isValidPhone(newValues[key])
+    } else if (key === 'message') {
+      oldErrors[key] = isValidMessage(newValues[key])
     }
   });
 }
