@@ -61,7 +61,7 @@ function handleBlurOrFocus( event ) {
   const obj = {};
   obj[name] = value
   setErrors(errors, obj);
-  const isDisabledForm = isDisableForm(errors); 
+  isDisabledForm = isDisableForm(errors); 
 
   changePasswordPage.setProps({
     content: new ChangePassword(
