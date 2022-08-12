@@ -1,10 +1,25 @@
 import ProfileLayout from "../../layouts/profile";
-import Avatar from "../../components/avatar";
-import Input from "../../components/profileInput";
-import ButtonSubmit from "../../components/buttonSubmit";
+
 import template from "./template.hbs";
 import Component from "../../utils/Component";
 import * as styles from "./styles.module.scss";
+import { getFormData, isDisableForm, isValidPassword } from "../../utils/validation";
+import { changePasswordContentProps } from "./changePassword";
+
+
+const errors = {
+  oldPassword: '',
+  newPassword: '', 
+  repeatPassword: '', 
+}
+
+const values = {
+  oldPassword: '',
+  newPassword: '', 
+  repeatPassword: '', 
+}
+
+let isDisabledForm = false;
 
 class ChangePassword extends Component {
   constructor(props) {
@@ -18,38 +33,43 @@ class ChangePassword extends Component {
   }
 }
 
-const changePasswordContent = new ChangePassword({
-  avatar: new Avatar({
-    imageLink: "",
-  }).render(),
-  buttonSubmit: new ButtonSubmit({
-    text: "Сохранить",
-  }).render(),
-  inputOldPassword: new Input({
-    name: "oldPassword",
-    label: "Старый пароль",
-    value: "12345678",
-    type: "password",
-    disabled: "",
-  }).render(),
-  inputNewPassword: new Input({
-    name: "newPassword",
-    label: "Новый пароль",
-    value: "87654321",
-    type: "password",
-    disabled: "",
-  }).render(),
-  inputRepeatPassword: new Input({
-    name: "repeatPassword",
-    label: "Повторите новый пароль",
-    value: "87654321",
-    type: "password",
-    disabled: "",
-  }).render(),
-});
+function handleSubmit(event) {   
+  event.preventDefault();
+  
+  Object.entries(getFormData(event)).forEach((([key, value]) => {
+    values[key] = value;
+  }))
+
+  Object.keys(values).forEach(key => {
+    if (key === 'oldPassword') {
+      errors[key] = isValidPassword(values[key])
+    } else if (key === 'newPassword') {
+      errors[key] = isValidPassword(values[key])
+    } else if (key === 'repeatPassword') {
+      errors[key] = isValidPassword(values[key])
+    }
+  });
+
+  let isDisabledForm = isDisableForm(errors); 
+
+  changePasswordPage.setProps({
+    content: new ChangePassword(
+      changePasswordContentProps(errors, isDisabledForm, values)
+    ).render()
+  })
+
+  if (!isDisabledForm) console.log(values);
+}
 
 const changePasswordPage = new ProfileLayout({
-  content: changePasswordContent.render()
+  events: {
+    submit: handleSubmit,
+    // blur: handleChangeInput,
+    // focus: handleChangeInput,
+  },
+  content: new ChangePassword(
+    changePasswordContentProps(errors, isDisabledForm, values)
+  ).render()
 });
 
 export default changePasswordPage;

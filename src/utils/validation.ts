@@ -17,3 +17,17 @@ export const isValidName = (value: string) => {
   if (/[a-zA-Zа-яёА-ЯЁ\-]*/.test(value)) return 'Только кириллица, латиница и дефис'
   return ''
 }
+
+export function getFormData( event ) {
+  const inputsNodeList = event.target.querySelectorAll('input');
+  const inputs: HTMLInputElement[] = Array.from(inputsNodeList);
+  const formValues: Record<string, string> = {};
+  inputs.forEach(input => {
+    formValues[input.name] = input.value        
+  })
+  return formValues;
+};
+
+export function isDisableForm(errors: Record<string, string>) {
+  return Object.values(errors).some(err => err.length !== 0)
+}
