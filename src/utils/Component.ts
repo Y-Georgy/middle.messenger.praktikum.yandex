@@ -82,10 +82,9 @@ class Component {
 
   // Может переопределять пользователь, необязательно трогать
   componentDidUpdate(oldProps, newProps) {
-    // return Object.entries(newProps).some(([key, prop]) => (
-    //   oldProps[key] !== prop
-    // ))
-    return true;
+    return Object.entries(newProps).some(([key, prop]) => (
+      oldProps[key] !== prop
+    ))
   }
 
   setProps = nextProps => {
@@ -101,8 +100,8 @@ class Component {
   }
 
   _render() {
-    const block = this.render();
-    
+    const block = this.render();   
+     
     // Этот небезопасный метод для упрощения логики
     // Используйте шаблонизатор из npm или напишите свой безопасный
     // Нужно не в строку компилировать (или делать это правильно),

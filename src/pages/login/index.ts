@@ -5,6 +5,7 @@ import Link from "../../components/link";
 import Component from "../../utils/Component";
 import ButtonSubmit from "../../components/buttonSubmit";
 import * as styles from "./styles.module.scss";
+import { isValidLogin, isValidPassword } from "../../utils/validation";
 
 class LoginPage extends Component {
   constructor(props) {
@@ -30,24 +31,39 @@ const handleSubmit = ( event ) => {
   console.log(formValues); // data for api
 }
 
-const handleBlur = ( event ) => {
+const handleBlurOrFocus = ( event ) => {
   if (event.target.name === 'login') {
-    
+    const loginError = isValidLogin(event.target.value);    
+
+    loginPage.setProps({
+      inputLogin: new Input({
+        name: "login",
+        label: "Логин",
+        value: event.target.value,
+        errorText: loginError,
+        type: "text",
+      }).render(),
+    })
   } else if (event.target.name === 'password') {
+    const passwordError = isValidPassword(event.target.value);    
 
+    loginPage.setProps({
+      inputPassword: new Input({
+        name: "password",
+        label: "Пароль",
+        value: event.target.value,
+        errorText: passwordError,
+        type: "password",
+      }).render(),
+    })
   }
-  console.log(event.target.name, 'blur'); 
-}
-
-const handleFocus = ( event ) => {
-  console.log(event.target.name, 'focus');
 }
 
 const loginPage = new LoginPage({
   events: {
     submit: handleSubmit,
-    blur: handleBlur,
-    focus: handleFocus,
+    blur: handleBlurOrFocus,
+    focus: handleBlurOrFocus,
   },
   title: new Title({ title: "Вход" }).render(),
   buttonSubmit: new ButtonSubmit({
@@ -60,32 +76,17 @@ const loginPage = new LoginPage({
   inputLogin: new Input({
     name: "login",
     label: "Логин",
-    value: "Иванов",
-    errorText: "Неверный логин",
+    value: "Alex",
+    errorText: "",
     type: "text",
   }).render(),
   inputPassword: new Input({
     name: "password",
     label: "Пароль",
-    value: "Иванов",
+    value: "A12345678",
     errorText: "",
     type: "password",
   }).render(),
 });
 
 export default loginPage;
-
-// Обновление работает так
-// // setTimeout(() => {
-// //   loginPage.setProps({
-// //     buttonSubmit: new ButtonSubmit({
-// //       text: "Вход2",
-// //     }).render(),
-// //   });
-// // }, 3000);
-
-// // setTimeout(() => {
-// //   loginPage.setProps({
-// //     title: new Title({ title: "Вход2" }).render(),
-// //   });
-// // }, 5000);
