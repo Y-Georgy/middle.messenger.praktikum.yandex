@@ -3,11 +3,11 @@ import ProfileLayout from "../../layouts/profile";
 import template from "./template.hbs";
 import Component from "../../utils/Component";
 import * as styles from "./styles.module.scss";
-import { getFormData, isDisableForm, isValidPassword } from "../../utils/validation";
+import { getFormData, isDisableForm, setErrors } from "../../utils/validation";
 import { changePasswordContentProps } from "./changePassword";
 
 
-const errors = {
+let errors = {
   oldPassword: '',
   newPassword: '', 
   repeatPassword: '', 
@@ -40,17 +40,8 @@ function handleSubmit(event) {
     values[key] = value;
   }))
 
-  Object.keys(values).forEach(key => {
-    if (key === 'oldPassword') {
-      errors[key] = isValidPassword(values[key])
-    } else if (key === 'newPassword') {
-      errors[key] = isValidPassword(values[key])
-    } else if (key === 'repeatPassword') {
-      errors[key] = isValidPassword(values[key])
-    }
-  });
-
-  let isDisabledForm = isDisableForm(errors); 
+  setErrors(errors, values);
+  const isDisabledForm = isDisableForm(errors); 
 
   changePasswordPage.setProps({
     content: new ChangePassword(
@@ -61,11 +52,29 @@ function handleSubmit(event) {
   if (!isDisabledForm) console.log(values);
 }
 
+function handleBlurOrFocus( event ) {
+  const { name, value } = event.target;
+  if (!name) {
+    return;
+  }
+  values[name] = value;
+  const obj = {};
+  obj[name] = value
+  setErrors(errors, obj);
+  const isDisabledForm = isDisableForm(errors); 
+
+  changePasswordPage.setProps({
+    content: new ChangePassword(
+      changePasswordContentProps(errors, isDisabledForm, values)
+    ).render()
+  })
+}
+
 const changePasswordPage = new ProfileLayout({
   events: {
     submit: handleSubmit,
-    // blur: handleChangeInput,
-    // focus: handleChangeInput,
+    blur: handleBlurOrFocus,
+    focus: handleBlurOrFocus,
   },
   content: new ChangePassword(
     changePasswordContentProps(errors, isDisabledForm, values)

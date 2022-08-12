@@ -31,3 +31,15 @@ export function getFormData( event ) {
 export function isDisableForm(errors: Record<string, string>) {
   return Object.values(errors).some(err => err.length !== 0)
 }
+
+export function setErrors(oldErrors, newValues) {
+  Object.keys(newValues).forEach(key => {
+    if (key === 'oldPassword') {
+      oldErrors[key] = isValidPassword(newValues[key])
+    } else if (key === 'newPassword') {
+      oldErrors[key] = isValidPassword(newValues[key])
+    } else if (key === 'repeatPassword') {
+      oldErrors[key] = isValidPassword(newValues[key])
+    }
+  });
+}
