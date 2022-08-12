@@ -9,11 +9,12 @@ const popupContent = new PopupContent({
   }).render()
 })
 
-export const getProps = (errors, values, isCanChangeData) => ({
+export const getProps = (errors, values, isCanChangeData, isDisabledForm) => ({
   isCanChangeData: isCanChangeData,
   buttonSubmit: new ButtonSubmit({
     text: "Сохранить",
-    form: "profile"
+    form: "profile",
+    disabled: isDisabledForm
   }).render(),
   avatar: new Avatar({}).render(),
   inputEmail: new Input({
@@ -21,7 +22,7 @@ export const getProps = (errors, values, isCanChangeData) => ({
     label: "Почта",
     value: values.email,
     type: "email",
-    disabled: isCanChangeData,
+    disabled: !isCanChangeData,
     error: errors.email
   }).render(),
   inputLogin: new Input({
@@ -29,7 +30,7 @@ export const getProps = (errors, values, isCanChangeData) => ({
     label: "Логин",
     value: values.login,
     type: "text",
-    disabled: isCanChangeData,
+    disabled: !isCanChangeData,
     error: errors.login
   }).render(),
   inputName: new Input({
@@ -37,7 +38,7 @@ export const getProps = (errors, values, isCanChangeData) => ({
     label: "Имя",
     value: values.first_name,
     type: "text",
-    disabled: isCanChangeData,
+    disabled: !isCanChangeData,
     error: errors.first_name
   }).render(),
   inputSecondName: new Input({
@@ -45,7 +46,7 @@ export const getProps = (errors, values, isCanChangeData) => ({
     label: "Фамилия",
     value: values.second_name,
     type: "text",
-    disabled: isCanChangeData,
+    disabled: !isCanChangeData,
     error: errors.second_name
   }).render(),
   inputDisplayName: new Input({
@@ -53,7 +54,7 @@ export const getProps = (errors, values, isCanChangeData) => ({
     label: "Имя в чате",
     value: values.display_name,
     type: "text",
-    disabled: isCanChangeData,
+    disabled: !isCanChangeData,
     error: errors.display_name
   }).render(),
   inputPhone: new Input({
@@ -61,7 +62,7 @@ export const getProps = (errors, values, isCanChangeData) => ({
     label: "Телефон",
     value: values.phone,
     type: "tel",
-    disabled: isCanChangeData,
+    disabled: !isCanChangeData,
     error: errors.phone
   }).render(),
   // popup: new Popup({
