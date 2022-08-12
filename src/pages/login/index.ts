@@ -7,6 +7,10 @@ import ButtonSubmit from "../../components/buttonSubmit";
 import * as styles from "./styles.module.scss";
 import { isValidLogin, isValidPassword } from "../../utils/validation";
 
+let isDisableSubmitLogin;
+let errorLoginInput;
+let errorPasswordInput;
+
 class LoginPage extends Component {
   constructor(props) {
     super(props, "form", {
@@ -20,7 +24,7 @@ class LoginPage extends Component {
   }
 }
 
-const handleSubmit = ( event ) => {
+function handleSubmit( event ) {
   event.preventDefault();
   const inputsNodeList = event.target.querySelectorAll('input');
   const inputs: HTMLInputElement[] = Array.from(inputsNodeList);
@@ -28,34 +32,61 @@ const handleSubmit = ( event ) => {
   inputs.forEach(input => {
     formValues[input.name] = input.value        
   })
-  console.log(formValues); // data for api
+  
+  handleErrorLogin(formValues.login)
+  handleErrorPassword(formValues.password)
+
+  if (isDisableSubmitLogin) console.log('Форма заблокирована, введены не корректные данные');
+  else console.log(formValues); // data for api
 }
 
-const handleBlurOrFocus = ( event ) => {
-  if (event.target.name === 'login') {
-    const loginError = isValidLogin(event.target.value);    
+function diableForm() {
+  isDisableSubmitLogin = !!errorLoginInput || !!errorPasswordInput;
+  loginPage.setProps({
+    buttonSubmit: new ButtonSubmit({
+      text: "Вход",
+      disabled: isDisableSubmitLogin
+    }).render(),
+  })
+}
 
-    loginPage.setProps({
-      inputLogin: new Input({
-        name: "login",
-        label: "Логин",
-        value: event.target.value,
-        errorText: loginError,
-        type: "text",
-      }).render(),
-    })
-  } else if (event.target.name === 'password') {
-    const passwordError = isValidPassword(event.target.value);    
+function handleErrorLogin (value) {
+  errorLoginInput = isValidLogin(value);    
+
+  loginPage.setProps({
+    inputLogin: new Input({
+      name: "login",
+      label: "Логин",
+      value: value,
+      errorText: errorLoginInput,
+      type: "text",
+    }).render(),
+  })
+
+  diableForm()
+}
+
+function handleErrorPassword(value) {
+  errorPasswordInput = isValidPassword(value);    
 
     loginPage.setProps({
       inputPassword: new Input({
         name: "password",
         label: "Пароль",
-        value: event.target.value,
-        errorText: passwordError,
+        value: value,
+        errorText: errorPasswordInput,
         type: "password",
       }).render(),
     })
+
+    diableForm()
+}
+
+function handleBlurOrFocus( event ) {
+  if (event.target.name === 'login') {
+    handleErrorLogin(event.target.value)
+  } else if (event.target.name === 'password') {
+    handleErrorPassword(event.target.value)
   }
 }
 
@@ -68,6 +99,7 @@ const loginPage = new LoginPage({
   title: new Title({ title: "Вход" }).render(),
   buttonSubmit: new ButtonSubmit({
     text: "Вход",
+    disabled: false
   }).render(),
   link: new Link({
     href: "register",

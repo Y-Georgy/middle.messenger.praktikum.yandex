@@ -19,4 +19,13 @@
     transition: opacity 0.3s ease-out;
     cursor: pointer;
   }
+
+  &:disabled {
+    background-color: #ccc;
+    
+    &:hover {
+      opacity: 1;
+      cursor: default;
+    }  
+  }
 }
