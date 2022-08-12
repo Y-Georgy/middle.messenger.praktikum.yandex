@@ -9,7 +9,7 @@ const errors = {
   first_name: '',
   second_name: '',
   phone: '',
-  newPassword: '',
+  password: '',
   repeatPassword: '',
 }
 
@@ -18,7 +18,7 @@ const values = {
   first_name: '',
   second_name: '',
   phone: '',
-  newPassword: '',
+  password: '',
   repeatPassword: '',
 }
 

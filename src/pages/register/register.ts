@@ -43,10 +43,10 @@ export const getProps = (errors, values, isDisabledForm) => (
       type: "tel",
     }).render(),
     inputPassword: new Input({
-      name: "newPassword",
+      name: "password",
       label: "Пароль",
-      value: values.newPassword,
-      errorText: errors.newPassword,
+      value: values.password,
+      errorText: errors.password,
       type: "password",
     }).render(),
     inputPasswordCheck: new Input({
