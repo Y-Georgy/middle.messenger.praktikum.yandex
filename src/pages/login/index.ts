@@ -1,7 +1,7 @@
 import template from "./template.hbs";
 import Component from "../../utils/Component";
 import * as styles from "./styles.module.scss";
-import { getFormData, isDisableForm, isValidLogin, isValidPassword, setErrors } from "../../utils/validation";
+import { getFormData, isDisableForm, setErrors } from "../../utils/validation";
 import { getProps } from "./login";
 
 const errors = {

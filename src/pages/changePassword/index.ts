@@ -7,7 +7,7 @@ import { getFormData, isDisableForm, setErrors } from "../../utils/validation";
 import { changePasswordContentProps } from "./changePassword";
 
 
-let errors = {
+const errors = {
   oldPassword: '',
   newPassword: '', 
   repeatPassword: '', 

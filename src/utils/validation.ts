@@ -1,7 +1,9 @@
 export const isValidLogin = (value: string): string => {
   if (value.length < 3 || value.length > 20) return 'Допустимо от 3 до 20 символов'
   if (/^[0-9]+$/.test(value)) return 'Не может содержать только цифры'
-  if (!/^[a-zA-Z0-9\_\-]+$/.test(value)) return 'Допустимы только латинские буквы, дефис и нижнее подчеркивание'
+  if (!/^[a-zA-Z0-9\_\-]+$/.test(value)) {
+    return 'Допустимы только латинские буквы, дефис и нижнее подчеркивание'
+  }
   return ''
 }
 
@@ -43,7 +45,7 @@ export function getFormData( event ) {
     formValues[input.name] = input.value        
   })
   return formValues;
-};
+}
 
 export function isDisableForm(errors: Record<string, string>) {
   return Object.values(errors).some(err => err.length !== 0)

@@ -3,12 +3,12 @@ enum METHODS {
   PUT = 'PUT',
   POST = 'POST',
   DELETE ='DELETE'
-};
+}
 
 type Options = {
   method: METHODS;
-  headers?: {};
-  data?: any;
+  headers?: { [key: string]: string };
+  data?: Document | XMLHttpRequestBodyInit | null | undefined;
   timeout?: number;
 };
 
@@ -23,10 +23,10 @@ function queryStringify(data) {
   }, '')
 }
 
-class HTTPTransport {
+export class HTTPTransport {
   get = (url, options: Options = { method: METHODS.GET }) => {
     const { data } = options;
-    if (Object.keys(data).length > 0) url += queryStringify(data);
+    if (data && Object.keys(data).length > 0) url += queryStringify(data);
     return this.request(url, {...options, method: METHODS.GET}, options.timeout);
   };
   
@@ -71,7 +71,7 @@ class HTTPTransport {
       
       if (method === METHODS.GET) {
         xhr.send();
-      } else {
+      } else if (data) {
         xhr.send(data);
       }
     });

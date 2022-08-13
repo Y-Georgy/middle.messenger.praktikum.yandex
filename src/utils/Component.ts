@@ -66,7 +66,9 @@ class Component {
   }
 
   // Может переопределять пользователь, необязательно трогать
-  componentDidMount() {}
+  componentDidMount() {
+    return null;
+  }
 
   dispatchComponentDidMount() {
     this.eventBus().emit(Component.EVENTS.FLOW_CDM);
@@ -123,6 +125,7 @@ class Component {
   _makePropsProxy(props: TProps) {
     // Можно и так передать this
     // Такой способ больше не применяется с приходом ES6+
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     
     return new Proxy(props, {
@@ -143,7 +146,7 @@ class Component {
         self.eventBus().emit(Component.EVENTS.FLOW_CDU, oldValue, target)
         return true;
       },
-      deleteProperty(target, prop) {
+      deleteProperty() {
         // if (prop.startsWith('_')) {
           throw new Error('нет доступа');
         // } else {

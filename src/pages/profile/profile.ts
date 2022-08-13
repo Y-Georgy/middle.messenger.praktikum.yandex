@@ -1,13 +1,14 @@
 import Input from "../../components/profileInput";
 import Avatar from "../../components/avatar";
-import PopupContent from "./popupContent";
+// import PopupContent from "./popupContent";
 import ButtonSubmit from "../../components/buttonSubmit";
 
-const popupContent = new PopupContent({
-  button: new ButtonSubmit({
-    text: "Поменять"
-  }).render()
-})
+// заготовка для попапа
+// const popupContent = new PopupContent({
+//   button: new ButtonSubmit({
+//     text: "Поменять"
+//   }).render()
+// })
 
 export const getProps = (errors, values, isCanChangeData, isDisabledForm) => ({
   isCanChangeData: isCanChangeData,
