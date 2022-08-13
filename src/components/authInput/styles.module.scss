@@ -1,7 +1,8 @@
-.authInput {
+.input {
   display: flex;
   flex-direction: column-reverse;
   margin-bottom: 16px;
+
   &:last-of-type {
     margin-bottom: 47px;
   }
@@ -19,7 +20,6 @@
   }
 
   input {
-    font-family: Inter;
     font-size: 13px;
     font-weight: 500;
     line-height: 27px;

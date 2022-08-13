@@ -2,7 +2,8 @@
   display: flex;
   width: 130px;
   height: 130px;
-  background: url("../../../static/icons/default-img-icon.svg") center no-repeat
+  background:
+    url("../../../static/icons/default-img-icon.svg") center no-repeat
     #efefef;
   border-radius: 65px;
   margin-bottom: 21px;
@@ -37,7 +38,7 @@
   }
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(0 0 0 / 50%);
     cursor: pointer;
     transition: all 0.3s ease-out;
 

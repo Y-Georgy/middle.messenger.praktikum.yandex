@@ -10,7 +10,7 @@ class Input extends Component {
     value: string,
     label: string,
     styles: {
-      authInput:string
+      input:string
     }
   };
   constructor(props) {

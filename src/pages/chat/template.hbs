@@ -37,9 +37,9 @@
     </div>
     <h2>{{currentRecipent.name}}</h2>
     <button>
-      <span></span>
-      <span></span>
-      <span></span>
+      <span class="{{styles.dot}}"></span>
+      <span class="{{styles.dot}}"></span>
+      <span class="{{styles.dot}}"></span>
     </button>
   </div>
   <ul class="{{styles.messages}}">
@@ -56,7 +56,7 @@
     {{/each}}
   </ul>
   <form class="{{styles.newMessageForm}}" name="newMessage">
-    {{#if error}}<span>{{error}}</span>{{/if}}
+    {{#if error}}<span class="{{styles.error}}">{{error}}</span>{{/if}}
     <button class="{{styles.attach}}" type="button"></button>
     <input class="{{styles.inputText}}" type="text" placeholder="Сообщение" name="message" id="message" />
     <button class="{{styles.submit}}" type="submit" {{#if isDisabledFormMessage}}disabled{{/if}}></button>

@@ -30,4 +30,12 @@ Parcel
 5. `npm run build`
 6. `npm run start`
 
+Запуск linter
+node_modules/.bin/eslint .
+
+Запуск stylelint
+npx stylelint "**/*.scss"
+
+
+
 ![N|Solid](https://img.shields.io/badge/-©%202022-red)
