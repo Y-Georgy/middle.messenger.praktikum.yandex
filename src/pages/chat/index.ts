@@ -115,9 +115,9 @@ class ChatPage extends Component {
   }
 }
 
-function handleSubmit(event) {  
+function handleSubmit(event) {
   event.preventDefault();
-  
+
   const { name, value } = event.target.querySelector('#message');
   if (!name) {
     return;
@@ -128,6 +128,8 @@ function handleSubmit(event) {
   setErrors(errors, obj);
   if (!errors.message) {
     isDisabledFormMessage = false;
+    console.log(values);
+
     // Здесь пушим новое сообщение в чат
   } else {
     isDisabledFormMessage = true;
