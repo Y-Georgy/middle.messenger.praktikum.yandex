@@ -14,11 +14,14 @@ Web приложение для обмена сообщениями и фото�
 #### Технологии
 
 ```
-Handlebars
-SASS
-Express.js
+TypeScript
 JavaScript
+Handlebars
+Express.js
 Parcel
+SASS
+linter
+stylelint
 ```
 
 #### Запуск
@@ -30,11 +33,9 @@ Parcel
 5. `npm run build`
 6. `npm run start`
 
-Запуск linter
-node_modules/.bin/eslint .
-
-Запуск stylelint
-npx stylelint "**/*.scss"
+#### Использование linter и stylelint
+- node_modules/.bin/eslint .
+- npx stylelint "**/*.scss"
 
 
 
