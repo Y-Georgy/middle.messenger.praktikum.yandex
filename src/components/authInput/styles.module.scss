@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .input {
   display: flex;
   flex-direction: column-reverse;
@@ -25,13 +27,13 @@
     line-height: 27px;
     color: #1e1e1e;
     border: none;
-    border-bottom: 1px solid #3369f3;
+    border-bottom: 1px solid $blue;
     width: 100%;
     padding: 0;
 
     &:focus {
       outline: none;
-      border-bottom: 1px solid #80a4ff;
+      border-bottom: 1px solid $blue-pure;
     }
   }
 
@@ -44,7 +46,7 @@
   span {
     font-size: 8px;
     line-height: 8px;
-    color: #ff2f2f;
+    color: $red;
     margin-top: 7px;
   }
 }

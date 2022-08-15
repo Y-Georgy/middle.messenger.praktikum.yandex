@@ -1,4 +1,4 @@
-@import "../../pages/variables.scss";
+@import "../../styles/variables.scss";
 
 .profileLayout {
   display: flex;
@@ -24,7 +24,7 @@
       height: 28px;
       border: none;
       border-radius: 14px;
-      background: $secondary-color;
+      background: $blue;
       background-image: url("../../../static/icons/arrow-left.svg");
       background-repeat: no-repeat;
       background-position: center;

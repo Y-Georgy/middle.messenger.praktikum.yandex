@@ -1,11 +1,11 @@
-@import "../../pages/variables.scss";
+@import "../../styles/variables.scss";
 
 .submit-button {
-  background-color: $secondary-color;
+  background-color: $blue;
   font-size: 13px;
   line-height: 13px;
   font-weight: 500;
-  color: #fff;
+  color: $white;
   min-width: 280px;
   padding: 12px;
   box-sizing: border-box;
@@ -21,7 +21,7 @@
   }
 
   &:disabled {
-    background-color: #ccc;
+    background-color: $bg-disabled;
 
     &:hover {
       opacity: 1;

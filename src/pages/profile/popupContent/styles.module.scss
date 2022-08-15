@@ -1,4 +1,4 @@
-@import "../../../pages/variables.scss";
+@import "../../../styles/variables.scss";
 
 .title {
   font-size: 15px;
@@ -25,7 +25,7 @@
       line-height: 16px;
       font-weight: 500;
       text-decoration: underline;
-      color: $secondary-color;
+      color: $blue;
       max-width: 122px;
       text-align: center;
 

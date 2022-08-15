@@ -1,4 +1,4 @@
-@import "../../pages/variables.scss";
+@import "../../styles/variables.scss";
 
 .profile-input {
   display: flex;
@@ -19,17 +19,17 @@
     font-weight: 500;
     font-size: 13px;
     line-height: 33px;
-    color: #999;
+    color: $grey;
     border: none;
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid $bg-color;
     width: 100%;
     padding: 0;
     text-align: right;
-    background-color: #fff;
+    background-color: $white;
 
     &:focus {
       outline: none;
-      border-bottom: 1px solid #80a4ff;
+      border-bottom: 1px solid $blue-pure;
       transition: all 0.3s ease-out;
     }
   }
@@ -38,7 +38,7 @@
 .error {
   font-size: 9px;
   line-height: 10px;
-  color: #ff2f2f;
+  color: $red;
   margin: 5px 0;
   text-align: right;
 }
