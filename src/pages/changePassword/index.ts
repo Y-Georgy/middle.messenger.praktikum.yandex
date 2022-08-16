@@ -9,19 +9,19 @@ import { changePasswordContentProps } from "./changePassword";
 
 const errors = {
   oldPassword: '',
-  newPassword: '', 
-  repeatPassword: '', 
+  newPassword: '',
+  repeatPassword: '',
 }
 
 const values = {
   oldPassword: '',
-  newPassword: '', 
-  repeatPassword: '', 
+  newPassword: '',
+  repeatPassword: '',
 }
 
 let isDisabledForm = false;
 
-class ChangePassword extends Component {
+class ChangePasswordContent extends Component {
   constructor(props) {
     super(props, "section", {
       class: styles.profile,
@@ -33,18 +33,18 @@ class ChangePassword extends Component {
   }
 }
 
-function handleSubmit(event) {   
+function handleSubmit(event) {
   event.preventDefault();
-  
+
   Object.entries(getFormData(event)).forEach((([key, value]) => {
     values[key] = value;
   }))
 
   setErrors(errors, values);
-  const isDisabledForm = isDisableForm(errors); 
+  const isDisabledForm = isDisableForm(errors);
 
   changePasswordPage.setProps({
-    content: new ChangePassword(
+    content: new ChangePasswordContent(
       changePasswordContentProps(errors, isDisabledForm, values)
     ).render()
   })
@@ -61,10 +61,10 @@ function handleBlurOrFocus( event ) {
   const obj = {};
   obj[name] = value
   setErrors(errors, obj);
-  isDisabledForm = isDisableForm(errors); 
+  isDisabledForm = isDisableForm(errors);
 
   changePasswordPage.setProps({
-    content: new ChangePassword(
+    content: new ChangePasswordContent(
       changePasswordContentProps(errors, isDisabledForm, values)
     ).render()
   })
@@ -76,7 +76,7 @@ const changePasswordPage = new ProfileLayout({
     blur: handleBlurOrFocus,
     focus: handleBlurOrFocus,
   },
-  content: new ChangePassword(
+  content: new ChangePasswordContent(
     changePasswordContentProps(errors, isDisabledForm, values)
   ).render()
 });
