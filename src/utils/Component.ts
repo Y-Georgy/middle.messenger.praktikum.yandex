@@ -7,7 +7,7 @@ type TProps = {
 
 type TMeta = {
   tagName: string,
-  attributes: Record<string, string>,
+  attributes: Record<string, string | number>,
   props: TProps
 };
 
@@ -33,7 +33,7 @@ class Component {
     };
 
     this.props = this._makePropsProxy(props);
-    
+
     this.eventBus = () => eventBus;
 
     this._registerEvents(eventBus);
@@ -51,6 +51,9 @@ class Component {
     const { tagName, attributes } = this._meta;
     const newElem: HTMLElement = this._createDocumentElement(tagName);
     Object.entries(attributes).forEach(([key, value]) => {
+      if (typeof value === "number") {
+        value = value.toString();
+      }
       newElem.setAttribute(key, value);
     })
     this._element = newElem;
@@ -102,8 +105,8 @@ class Component {
   }
 
   _render() {
-    const block = this.render();   
-     
+    const block = this.render();
+
     // Этот небезопасный метод для упрощения логики
     // Используйте шаблонизатор из npm или напишите свой безопасный
     // Нужно не в строку компилировать (или делать это правильно),
@@ -121,19 +124,19 @@ class Component {
   getContent() {
     return this.element;
   }
-    
+
   _makePropsProxy(props: TProps) {
     // Можно и так передать this
     // Такой способ больше не применяется с приходом ES6+
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
-    
+
     return new Proxy(props, {
       get(target, prop: string) {
         if (prop.startsWith('_')) {
           throw new Error('Нет прав');
         }
-        
+
         const value = target[prop];
         return typeof value === "function" ? value.bind(target) : value;
       },
@@ -166,7 +169,7 @@ class Component {
     this.getContent().style.display = "block";
   }
 
-  hide() {   
+  hide() {
     // this.getContent().style.display = "none";
     this._element.style.display = "none";
   }
@@ -178,7 +181,7 @@ class Component {
       this._element.addEventListener(eventName, events[eventName], true);
     });
   }
-  
+
   _removeEvents() {
     const {events = {}} = this.props;
 
