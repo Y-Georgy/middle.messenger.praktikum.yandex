@@ -2,7 +2,13 @@ import Avatar from "../../components/avatar";
 import Input from "../../components/profileInput";
 import ButtonSubmit from "../../components/buttonSubmit";
 
-export const changePasswordContentProps = (errors, isDisabledForm, values) => ({
+type TData = {
+  oldPassword?: string,
+  newPassword?: string,
+  repeatPassword?: string,
+}
+
+export const changePasswordContentProps = (errors: TData, isDisabledForm: boolean, values: TData) => ({
     avatar: new Avatar({
       imageLink: "",
     }).render(),

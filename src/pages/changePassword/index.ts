@@ -1,84 +1,74 @@
 import ProfileLayout from "../../layouts/profile";
-
 import template from "./template.hbs";
 import Component from "../../utils/Component";
+import { changePasswordContentProps } from "./props";
+import Input from "../../components/profileInput";
+import ButtonSubmit from "../../components/buttonSubmit";
+import Avatar from "../../components/avatar";
+import { useValidator } from "../../hooks/useValidator";
 import * as styles from "./styles.module.scss";
-import { getFormData, isDisableForm, setErrors } from "../../utils/validation";
-import { changePasswordContentProps } from "./changePassword";
 
-
-const errors = {
-  oldPassword: '',
-  newPassword: '',
-  repeatPassword: '',
+type TChangePasswordContentProps = {
+  avatar: Avatar,
+  buttonSubmit: ButtonSubmit,
+  inputOldPassword: Input,
+  inputNewPassword: Input,
+  inputRepeatPassword: Input,
 }
 
-const values = {
-  oldPassword: '',
-  newPassword: '',
-  repeatPassword: '',
-}
+const changePasswordPage = () => {
+  const { errors, values, stateForm, onChangeValues } = useValidator();
+  class ChangePasswordContent extends Component {
+    constructor(props: TChangePasswordContentProps) {
+      super(props, "section", {
+        class: styles.profile,
+      });
+    }
 
-let isDisabledForm = false;
-
-class ChangePasswordContent extends Component {
-  constructor(props) {
-    super(props, "section", {
-      class: styles.profile,
-    });
+    render() {
+      return template({ ...this.props, styles });
+    }
   }
 
-  render() {
-    return template({ ...this.props, styles });
+  function handleSubmit(event: Event) {
+    event.preventDefault();
+    const form = event.target as HTMLElement;
+    onChangeValues(form);
+
+    page.setProps({
+      content: new ChangePasswordContent(
+        changePasswordContentProps(errors, stateForm.isDisabled, values)
+      ).render()
+    })
+
+    if (!stateForm.isDisabled) {
+      console.log(values);
+    }
   }
-}
 
-function handleSubmit(event) {
-  event.preventDefault();
+  function handleBlurOrFocus( event: Event ) {
+    const input = event.target as HTMLElement;
+    onChangeValues(input);
 
-  Object.entries(getFormData(event)).forEach((([key, value]) => {
-    values[key] = value;
-  }))
+    page.setProps({
+      content: new ChangePasswordContent(
+        changePasswordContentProps(errors, stateForm.isDisabled, values)
+      ).render()
+    })
+  }
 
-  setErrors(errors, values);
-  const isDisabledForm = isDisableForm(errors);
-
-  changePasswordPage.setProps({
+  const page = new ProfileLayout({
+    events: {
+      submit: handleSubmit,
+      blur: handleBlurOrFocus,
+      focus: handleBlurOrFocus,
+    },
     content: new ChangePasswordContent(
-      changePasswordContentProps(errors, isDisabledForm, values)
+      changePasswordContentProps(errors, stateForm.isDisabled, values)
     ).render()
-  })
+  });
 
-  if (!isDisabledForm) console.log(values);
+  return page;
 }
-
-function handleBlurOrFocus( event ) {
-  const { name, value } = event.target;
-  if (!name) {
-    return;
-  }
-  values[name] = value;
-  const obj = {};
-  obj[name] = value
-  setErrors(errors, obj);
-  isDisabledForm = isDisableForm(errors);
-
-  changePasswordPage.setProps({
-    content: new ChangePasswordContent(
-      changePasswordContentProps(errors, isDisabledForm, values)
-    ).render()
-  })
-}
-
-const changePasswordPage = new ProfileLayout({
-  events: {
-    submit: handleSubmit,
-    blur: handleBlurOrFocus,
-    focus: handleBlurOrFocus,
-  },
-  content: new ChangePasswordContent(
-    changePasswordContentProps(errors, isDisabledForm, values)
-  ).render()
-});
 
 export default changePasswordPage;
