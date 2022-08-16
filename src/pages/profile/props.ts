@@ -19,7 +19,7 @@ export const getProps = (errors: TData, values: TData, isCanChangeData: boolean,
     form: "profile",
     disabled: isDisabledForm
   }).render(),
-  avatar: new Avatar({}).render(),
+  avatar: new Avatar({ imageLink: ''}).render(),
   inputEmail: new Input({
     name: "email",
     label: "Почта",

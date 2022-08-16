@@ -2,8 +2,12 @@ import template from "./template.hbs";
 import Component from "../../utils/Component";
 import * as styles from "./styles.module.scss";
 
+type TProps = {
+  events: Record<string, (event: Event) => void>
+  content: unknown;
+}
 class ProfileLayout extends Component {
-  constructor(props) {
+  constructor(props: TProps) {
     super(props, "div", {
       class: styles.profileLayout
     });

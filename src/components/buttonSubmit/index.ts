@@ -2,8 +2,13 @@ import template from "./template.hbs";
 import * as styles from "./styles.module.scss";
 import Component from "../../utils/Component"
 
+type Props = {
+  text: string,
+  disabled: boolean,
+  form?: string
+}
 class Button extends Component {
-  constructor(props) {
+  constructor(props: Props) {
     super(props, "div");
   }
 
