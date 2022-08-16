@@ -1,16 +1,18 @@
 import Input from "../../components/profileInput";
 import Avatar from "../../components/avatar";
-// import PopupContent from "./popupContent";
 import ButtonSubmit from "../../components/buttonSubmit";
+import { TProfilePageProps } from ".";
 
-// заготовка для попапа
-// const popupContent = new PopupContent({
-//   button: new ButtonSubmit({
-//     text: "Поменять"
-//   }).render()
-// })
+type TProps = {
+  email?: string,
+  login?: string,
+  first_name?: string,
+  second_name?: string,
+  display_name?: string,
+  phone?: string,
+}
 
-export const getProps = (errors, values, isCanChangeData, isDisabledForm) => ({
+export const getProps = (errors: TProps, values: TProps, isCanChangeData: boolean, isDisabledForm: boolean): TProfilePageProps => ({
   isCanChangeData: isCanChangeData,
   buttonSubmit: new ButtonSubmit({
     text: "Сохранить",
@@ -65,8 +67,5 @@ export const getProps = (errors, values, isCanChangeData, isDisabledForm) => ({
     type: "tel",
     disabled: !isCanChangeData,
     error: errors.phone
-  }).render(),
-  // popup: new Popup({
-  //   content: popupContent.render()
-  // }).render() // отобразить попап
+  }).render()
 });

@@ -18,7 +18,7 @@ type TProps = {
 
 const loginPage = () => {
   const { errors, values, stateForm, onChangeValues } = useValidator();
-  class LoginPage extends Component {
+  class Page extends Component {
     constructor(props: TProps) {
       super(props, "form", {
         name: "login",
@@ -52,7 +52,7 @@ const loginPage = () => {
     )
   }
 
-  const page = new LoginPage({
+  const page = new Page({
     events: {
       submit: handleSubmit,
       blur: handleBlurOrFocus,
