@@ -22,7 +22,7 @@ class Component {
   _element: HTMLElement;
   _meta: TMeta;
   props: TProps;
-  eventBus;
+  eventBus: () => EventBus;
 
   constructor( props = {}, tagName = "div", attributes = {}) {
     const eventBus = new EventBus();
