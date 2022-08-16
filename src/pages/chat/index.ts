@@ -13,13 +13,14 @@ const values = {
 
 let isDisabledFormMessage = false;
 
-let recipients = [
+const recipients = [ //: Array<Recipient>
   {
     name: "Андрей",
     avatarLink:
       "https://sun1-97.userapi.com/s/v1/if1/Y_wWjvbJ8Erwfj0N_VQ0VhiJ5KQO1UJTwVaUcY72SkXJEAUAk4IHSFGKjjl-1OtVlPMShw.jpg?size=200x200&quality=96&crop=1,1,1339,1339&ava=1",
     lastMessage: { text: "Текст сообщения", isMy: false, time: "10:21" },
     unreadCount: 2,
+    styles
   },
   {
     name: "Андрей 2",
@@ -30,6 +31,7 @@ let recipients = [
       time: "10:22",
     },
     unreadCount: 2,
+    styles
   },
   {
     name: "Андрей",
@@ -37,13 +39,9 @@ let recipients = [
       "https://sun1-97.userapi.com/s/v1/if1/Y_wWjvbJ8Erwfj0N_VQ0VhiJ5KQO1UJTwVaUcY72SkXJEAUAk4IHSFGKjjl-1OtVlPMShw.jpg?size=200x200&quality=96&crop=1,1,1339,1339&ava=1",
     lastMessage: { text: "Текст сообщения", isMy: false, time: "10:21" },
     unreadCount: 0,
+    styles
   },
 ];
-
-recipients = recipients.map(item => {
-  item['styles'] = styles;
-  return item;
-})
 
 let currentRecipent = {
   name: "Андрей",
@@ -90,18 +88,6 @@ currentRecipent = {
     }
   }),
 };
-
-// const handleSubmit = (e) => {
-//     e.preventDefault();
-//     console.log('messageText:', e.target.message.value);
-// };
-
-// window.onload = function() {
-//     const newMessageForm = document.forms.newMessage;
-//     if (newMessageForm) {
-//         newMessageForm.addEventListener('submit', handleSubmit);
-//     }
-// };
 
 class ChatPage extends Component {
   constructor(props) {
