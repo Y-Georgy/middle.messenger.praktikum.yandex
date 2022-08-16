@@ -2,7 +2,7 @@ import EventBus from "./EventBus";
 
 type TProps = {
   [key: string]: unknown
-  events?: Record<string, (e) => void>
+  events?: Record<string, (e: Event) => void>
 }
 
 type TMeta = {
@@ -24,7 +24,7 @@ class Component {
   props: TProps;
   eventBus: () => EventBus;
 
-  constructor( props = {}, tagName = "div", attributes = {}) {
+  constructor( props: TProps = {}, tagName = "div", attributes = {}) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
@@ -40,7 +40,7 @@ class Component {
     eventBus.emit(Component.EVENTS.INIT);
   }
 
-  _registerEvents(eventBus) {
+  _registerEvents(eventBus: EventBus) {
     eventBus.on(Component.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Component.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Component.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -77,7 +77,7 @@ class Component {
     this.eventBus().emit(Component.EVENTS.FLOW_CDM);
   }
 
-  _componentDidUpdate(oldProps, newProps) {
+  _componentDidUpdate(oldProps: TProps, newProps: TProps) {
     const isRender = this.componentDidUpdate(oldProps, newProps);
     if (!isRender) {
       return
@@ -86,13 +86,13 @@ class Component {
   }
 
   // Может переопределять пользователь, необязательно трогать
-  componentDidUpdate(oldProps, newProps) {
+  componentDidUpdate(oldProps: TProps, newProps: TProps) {
     return Object.entries(newProps).some(([key, prop]) => (
       oldProps[key] !== prop
     ))
   }
 
-  setProps = nextProps => {
+  setProps = (nextProps: TProps) => {
     if (!nextProps) {
       return;
     }
@@ -160,7 +160,7 @@ class Component {
     });
   }
 
-  _createDocumentElement(tagName) {
+  _createDocumentElement(tagName: string) {
     // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
     return document.createElement(tagName);
   }
