@@ -1,76 +1,67 @@
 import template from "./template.hbs";
 import Component from "../../utils/Component";
 import * as styles from "./styles.module.scss";
-import { getFormData, isDisableForm, setErrors } from "../../utils/validation";
-import { getProps } from "./login";
+import { getProps } from "./props";
+import { TUnknownFuncVoid } from "../../types/types";
+import Title from "../../components/authTitle";
+import Link from "../../components/link";
+import Input from "../../components/authInput";
+import { useValidator } from "../../hooks/useValidator";
 
-const errors = {
-  login: '',
-  password: '',
+type TProps = {
+  events: Record<string, TUnknownFuncVoid>,
+  title: Title,
+  link: Link,
+  inputLogin: Input,
+  inputPassword: Input
 }
 
-const values = {
-  login: '',
-  password: '',
-}
+const loginPage = () => {
+  const { errors, values, stateForm, onChangeValues } = useValidator();
+  class LoginPage extends Component {
+    constructor(props: TProps) {
+      super(props, "form", {
+        name: "login",
+        class: styles.auth,
+      });
+    }
 
-let isDisabledForm = false;
-
-class LoginPage extends Component {
-  constructor(props) {
-    super(props, "form", {
-      name: "login",
-      class: styles.auth,
-    });
+    render() {
+      return template({ ...this.props, styles });
+    }
   }
 
-  render() {
-    return template({ ...this.props, styles });
+  function handleSubmit(event: Event) {
+    event.preventDefault();
+    const form = event.target as HTMLElement;
+    onChangeValues(form);
+
+    if (!stateForm.isDisabled) {
+      console.log(values);
+    }
+    page.setProps(
+      getProps(errors, values, stateForm.isDisabled)
+    )
   }
-}
 
-function handleSubmit(event) {  
-  event.preventDefault();
-  
-  Object.entries(getFormData(event)).forEach((([key, value]) => {
-    values[key] = value;
-  }))
-
-  setErrors(errors, values);
-  isDisabledForm = isDisableForm(errors); 
-  
-  if (!isDisabledForm) {
-    console.log(values);
+  function handleBlurOrFocus( event: Event ) {
+    const input = event.target as HTMLElement;
+    onChangeValues(input);
+    page.setProps(
+      getProps(errors, values, stateForm.isDisabled)
+    )
   }
-  
-  loginPage.setProps(
-    getProps(errors, values, isDisabledForm)
-  )
+
+  const page = new LoginPage({
+    events: {
+      submit: handleSubmit,
+      blur: handleBlurOrFocus,
+      focus: handleBlurOrFocus,
+    },
+    ...getProps(errors, values, stateForm.isDisabled)
+  });
+
+  return page;
 }
-
-function handleBlurOrFocus( event ) {
-  const { name, value } = event.target;
-  if (!name) {
-    return;
-  }
-  values[name] = value;
-  const obj = {};
-  obj[name] = value
-  setErrors(errors, obj);
-  const isDisabledForm = isDisableForm(errors);
-
-  loginPage.setProps(
-    getProps(errors, values, isDisabledForm)
-  )
-}
-
-const loginPage = new LoginPage({
-  events: {
-    submit: handleSubmit,
-    blur: handleBlurOrFocus,
-    focus: handleBlurOrFocus,
-  },
-  ...getProps(errors, values, isDisabledForm)
-});
 
 export default loginPage;

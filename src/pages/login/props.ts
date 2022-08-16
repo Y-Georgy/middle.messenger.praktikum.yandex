@@ -3,8 +3,12 @@ import Link from "../../components/link";
 import ButtonSubmit from "../../components/buttonSubmit";
 import Input from "../../components/authInput";
 
+type TData = {
+  login?: string,
+  password?: string,
+}
 
-export const getProps = (errors, values, isDisabledForm) => ({
+export const getProps = (errors: TData, values: TData, isDisabledForm: boolean) => ({
   title: new Title({ title: "Вход" }).render(),
   buttonSubmit: new ButtonSubmit({
     text: "Вход",

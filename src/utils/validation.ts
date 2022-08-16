@@ -13,7 +13,6 @@ export const isValidMessage = (value: string): string => {
 }
 
 export const isValidEmail = (value: string): string => {
-  // const regex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/
   if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) return 'Не корретный e-mail'
   return ''
 }
@@ -37,12 +36,14 @@ export const isValidName = (value: string) => {
   return ''
 }
 
-export function getFormData( event ) {
-  const inputsNodeList = event.target.querySelectorAll('input');
+export function getFormData( event: Event ) {
+  const target = event.target as HTMLElement
+  if (!target) throw new Error('Форма не найдена');
+  const inputsNodeList = target.querySelectorAll('input');
   const inputs: HTMLInputElement[] = Array.from(inputsNodeList);
   const formValues: Record<string, string> = {};
   inputs.forEach(input => {
-    formValues[input.name] = input.value        
+    formValues[input.name] = input.value
   })
   return formValues;
 }
@@ -51,7 +52,7 @@ export function isDisableForm(errors: Record<string, string>) {
   return Object.values(errors).some(err => err.length !== 0)
 }
 
-export function setErrors(oldErrors, newValues) {
+export function setErrors(oldErrors: Record<string, string>, newValues: Record<string, string>) {
   Object.keys(newValues).forEach(key => {
     if (key === 'oldPassword') {
       oldErrors[key] = isValidPassword(newValues[key])

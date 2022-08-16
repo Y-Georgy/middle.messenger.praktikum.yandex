@@ -10,7 +10,7 @@ import render from "../utils/render";
 const path = window.location.pathname;
 
 if (path === "/") render("#main", chatPage);
-else if (path === "/login") render("#main", loginPage);
+else if (path === "/login") render("#main", loginPage());
 else if (path === "/register") render("#main", registerPage);
 else if (path === "/profile") render("#main", profilePage);
 else if (path === "/change-password") render("#main", changePasswordPage);
