@@ -3,7 +3,16 @@ import Input from "../../components/authInput";
 import ButtonSubmit from "../../components/buttonSubmit";
 import Link from "../../components/link";
 
-export const getProps = (errors, values, isDisabledForm) => (
+type TData = {
+  login?: string,
+  first_name?: string,
+  second_name?: string,
+  phone?: string,
+  password?: string,
+  repeatPassword?: string,
+}
+
+export const getProps = (errors: TData, values: TData, isDisabledForm: boolean) => (
   {
     title: new Title({ title: "Регистрация" }).render(),
     buttonSubmit: new ButtonSubmit({

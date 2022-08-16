@@ -3,7 +3,7 @@ import Avatar from "../../components/avatar";
 import ButtonSubmit from "../../components/buttonSubmit";
 import { TProfilePageProps } from ".";
 
-type TProps = {
+type TData = {
   email?: string,
   login?: string,
   first_name?: string,
@@ -12,7 +12,7 @@ type TProps = {
   phone?: string,
 }
 
-export const getProps = (errors: TProps, values: TProps, isCanChangeData: boolean, isDisabledForm: boolean): TProfilePageProps => ({
+export const getProps = (errors: TData, values: TData, isCanChangeData: boolean, isDisabledForm: boolean): TProfilePageProps => ({
   isCanChangeData: isCanChangeData,
   buttonSubmit: new ButtonSubmit({
     text: "Сохранить",

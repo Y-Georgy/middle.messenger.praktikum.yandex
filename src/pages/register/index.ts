@@ -1,85 +1,76 @@
 import template from "./template.hbs";
 import Component from "../../utils/Component";
+import { getProps } from "./props";
+import buttonSubmit from "../../components/buttonSubmit";
+import Title from "../../components/authTitle";
+import Link from "../../components/link";
+import Input from "../../components/authInput";
+import { TUnknownFuncVoid } from "../../types/types";
 import * as styles from "./styles.module.scss";
-import { getProps } from "./register";
-import { getFormData, isDisableForm, setErrors } from "../../utils/validation";
+import { useValidator } from "../../hooks/useValidator";
 
-const errors = {
-  login: '',
-  first_name: '',
-  second_name: '',
-  phone: '',
-  password: '',
-  repeatPassword: '',
+type TProps = {
+  events: Record<string, TUnknownFuncVoid>,
+  title: Title,
+  buttonSubmit: buttonSubmit,
+  link: Link,
+  inputLogin: Input,
+  inputName: Input,
+  inputSecondName: Input,
+  inputPhone: Input,
+  inputPassword: Input,
+  inputPasswordCheck: Input,
 }
 
-const values = {
-  login: '',
-  first_name: '',
-  second_name: '',
-  phone: '',
-  password: '',
-  repeatPassword: '',
+const registerPage = () => {
+  const { errors, values, stateForm, onChangeValues } = useValidator();
+  class Page extends Component {
+    constructor(props: TProps) {
+      super(props, "form", {
+        name: "register",
+        class: styles.register,
+      });
+    }
+
+    render() {
+      return template({ ...this.props, styles });
+    }
+  }
+
+  function handleSubmit(event: Event) {
+    event.preventDefault();
+    const form = event.target as HTMLElement;
+    onChangeValues(form);
+
+    if (!stateForm.isDisabled) {
+      console.log(values);
+    }
+
+    page.setProps(
+      getProps(errors, values, stateForm.isDisabled)
+    )
+  }
+
+  function handleBlurOrFocus(event: Event) {
+    const input = event.target as HTMLElement;
+    onChangeValues(input);
+
+    page.setProps(
+      getProps(errors, values, stateForm.isDisabled)
+    )
+  }
+
+  const page = new Page({
+      events: {
+        submit: handleSubmit,
+        blur: handleBlurOrFocus,
+        focus: handleBlurOrFocus,
+      },
+      ...getProps(errors, values, stateForm.isDisabled)
+    }
+  );
+
+  return page;
 }
-
-let isDisabledForm = false;
-
-class RegisterPage extends Component {
-  constructor(props) {
-    super(props, "form", {
-      name: "register",
-      class: styles.register,
-    });
-  }
-
-  render() {
-    return template({ ...this.props, styles });
-  }
-}
-
-function handleSubmit(event) {  
-  event.preventDefault();
-  
-  Object.entries(getFormData(event)).forEach((([key, value]) => {
-    values[key] = value;
-  }))
-
-  setErrors(errors, values);
-  isDisabledForm = isDisableForm(errors); 
-  
-  if (!isDisabledForm) {
-    console.log(values);
-  }
-  
-  registerPage.setProps(
-    getProps(errors, values, isDisabledForm)
-  )
-}
-
-function handleBlurOrFocus( event ) {
-  const { name, value } = event.target;
-  if (!name) {
-    return;
-  }
-  values[name] = value;
-  const obj = {};
-  obj[name] = value
-  setErrors(errors, obj);
-  const isDisabledForm = isDisableForm(errors); 
-
-  registerPage.setProps(
-    getProps(errors, values, isDisabledForm)
-  )
-}
-
-const registerPage = new RegisterPage({
-    events: {
-      submit: handleSubmit,
-      blur: handleBlurOrFocus,
-      focus: handleBlurOrFocus,
-    },
-    ...getProps(errors, values, isDisabledForm)
-  }
-);
 
 export default registerPage;
