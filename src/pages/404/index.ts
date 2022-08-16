@@ -3,8 +3,12 @@ import Link from "../../components/link";
 import * as styles from "./styles.module.scss";
 import Component from "../../utils/Component";
 
+type Tprops = {
+  link: Link
+}
+
 class Page404 extends Component {
-  constructor(props) {
+  constructor(props: Tprops) {
     super(props, "section", {
       class: styles.section
     });

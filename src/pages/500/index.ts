@@ -3,8 +3,12 @@ import Link from "../../components/link";
 import Component from "../../utils/Component";
 import * as styles from "./styles.module.scss";
 
+type TProps = {
+  link: Link
+}
+
 class Page500 extends Component {
-  constructor(props) {
+  constructor(props: TProps) {
     super(props, "section", {
       class: styles.section
     });
