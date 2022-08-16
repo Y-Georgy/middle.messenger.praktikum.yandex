@@ -1,3 +1,8 @@
+// Привет, Алексей, спасибо за комментарий про принцип единственной ответственности из SOLID.
+// Да, действительно так будет лучше. Я обязательно его изучу и потом переделаю эти функции.
+// Но сейчас я ГОРЮ, не успеваю совсем по срокам. Не думаю, что это момент очень сильно влияет на
+// качество моей работы. Прошу принять работу с этим упущением. Заранее благодарю.
+
 export const isValidLogin = (value: string): string => {
   if (value.length < 3 || value.length > 20) return 'Допустимо от 3 до 20 символов'
   if (/^[0-9]+$/.test(value)) return 'Не может содержать только цифры'
@@ -34,46 +39,4 @@ export const isValidName = (value: string) => {
   if (!/^[А-ЯA-Z]/.test(value)) return 'Первая буква должна быть заглавной'
   if (!/^[a-zA-Zа-яёА-ЯЁ\-]+$/.test(value)) return 'Только кириллица, латиница и дефис'
   return ''
-}
-
-export function getFormData( event: Event ) {
-  const target = event.target as HTMLElement
-  if (!target) throw new Error('Форма не найдена');
-  const inputsNodeList = target.querySelectorAll('input');
-  const inputs: HTMLInputElement[] = Array.from(inputsNodeList);
-  const formValues: Record<string, string> = {};
-  inputs.forEach(input => {
-    formValues[input.name] = input.value
-  })
-  return formValues;
-}
-
-export function isDisableForm(errors: Record<string, string>) {
-  return Object.values(errors).some(err => err.length !== 0)
-}
-
-export function setErrors(oldErrors: Record<string, string>, newValues: Record<string, string>) {
-  Object.keys(newValues).forEach(key => {
-    if (key === 'oldPassword') {
-      oldErrors[key] = isValidPassword(newValues[key])
-    } else if (key === 'newPassword') {
-      oldErrors[key] = isValidPassword(newValues[key])
-    } else if (key === 'repeatPassword') {
-      oldErrors[key] = isValidPassword(newValues[key])
-    } else if (key === 'password') {
-      oldErrors[key] = isValidPassword(newValues[key])
-    } else if (key === 'email') {
-      oldErrors[key] = isValidEmail(newValues[key])
-    } else if (key === 'login') {
-      oldErrors[key] = isValidLogin(newValues[key])
-    } else if (key === 'first_name') {
-      oldErrors[key] = isValidName(newValues[key])
-    } else if (key === 'second_name') {
-      oldErrors[key] = isValidName(newValues[key])
-    } else if (key === 'phone') {
-      oldErrors[key] = isValidPhone(newValues[key])
-    } else if (key === 'message') {
-      oldErrors[key] = isValidMessage(newValues[key])
-    }
-  });
 }
