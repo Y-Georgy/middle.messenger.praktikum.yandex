@@ -4,6 +4,18 @@ import * as styles from "./styles.module.scss";
 import { setErrors } from "../../utils/validation";
 import { getProps } from "./chat";
 
+type TRecipient = {
+  name: string,
+  avatarLink: string,
+  lastMessage: {
+    text: string,
+    isMy: boolean,
+    time: string
+  },
+  unreadCount: number,
+  styles: Record<string, string>
+}
+
 const errors = {
   message: ''
 }
@@ -13,7 +25,7 @@ const values = {
 
 let isDisabledFormMessage = false;
 
-const recipients = [ //: Array<Recipient>
+const recipients: Array<TRecipient> = [
   {
     name: "Андрей",
     avatarLink:
