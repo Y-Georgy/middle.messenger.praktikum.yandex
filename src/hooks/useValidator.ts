@@ -84,17 +84,15 @@ export function useValidator() {
     let newValues = {};
     if (elem instanceof HTMLInputElement) {
       newValues = _getInputData(elem)
-    } else if (elem instanceof HTMLFormElement) {
-      newValues = _getFormData(elem)
     } else {
-      throw new Error('Передан не корректный элемент')
+      newValues = _getFormData(elem)
     }
     _setValues(newValues);
     _setErrors(newValues);
     _setDisabledForm();
   }
 
-  const _getFormData = ( elem: HTMLFormElement ) => {
+  const _getFormData = ( elem: HTMLElement ) => {
     const inputsNodeList = elem.querySelectorAll('input');
     const inputs: HTMLInputElement[] = Array.from(inputsNodeList);
     const formValues: Record<string, string> = {};
