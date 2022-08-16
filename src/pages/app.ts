@@ -6,7 +6,7 @@ const PORT = process.env.port || 3000;
 
 app.use(express.static(path.join(__dirname, "../../dist")));
 
-app.use("*", (req, res) => {
+app.use("*", (_req, res) => {
   res.sendFile(path.join(__dirname, "../../dist/index.html"));
 });
 
