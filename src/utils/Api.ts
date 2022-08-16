@@ -8,11 +8,11 @@ enum METHODS {
 type Options = {
   method: METHODS;
   headers?: { [key: string]: string };
-  data?: Document | XMLHttpRequestBodyInit | null | undefined;
+  data?: Record<string, undefined>;
   timeout?: number;
 };
 
-function queryStringify(data) {
+function queryStringify(data: Record<string, unknown>) {
   if (typeof data !== 'object') {
     throw new Error('Data must be object');
   }
@@ -24,21 +24,21 @@ function queryStringify(data) {
 }
 
 export class HTTPTransport {
-  get = (url, options: Options = { method: METHODS.GET }) => {
+  get = (url: string, options: Options = { method: METHODS.GET }) => {
     const { data } = options;
     if (data && Object.keys(data).length > 0) url += queryStringify(data);
     return this.request(url, {...options, method: METHODS.GET}, options.timeout);
   };
 
-  put = (url, options: Options = { method: METHODS.GET }) => {
+  put = (url: string, options: Options = { method: METHODS.GET }) => {
     return this.request(url, {...options, method: METHODS.PUT}, options.timeout);
   };
 
-  post = (url, options: Options = { method: METHODS.POST }) => {
+  post = (url: string, options: Options = { method: METHODS.POST }) => {
     return this.request(url, {...options, method: METHODS.POST}, options.timeout);
   };
 
-  delete = (url, options: Options = { method: METHODS.DELETE }) => {
+  delete = (url: string, options: Options = { method: METHODS.DELETE }) => {
     return this.request(url, {...options, method: METHODS.DELETE}, options.timeout);
   };
 
@@ -72,7 +72,7 @@ export class HTTPTransport {
       if (method === METHODS.GET) {
         xhr.send();
       } else if (data) {
-        xhr.send(data);
+        xhr.send(JSON.stringify(data));
       }
     });
   };
