@@ -1,7 +1,10 @@
-.auth-input {
+@import "../../styles/variables.scss";
+
+.input {
   display: flex;
   flex-direction: column-reverse;
   margin-bottom: 16px;
+
   &:last-of-type {
     margin-bottom: 47px;
   }
@@ -19,19 +22,18 @@
   }
 
   input {
-    font-family: Inter;
     font-size: 13px;
     font-weight: 500;
     line-height: 27px;
     color: #1e1e1e;
     border: none;
-    border-bottom: 1px solid #3369f3;
+    border-bottom: 1px solid $blue;
     width: 100%;
     padding: 0;
 
     &:focus {
       outline: none;
-      border-bottom: 1px solid #80a4ff;
+      border-bottom: 1px solid $light-blue;
     }
   }
 
@@ -44,7 +46,7 @@
   span {
     font-size: 8px;
     line-height: 8px;
-    color: #ff2f2f;
+    color: $red;
     margin-top: 7px;
   }
 }

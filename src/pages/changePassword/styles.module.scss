@@ -1,4 +1,4 @@
-@import "../variables.scss";
+@import "../../styles/variables.scss";
 
 .profile {
   display: flex;
@@ -28,6 +28,20 @@
 
     button {
       margin: 152px auto 0;
+    }
+
+    ul {
+      margin: 20px 0 10px;
+      list-style-type: none;
+      padding: 0;
+
+      li {
+        font-size: 9px;
+        line-height: 10px;
+        color: $red;
+        margin: 7px 0;
+        text-align: center;
+      }
     }
   }
 }

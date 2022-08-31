@@ -1,8 +1,14 @@
-@use "./base.scss";
-@import url(../../static/normalize.css);
-@import url(../../static/fonts/fonts.scss);
+@import "../styles/fonts.scss";
+@import "../styles/normalize.css";
+@import "../styles/variables.scss";
 
 #main {
   display: flex;
   min-height: 100vh;
+}
+
+* {
+  font-family: Inter, Helvetica, sans-serif;
+  font-weight: 400;
+  color: $primary-color;
 }

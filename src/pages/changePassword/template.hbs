@@ -1,9 +1,14 @@
 <section class="{{styles.profile}}">
-    {{> avatar }}
+    {{{ avatar }}}
     <form>
-        {{> input name="oldPassword" label="Старый пароль" value="12345678" type="password" disabled=""}}
-        {{> input name="newPassword" label="Новый пароль" value="87654321" type="password" disabled=""}}
-        {{> input name="repeatPassword" label="Повторите новый пароль" value="87654321" type="password" disabled=""}}
-        {{> buttonSubmit text="Сохранить" }}
+        {{{ inputOldPassword }}}
+        {{{ inputNewPassword }}}
+        {{{ inputRepeatPassword }}}
+        <ul>
+            <li>{{errorTextOldPassword}}</li>
+            <li>{{errorTextNewPassword}}</li>
+            <li>{{errorTextRepeatPassword}}</li>
+        </ul>
+        {{{ buttonSubmit }}}
     </form>
 </section>

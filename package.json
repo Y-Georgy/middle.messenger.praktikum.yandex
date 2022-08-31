@@ -1,5 +1,5 @@
 {
-  "name": "my-project",
+  "name": "chat",
   "engines": {
     "node": "~14.17.3"
   },
@@ -18,20 +18,36 @@
   },
   "scripts": {
     "prestart": "parcel build",
-    "start": "node ./src/pages/app.js ",
-    "devserver": "parcel build && nodemon ./src/pages/app.js ",
+    "start": "ts-node ./src/pages/app.ts",
+    "devserver": "parcel build && nodemon ./src/pages/app.ts ",
     "dev": "parcel",
-    "build": "parcel build"
+    "build": "parcel build",
+    "lint": "eslint . --ext .js,.ts",
+    "lint:fix": "eslint --fix --ext .js,.ts .",
+    "stylelint": "stylelint \"src/**/*.scss\"",
+    "stylelint:fix": "stylelint \"src/**/*.scss\" --fix"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.6.2",
-    "express": "^4.18.1",
-    "nodemon": "^2.0.19",
+    "@parcel/transformer-sass": "2.7.0",
+    "@types/express": "^4.17.13",
+    "@types/node": "18.7.2",
+    "@typescript-eslint/eslint-plugin": "5.33.0",
+    "@typescript-eslint/parser": "5.33.0",
+    "eslint": "8.21.0",
+    "eslint-config-airbnb": "19.0.4",
+    "express": "4.18.1",
+    "nodemon": "2.0.19",
     "parcel": "latest",
-    "parcel-transformer-hbs": "^1.0.4",
-    "sass": "^1.53.0"
+    "parcel-transformer-hbs": "1.0.4",
+    "sass": "1.53.0",
+    "stylelint": "14.10.0",
+    "stylelint-config-standard": "27.0.0",
+    "stylelint-scss": "4.3.0",
+    "ts-node": "10.9.1",
+    "typescript": "4.7.4"
   },
   "dependencies": {
-    "handlebars": "^4.7.7"
+    "@types/handlebars": "4.1.0",
+    "handlebars": "4.7.7"
   }
 }
