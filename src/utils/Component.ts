@@ -23,6 +23,7 @@ class Component {
   _meta: TMeta;
   props: TProps;
   eventBus: () => EventBus;
+  isHidden: boolean;
 
   constructor( props: TProps = {}, tagName = "div", attributes = {}) {
     const eventBus = new EventBus();
@@ -38,6 +39,7 @@ class Component {
 
     this._registerEvents(eventBus);
     eventBus.emit(Component.EVENTS.INIT);
+    this.isHidden = false;
   }
 
   _registerEvents(eventBus: EventBus) {
@@ -167,11 +169,13 @@ class Component {
 
   show() {
     this.getContent().style.display = "block";
+    this.isHidden = false;
   }
 
   hide() {
     // this.getContent().style.display = "none";
     this._element.style.display = "none";
+    this.isHidden = true;
   }
 
   _addEvents() {

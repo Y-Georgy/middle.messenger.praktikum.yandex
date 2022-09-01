@@ -5,28 +5,24 @@ type TProps = {rootQuery: string}
 
 class Route {
   _pathname: string;
-  _BlockClass: typeof Component;
-  _block: Component | null;
+  _page: Component;
   _props: TProps;
 
-  constructor(pathname: string, View: typeof Component, props: TProps) {
+  constructor(pathname: string, page: Component, props: TProps) {
     this._pathname = pathname;
-    this._BlockClass = View;
-    this._block = null;
+    this._page = page;
     this._props = props;
   }
 
   navigate(pathname: string) {
     if (this.match(pathname)) {
-        this._pathname = pathname;
-        this.render();
+      this._pathname = pathname;
+      this.render();
     }
   }
 
   leave() {
-    if (this._block) {
-        this._block.hide();
-    }
+    this._page.hide();
   }
 
   match(pathname: string) {
@@ -34,13 +30,12 @@ class Route {
   }
 
   render() {
-    if (!this._block) {
-        this._block = new this._BlockClass();
-        render(this._props.rootQuery, this._block);
-        return;
+    if (!this._page.isHidden) {
+      render(this._props.rootQuery, this._page);
+      return;
     }
 
-    this._block.show();
+    this._page.show();
   }
 }
 
@@ -64,8 +59,8 @@ export class Router {
     Router.__instance = this;
   }
 
-  use(pathname: string, block: typeof Component) {
-    const route = new Route(pathname, block, {rootQuery: this._rootQuery});
+  use(pathname: string, page: Component) {
+    const route = new Route(pathname, page, {rootQuery: this._rootQuery});
     this.routes.push(route);
     return this;
   }
@@ -81,10 +76,11 @@ export class Router {
   }
 
   _onRoute(pathname: string) {
-    const route = this.getRoute(pathname);
+    let route = this.getRoute(pathname);
 
     if (!route) {
-      return;
+      route = this.getRoute("*");
+      if (!route) return;
     }
 
     if (this._currentRoute && this._currentRoute !== route) {
@@ -111,6 +107,6 @@ export class Router {
   }
 
   getRoute(pathname: string) {
-      return this.routes.find(route => route.match(pathname));
+    return this.routes.find(route => route.match(pathname));
   }
 }
