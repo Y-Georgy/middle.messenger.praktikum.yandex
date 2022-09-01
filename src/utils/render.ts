@@ -4,7 +4,7 @@ function render(query: string, component: Component) {
   const root = document.querySelector(query);
   if (root) {
     root.innerHTML = "";
-    root.appendChild(component.getContent());
+    root.append(component.getContent());
   }
 
   // component.dispatchComponentDidMount();

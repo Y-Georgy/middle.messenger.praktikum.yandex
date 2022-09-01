@@ -4,6 +4,7 @@ import { getProps } from "./props";
 import { TUnknownFuncVoid } from "../../types/types";
 import { useValidator } from "../../hooks/useValidator";
 import * as styles from "./styles.module.scss";
+import { Router } from "../../utils/Router";
 
 type TMessage = {
   text: string,
@@ -42,6 +43,7 @@ type TChatProps = {
 
 const chatPage = () => {
   const { errors, values, stateForm, init: validatorInit, onChangeValues } = useValidator();
+  const router = new Router();
 
   const recipients: Array<TRecipient> = [
     {
@@ -140,6 +142,13 @@ const chatPage = () => {
     }
   }
 
+  function handleClick(event: Event) {
+    const target = event.target as HTMLElement
+    if (target.id === 'link-profile') {
+      router.go("/profile");
+    }
+  }
+
   function handleSubmit(event: Event) {
     event.preventDefault();
     const form = event.target as HTMLElement;
@@ -167,6 +176,7 @@ const chatPage = () => {
   const page = new ChatPage({
     events: {
       submit: handleSubmit,
+      click: handleClick
     },
     ...getProps(errors, stateForm.isDisabled, recipients, currentRecipent)
   });

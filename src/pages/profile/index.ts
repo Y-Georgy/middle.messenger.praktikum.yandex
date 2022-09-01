@@ -7,6 +7,7 @@ import Avatar from "../../components/avatar";
 import Input from "../../components/authInput";
 import { useValidator } from "../../hooks/useValidator";
 import * as styles from "./styles.module.scss";
+import { Router } from "../../utils/Router";
 
 export type TProfilePageProps = {
   isCanChangeData: boolean,
@@ -22,6 +23,7 @@ export type TProfilePageProps = {
 
 const profilePage = () => {
   const { errors, values, init: initValidator, stateForm, onChangeValues } = useValidator();
+  const router = new Router();
 
   const initValues = {
     email: 'username@mail.com',
@@ -44,8 +46,11 @@ const profilePage = () => {
     }
   }
 
-  function handleChangeData(event: Event) {
+  function handleClick(event: Event) {
     const target = event.target as HTMLElement
+    if (target.id === 'btn-back') {
+      router.back();
+    }
     if (target.id === 'linkChangeData') {
       isCanChangeData = true;
       page.setProps({
@@ -84,7 +89,7 @@ const profilePage = () => {
       submit: handleSubmit,
       blur: handleBlurOrFocus,
       focus: handleBlurOrFocus,
-      click: handleChangeData,
+      click: handleClick,
     },
     content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled)).render()
   });
