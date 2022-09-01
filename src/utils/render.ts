@@ -3,6 +3,7 @@ import Component from "./Component";
 function render(query: string, component: Component) {
   const root = document.querySelector(query);
   if (root) {
+    root.innerHTML = "";
     root.appendChild(component.getContent());
   }
 

@@ -21,9 +21,9 @@ class Route {
     }
   }
 
-  leave() {
-    this._page.hide();
-  }
+  // leave() {
+  //   this._page.hide();
+  // }
 
   match(pathname: string) {
     return pathname === this._pathname;
@@ -44,17 +44,15 @@ export class Router {
   routes: Route[]
   static __instance: Router;
   history: History;
-  private _currentRoute: Route | null;
 
-  constructor(rootQuery: string) {
+  constructor(rootQuery?: string) {
     if (Router.__instance) {
       return Router.__instance;
     }
 
     this.routes = [];
     this.history = window.history;
-    this._currentRoute = null;
-    this._rootQuery = rootQuery;
+    this._rootQuery = rootQuery ? rootQuery : '#main';
 
     Router.__instance = this;
   }
@@ -83,12 +81,6 @@ export class Router {
       if (!route) return;
     }
 
-    if (this._currentRoute && this._currentRoute !== route) {
-        this._currentRoute.leave();
-    }
-
-    this._currentRoute = route;
-    // route.render(route, pathname);
     route.render();
   }
 
