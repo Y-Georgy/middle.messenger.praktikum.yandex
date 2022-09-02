@@ -1,9 +1,9 @@
 type METHODS = 'GET' | 'PUT' | 'POST' | 'DELETE';
 
 type Options = {
-  method: METHODS;
+  method?: METHODS;
   headers?: { [key: string]: string };
-  data?: Record<string, undefined>;
+  data?: Record<string, unknown>;
   timeout?: number;
 };
 

@@ -7,6 +7,7 @@ import Title from "../../components/authTitle";
 import Input from "../../components/authInput";
 import { useValidator } from "../../hooks/useValidator";
 import { Router } from "../../utils/Router";
+import { HTTPTransport } from "../../utils/Api";
 
 type TProps = {
   events: Record<string, TUnknownFuncVoid>,
@@ -18,6 +19,7 @@ type TProps = {
 const loginPage = () => {
   const { errors, values, stateForm, onChangeValues } = useValidator();
   const router = new Router();
+  const request = new HTTPTransport();
   class Page extends Component {
     constructor(props: TProps) {
       super(props, "form", {
@@ -37,7 +39,18 @@ const loginPage = () => {
     onChangeValues(form);
 
     if (!stateForm.isDisabled) {
-      console.log(values);
+      request.post(
+        "https://ya-praktikum.tech/api/v2/auth/signin",
+        { 
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          data: values 
+        }
+      ).then(res => {
+        console.log('res', res); 
+      })
     }
     page.setProps(
       getProps(errors, values, stateForm.isDisabled)
