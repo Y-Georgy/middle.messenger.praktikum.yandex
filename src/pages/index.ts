@@ -15,6 +15,6 @@ router
   .use("/profile", profilePage())
   .use("/change-password", changePasswordPage())
   .use("/500", page500)
-  .use("*", page404)
+  .use("*", page404())
   .start();
 
