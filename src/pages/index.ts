@@ -14,7 +14,7 @@ router
   .use("/register", registerPage())
   .use("/profile", profilePage())
   .use("/change-password", changePasswordPage())
-  .use("/500", page500)
+  .use("/500", page500())
   .use("*", page404())
   .start();
 

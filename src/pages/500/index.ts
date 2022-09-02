@@ -1,29 +1,43 @@
 import template from "./template.hbs";
-import Link from "../../components/link";
 import Component from "../../utils/Component";
+import { TUnknownFuncVoid } from "../../types/types";
 import * as styles from "./styles.module.scss";
+import { Router } from "../../utils/Router";
 
 type TProps = {
-  link: Link
+  events: Record<string, TUnknownFuncVoid>,
 }
 
-class Page500 extends Component {
-  constructor(props: TProps) {
-    super(props, "section", {
-      class: styles.section
-    });
+
+const page500 = () => {
+  const router = new Router();
+  class Page500 extends Component {
+    constructor(props: TProps) {
+      super(props, "section", {
+        class: styles.section
+      });
+    }
+
+    render() {
+      return template({ ...this.props, styles });
+    }
   }
 
-  render() {
-    return template({ ...this.props, styles });
+  function handleClick(event: Event) {
+    const target = event.target as HTMLElement
+    if (target.id === 'link-chat') {
+      event.preventDefault();
+      router.go("/");
+    }
   }
+
+  const page = new Page500({
+    events: {
+      click: handleClick
+    },
+  });
+
+  return page;
 }
-
-const page500 = new Page500({
-  link: new Link({
-    href: "/",
-    text: "Назад к чатам",
-  }).render()
-});
 
 export default page500;
