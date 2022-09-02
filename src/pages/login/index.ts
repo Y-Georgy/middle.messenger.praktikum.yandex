@@ -4,7 +4,6 @@ import * as styles from "./styles.module.scss";
 import { getProps } from "./props";
 import { TUnknownFuncVoid } from "../../types/types";
 import Title from "../../components/authTitle";
-import Link from "../../components/link";
 import Input from "../../components/authInput";
 import { useValidator } from "../../hooks/useValidator";
 import { Router } from "../../utils/Router";

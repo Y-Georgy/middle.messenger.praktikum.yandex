@@ -19,10 +19,6 @@ export const getProps = (errors: TData, values: TData, isDisabledForm: boolean) 
       text: "Зарегистрироваться",
       disabled: isDisabledForm
     }).render(),
-    link: new Link({
-      href: "login",
-      text: "Войти",
-    }).render(),
     inputLogin: new Input({
       name: "login",
       label: "Логин",
