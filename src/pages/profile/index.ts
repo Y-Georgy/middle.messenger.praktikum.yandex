@@ -52,10 +52,19 @@ const profilePage = () => {
       router.back();
     }
     if (target.id === 'linkChangeData') {
+      event.preventDefault();
       isCanChangeData = true;
       page.setProps({
         content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled)).render()
       })
+    }
+    if (target.id === 'link-change-password') {
+      event.preventDefault();
+      router.go("/change-password");
+    }
+    if (target.id === 'link-login') {
+      event.preventDefault();
+      router.go("/login");
     }
   }
 
