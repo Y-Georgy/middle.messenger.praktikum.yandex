@@ -7,6 +7,7 @@ import ButtonSubmit from "../../components/buttonSubmit";
 import Avatar from "../../components/avatar";
 import { useValidator } from "../../hooks/useValidator";
 import * as styles from "./styles.module.scss";
+import { Router } from "../../utils/Router";
 
 type TChangePasswordContentProps = {
   avatar: Avatar,
@@ -18,6 +19,7 @@ type TChangePasswordContentProps = {
 
 const changePasswordPage = () => {
   const { errors, values, stateForm, onChangeValues } = useValidator();
+  const router = new Router();
   class ChangePasswordContent extends Component {
     constructor(props: TChangePasswordContentProps) {
       super(props, "section", {
@@ -57,11 +59,19 @@ const changePasswordPage = () => {
     })
   }
 
+  function handleClick(event: Event) {
+    const target = event.target as HTMLElement
+    if (target.id === 'btn-back') {
+      router.back();
+    }
+  }
+
   const page = new ProfileLayout({
     events: {
       submit: handleSubmit,
       blur: handleBlurOrFocus,
       focus: handleBlurOrFocus,
+      click: handleClick,
     },
     content: new ChangePasswordContent(
       changePasswordContentProps(errors, stateForm.isDisabled, values)
