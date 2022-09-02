@@ -145,6 +145,7 @@ const chatPage = () => {
   function handleClick(event: Event) {
     const target = event.target as HTMLElement
     if (target.id === 'link-profile') {
+      event.preventDefault();
       router.go("/profile");
     }
   }
