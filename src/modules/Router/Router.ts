@@ -39,7 +39,7 @@ class Route {
   }
 }
 
-export class Router {
+class Router {
   _rootQuery: string;
   routes: Route[]
   static __instance: Router;
@@ -102,3 +102,5 @@ export class Router {
     return this.routes.find(route => route.match(pathname));
   }
 }
+
+export const router = new Router("#main");

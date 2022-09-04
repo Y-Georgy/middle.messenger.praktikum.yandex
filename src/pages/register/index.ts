@@ -7,7 +7,7 @@ import Input from "../../components/authInput";
 import { TUnknownFuncVoid } from "../../types/types";
 import * as styles from "./styles.module.scss";
 import { useValidator } from "../../modules/hooks/useValidator";
-import { Router } from "../../modules/Router/Router";
+import { router } from "../../modules/Router/Router";
 import { TLoginValues, TRegisterValues, userApi } from "../../modules/Api/UserApi";
 
 type TProps = {
@@ -25,7 +25,6 @@ type TProps = {
 
 const registerPage = () => {
   const { errors, values, stateForm, onChangeValues } = useValidator();
-  const router = new Router();
   class Page extends Component {
     constructor(props: TProps) {
       super(props, "form", {

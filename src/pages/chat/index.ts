@@ -4,7 +4,7 @@ import { getProps } from "./props";
 import { TUnknownFuncVoid } from "../../types/types";
 import { useValidator } from "../../modules/hooks/useValidator";
 import * as styles from "./styles.module.scss";
-import { Router } from "../../modules/Router/Router";
+import { router } from "../../modules/Router/Router";
 
 type TMessage = {
   text: string,
@@ -43,7 +43,6 @@ type TChatProps = {
 
 const chatPage = () => {
   const { errors, values, stateForm, init: validatorInit, onChangeValues } = useValidator();
-  const router = new Router();
 
   const recipients: Array<TRecipient> = [
     {

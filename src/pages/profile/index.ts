@@ -7,7 +7,7 @@ import Avatar from "../../components/avatar";
 import Input from "../../components/authInput";
 import { useValidator } from "../../modules/hooks/useValidator";
 import * as styles from "./styles.module.scss";
-import { Router } from "../../modules/Router/Router";
+import { router } from "../../modules/Router/Router";
 
 export type TProfilePageProps = {
   isCanChangeData: boolean,
@@ -23,7 +23,6 @@ export type TProfilePageProps = {
 
 const profilePage = () => {
   const { errors, values, init: initValidator, stateForm, onChangeValues } = useValidator();
-  const router = new Router();
 
   const initValues = {
     email: 'username@mail.com',
