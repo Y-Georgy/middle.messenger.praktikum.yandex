@@ -7,7 +7,7 @@ import ButtonSubmit from "../../components/buttonSubmit";
 import Avatar from "../../components/avatar";
 import { useValidator } from "../../modules/hooks/useValidator";
 import * as styles from "./styles.module.scss";
-import { router } from "../../modules/Router/Router";
+import { Router } from "../../modules/Router/Router";
 
 type TChangePasswordContentProps = {
   avatar: Avatar,
@@ -19,6 +19,7 @@ type TChangePasswordContentProps = {
 
 const changePasswordPage = () => {
   const { errors, values, stateForm, onChangeValues } = useValidator();
+  const router = new Router();
   class ChangePasswordContent extends Component {
     constructor(props: TChangePasswordContentProps) {
       super(props, "section", {

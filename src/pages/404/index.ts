@@ -2,13 +2,15 @@ import template from "./template.hbs";
 import * as styles from "./styles.module.scss";
 import Component from "../../modules/Core/Component";
 import { TUnknownFuncVoid } from "../../types/types";
-import { router } from "../../modules/Router/Router";
+import { Router } from "../../modules/Router/Router";
 
 type Tprops = {
   events: Record<string, TUnknownFuncVoid>,
 }
 
 const page404 = () => {
+  const router = new Router();
+
   class Page404 extends Component {
     constructor(props: Tprops) {
       super(props, "section", {

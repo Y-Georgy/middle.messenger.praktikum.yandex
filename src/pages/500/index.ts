@@ -2,7 +2,7 @@ import template from "./template.hbs";
 import Component from "../../modules/Core/Component";
 import { TUnknownFuncVoid } from "../../types/types";
 import * as styles from "./styles.module.scss";
-import { router } from "../../modules/Router/Router";
+import { Router } from "../../modules/Router/Router";
 
 type TProps = {
   events: Record<string, TUnknownFuncVoid>,
@@ -10,6 +10,7 @@ type TProps = {
 
 
 const page500 = () => {
+  const router = new Router();
   class Page500 extends Component {
     constructor(props: TProps) {
       super(props, "section", {
