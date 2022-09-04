@@ -1,10 +1,10 @@
 import template from "./template.hbs";
-import Component from "../../utils/Component";
+import Component from "../../modules/Core/Component";
 import { getProps } from "./props";
 import { TUnknownFuncVoid } from "../../types/types";
-import { useValidator } from "../../hooks/useValidator";
+import { useValidator } from "../../modules/hooks/useValidator";
 import * as styles from "./styles.module.scss";
-import { Router } from "../../utils/Router";
+import { Router } from "../../modules/Router/Router";
 
 type TMessage = {
   text: string,

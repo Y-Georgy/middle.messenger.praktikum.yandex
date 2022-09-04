@@ -1,8 +1,8 @@
 import template from "./template.hbs";
 import * as styles from "./styles.module.scss";
-import Component from "../../utils/Component";
+import Component from "../../modules/Core/Component";
 import { TUnknownFuncVoid } from "../../types/types";
-import { Router } from "../../utils/Router";
+import { Router } from "../../modules/Router/Router";
 
 type Tprops = {
   events: Record<string, TUnknownFuncVoid>,

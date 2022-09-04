@@ -1,5 +1,5 @@
-import Component from "./Component";
-import render from "./render";
+import Component from "../Core/Component";
+import render from "../utils/render";
 
 type TProps = {rootQuery: string}
 

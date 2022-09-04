@@ -1,5 +1,5 @@
 import template from "./template.hbs";
-import Component from "../../../utils/Component"
+import Component from "../../../modules/Core/Component"
 import ButtonSubmit from "../../../components/buttonSubmit";
 import * as styles from "./styles.module.scss";
 

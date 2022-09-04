@@ -1,13 +1,13 @@
 import template from "./template.hbs";
-import Component from "../../utils/Component";
+import Component from "../../modules/Core/Component";
 import * as styles from "./styles.module.scss";
 import { getProps } from "./props";
 import { TUnknownFuncVoid } from "../../types/types";
 import Title from "../../components/authTitle";
 import Input from "../../components/authInput";
-import { useValidator } from "../../hooks/useValidator";
-import { Router } from "../../utils/Router";
-import { TLoginValues, userApi } from "../../utils/Api/UserApi";
+import { useValidator } from "../../modules/hooks/useValidator";
+import { Router } from "../../modules/Router/Router";
+import { TLoginValues, userApi } from "../../modules/Api/UserApi";
 
 type TProps = {
   events: Record<string, TUnknownFuncVoid>,

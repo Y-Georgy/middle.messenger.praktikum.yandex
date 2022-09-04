@@ -1,5 +1,5 @@
 import template from "./template.hbs";
-import Component from "../../utils/Component";
+import Component from "../../modules/Core/Component";
 import * as styles from "./styles.module.scss";
 
 type TProps = {

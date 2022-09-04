@@ -1,13 +1,13 @@
 import ProfileLayout from "../../layouts/profile";
 import template from "./template.hbs";
-import Component from "../../utils/Component";
+import Component from "../../modules/Core/Component";
 import { getProps } from "./props";
 import ButtonSubmit from "../../components/buttonSubmit";
 import Avatar from "../../components/avatar";
 import Input from "../../components/authInput";
-import { useValidator } from "../../hooks/useValidator";
+import { useValidator } from "../../modules/hooks/useValidator";
 import * as styles from "./styles.module.scss";
-import { Router } from "../../utils/Router";
+import { Router } from "../../modules/Router/Router";
 
 export type TProfilePageProps = {
   isCanChangeData: boolean,
