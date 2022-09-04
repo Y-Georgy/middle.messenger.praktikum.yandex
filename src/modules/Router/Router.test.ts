@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import Component from "../Core/Component";
-import { router } from "./Router";
+import { Router } from "./Router";
 import { JSDOM } from "jsdom";
 
 describe('Проверяем переходы у Роута', () => {
@@ -14,12 +14,12 @@ describe('Проверяем переходы у Роута', () => {
     global.document = dom.window.document;
   })
 
-  router
-    .use("/testPathOne", {} as Component)
-    .use("/testPathTwo", {} as Component)
-    .start();
-
   it('Переход на новую страницу должен менять состояние сущности history', () => {
+    const router = new Router('#main')
+    router
+      .use("/testPathOne", { getContent: () => '' } as unknown as Component)
+      .use("/testPathTwo", { getContent: () => '' } as unknown as Component)
+      .start();
     router.go("/testPathOne");
     router.go("/testPathTwo");
 
