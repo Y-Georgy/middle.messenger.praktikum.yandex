@@ -1,10 +1,10 @@
 import Title from "../../components/authTitle";
 import Input from "../../components/authInput";
 import ButtonSubmit from "../../components/buttonSubmit";
-import Link from "../../components/link";
 
 type TData = {
   login?: string,
+  email?: string,
   first_name?: string,
   second_name?: string,
   phone?: string,
@@ -25,6 +25,13 @@ export const getProps = (errors: TData, values: TData, isDisabledForm: boolean) 
       value: values.login,
       errorText: errors.login,
       type: "text",
+    }).render(),
+    inputEmail: new Input({
+      name: "email",
+      label: "Эл.почта",
+      value: values.email,
+      errorText: errors.email,
+      type: "email",
     }).render(),
     inputName: new Input({
       name: "first_name",

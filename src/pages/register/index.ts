@@ -8,12 +8,14 @@ import { TUnknownFuncVoid } from "../../types/types";
 import * as styles from "./styles.module.scss";
 import { useValidator } from "../../hooks/useValidator";
 import { Router } from "../../utils/Router";
+import { TLoginValues, TRegisterValues, userApi } from "../../utils/Api/UserApi";
 
 type TProps = {
   events: Record<string, TUnknownFuncVoid>,
   title: Title,
   buttonSubmit: buttonSubmit,
   inputLogin: Input,
+  inputEmail: Input,
   inputName: Input,
   inputSecondName: Input,
   inputPhone: Input,
@@ -44,6 +46,15 @@ const registerPage = () => {
 
     if (!stateForm.isDisabled) {
       console.log(values);
+      userApi.register(values as TRegisterValues)
+        .then(() => { // res: {id: number}
+          const {login, password} = values
+          return userApi.login({login, password} as TLoginValues)
+            .then((res: any) => {
+              console.log('resLogin', res)
+            })
+          })
+        .catch(err => console.log('err', err))
     }
 
     page.setProps(
