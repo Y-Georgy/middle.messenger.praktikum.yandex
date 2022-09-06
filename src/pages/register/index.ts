@@ -45,13 +45,14 @@ const registerPage = () => {
     onChangeValues(form);
 
     if (!stateForm.isDisabled) {
-      console.log(values);
       userApi.register(values as TRegisterValues)
         .then(() => { // res: {id: number}
           const {login, password} = values
           return userApi.login({login, password} as TLoginValues)
             .then((res: any) => {
-              console.log('resLogin', res)
+              if (res === "OK") {
+                router.go("/");
+              }
             })
           })
         .catch(err => console.log('err', err))

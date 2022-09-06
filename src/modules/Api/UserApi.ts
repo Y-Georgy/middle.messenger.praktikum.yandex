@@ -38,8 +38,13 @@ class UserAPI extends HTTPTransport {
 
   _handleResponse(res: {status: number, responseText: string}) {
     if (res.status === 200) {
-      return JSON.parse(res.responseText)
+      try {
+        return JSON.parse(res.responseText)
+      } catch (e) {
+        return res.responseText;
+      }
     }
+
     const errText: string | undefined = JSON.parse(res.responseText).reason;
     return Promise.reject(errText ? errText : `Произошла ошибка ${res.status}`)
   }
