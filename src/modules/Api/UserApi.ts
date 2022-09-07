@@ -56,8 +56,7 @@ class UserAPI extends HTTPTransport {
         headers: this._headers,
         data: registerValues
       }
-    )
-    .then(this._handleResponse)
+    ).then(this._handleResponse)
   }
 
   login(loginValues: TLoginValues) {
@@ -67,8 +66,16 @@ class UserAPI extends HTTPTransport {
         headers: this._headers,
         data: loginValues
       }
-    )
-    .then(this._handleResponse)
+    ).then(this._handleResponse)
+  }
+
+  getUser() {
+    return this.get(
+      `${this._baseUrl}/api/v2/auth/user`,
+      {
+        headers: this._headers,
+      }
+  ).then(this._handleResponse)
   }
 }
 
