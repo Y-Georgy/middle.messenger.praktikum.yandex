@@ -65,10 +65,10 @@ export class HTTPTransport {
       xhr.timeout = timeout;
       xhr.ontimeout = reject;
 
-      if (method === 'GET') {
-        xhr.send();
-      } else if (data) {
+      if (data) {
         xhr.send(JSON.stringify(data));
+      } else {
+        xhr.send();
       }
     });
   };
