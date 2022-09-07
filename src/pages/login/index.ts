@@ -39,8 +39,10 @@ const loginPage = () => {
 
     if (!stateForm.isDisabled) {
       userApi.login(values as TLoginValues)
-        .then((res: any) => {
-          console.log('res', res)
+        .then((res: string) => {
+          if (res === "OK") {
+            router.go("/");
+          }
         })
         .catch(err => console.log('err', err))
     }

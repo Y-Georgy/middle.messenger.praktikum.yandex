@@ -75,7 +75,16 @@ class UserAPI extends HTTPTransport {
       {
         headers: this._headers,
       }
-  ).then(this._handleResponse)
+    ).then(this._handleResponse)
+  }
+
+  logout() {
+    return this.post(
+      `${this._baseUrl}/api/v2/auth/logout`,
+      {
+        headers: this._headers,
+      }
+    ).then(this._handleResponse)
   }
 }
 

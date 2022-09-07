@@ -71,9 +71,15 @@ const profilePage = () => {
       event.preventDefault();
       router.go("/change-password");
     }
-    if (target.id === 'link-login') {
+    if (target.id === 'link-logout') {
       event.preventDefault();
-      router.go("/login");
+      userApi.logout()
+        .then((res: string) => {
+          if (res === "OK") {
+            router.go("/login");
+          }
+        })
+        .catch(console.log)
     }
   }
 

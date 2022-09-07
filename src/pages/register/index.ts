@@ -49,7 +49,7 @@ const registerPage = () => {
         .then(() => { // res: {id: number}
           const {login, password} = values
           return userApi.login({login, password} as TLoginValues)
-            .then((res: any) => {
+            .then((res: string) => {
               if (res === "OK") {
                 router.go("/");
               }
@@ -63,14 +63,14 @@ const registerPage = () => {
     )
   }
 
-  function handleBlurOrFocus(event: Event) {
-    const input = event.target as HTMLElement;
-    onChangeValues(input);
+  // function handleBlurOrFocus(event: Event) {
+  //   const input = event.target as HTMLElement;
+  //   onChangeValues(input);
 
-    page.setProps(
-      getProps(errors, values, stateForm.isDisabled)
-    )
-  }
+  //   page.setProps(
+  //     getProps(errors, values, stateForm.isDisabled)
+  //   )
+  // }
 
   function handleClick(event: Event) {
     const target = event.target as HTMLElement
@@ -83,8 +83,8 @@ const registerPage = () => {
   const page = new Page({
       events: {
         submit: handleSubmit,
-        blur: handleBlurOrFocus,
-        focus: handleBlurOrFocus,
+        // blur: handleBlurOrFocus,
+        // focus: handleBlurOrFocus,
         click: handleClick
       },
       ...getProps(errors, values, stateForm.isDisabled)
