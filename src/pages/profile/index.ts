@@ -8,6 +8,9 @@ import Input from "../../components/authInput";
 import { useValidator } from "../../modules/hooks/useValidator";
 import * as styles from "./styles.module.scss";
 import { Router } from "../../modules/Router/Router";
+import store, { StoreEvents } from '../../modules/store/store';
+import { userApi } from "../../modules/Api/UserApi";
+import { TUser } from "../../types/types";
 
 export type TProfilePageProps = {
   isCanChangeData: boolean,
@@ -25,16 +28,6 @@ const profilePage = () => {
   const { errors, values, init: initValidator, stateForm, onChangeValues } = useValidator();
   const router = new Router();
 
-  const initValues = {
-    email: 'username@mail.com',
-    login: 'login',
-    first_name: 'First-Name',
-    second_name: 'Second-Name',
-    display_name: 'Nick',
-    phone: '+79991112233',
-  }
-  initValidator(initValues)
-
   let isCanChangeData = false;
   class Page extends Component {
     constructor(props: TProfilePageProps) {
@@ -45,6 +38,22 @@ const profilePage = () => {
       return template({ ...this.props, styles });
     }
   }
+
+  store.on(StoreEvents.Updated, handleStoreUpdate);
+
+  function handleStoreUpdate() {
+    const initValues = store.getState().user;
+    initValidator(initValues)
+    page.setProps({
+      content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled)).render()
+    })
+  }
+
+  userApi.getUser()
+    .then((res: TUser) => {
+      store.set('user', res)
+    })
+    .catch(err => console.log('errGetUser', err))
 
   function handleClick(event: Event) {
     const target = event.target as HTMLElement

@@ -9,3 +9,14 @@
 //     password: "Aasdasd6",
 //     repeatPassword: "Aasdsdfsd545"
 // }
+
+// const getUserData = {
+//   "id": 910,
+//   "first_name": "Georgy",
+//   "second_name": "Yasdas",
+//   "display_name": null,
+//   "login": "georgy1",
+//   "avatar": null,
+//   "email": "123@123.ru",
+//   "phone": "89032221133"
+// }
