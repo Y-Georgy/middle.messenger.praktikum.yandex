@@ -17,6 +17,11 @@ export type TProfileValues = {
   phone: string
 }
 
+export type TPasswords = {
+  oldPassword: string,
+  newPassword: string
+}
+
 class ProfileApi extends HTTPTransport {
   _baseUrl: string;
   _headers: {
@@ -49,6 +54,16 @@ class ProfileApi extends HTTPTransport {
       {
         headers: this._headers,
         data: profileValues
+      }
+    ).then(this._handleResponse)
+  }
+
+  changeUserPassword(passwords: TPasswords) {
+    return this.put(
+      `${this._baseUrl}/api/v2/user/password`,
+      {
+        headers: this._headers,
+        data: passwords
       }
     ).then(this._handleResponse)
   }
