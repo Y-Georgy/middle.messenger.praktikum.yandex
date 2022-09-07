@@ -3,7 +3,8 @@ import Component from "../../modules/Core/Component";
 import * as styles from "./styles.module.scss";
 
 type TProps = {
-  content: unknown
+  content: unknown,
+  isOpen: boolean
 }
 class Popup extends Component {
   constructor(props: TProps) {

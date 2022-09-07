@@ -12,6 +12,7 @@ import store, { StoreEvents } from '../../modules/store/store';
 import { userApi } from "../../modules/Api/UserApi";
 import { TUser } from "../../types/types";
 import { profileApi, TProfileValues } from "../../modules/Api/ProfileApi";
+import Popup from "../../components/popup";
 
 export type TProfilePageProps = {
   isCanChangeData: boolean,
@@ -23,6 +24,7 @@ export type TProfilePageProps = {
   inputSecondName: Input
   inputDisplayName: Input
   inputPhone: Input
+  popup: Popup
 }
 
 const profilePage = () => {
@@ -30,6 +32,7 @@ const profilePage = () => {
   const router = new Router();
 
   let isCanChangeData = false;
+  const isOpenChangeAvatarPopup = true;
   class Page extends Component {
     constructor(props: TProfilePageProps) {
       super(props);
@@ -46,7 +49,7 @@ const profilePage = () => {
     const initValues = store.getState().user;
     initValidator(initValues)
     page.setProps({
-      content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled)).render()
+      content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
     })
   }
 
@@ -65,7 +68,7 @@ const profilePage = () => {
       event.preventDefault();
       isCanChangeData = true;
       page.setProps({
-        content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled)).render()
+        content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
       })
     }
     if (target.id === 'link-change-password') {
@@ -104,7 +107,7 @@ const profilePage = () => {
     }
 
     page.setProps({
-      content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled)).render()
+      content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
     })
   }
 
@@ -113,7 +116,7 @@ const profilePage = () => {
     onChangeValues(input);
 
     page.setProps({
-      content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled)).render()
+      content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
     })
   }
 
@@ -124,7 +127,7 @@ const profilePage = () => {
       focus: handleBlurOrFocus,
       click: handleClick,
     },
-    content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled)).render()
+    content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
   });
 
   return page;
