@@ -1,7 +1,7 @@
 // const loginRes = {id: 910}
 
 // const registredUser = {
-//     login: "georgy1",
+//     login: "georgy",
 //     email: "123@123.ru",
 //     first_name: "Georgy",
 //     second_name: "Yasdas",

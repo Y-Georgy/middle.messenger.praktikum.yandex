@@ -82,6 +82,10 @@ const profilePage = () => {
         })
         .catch(console.log)
     }
+    if (target.id === 'changeAvatar') {
+      console.log('сработал я');
+
+    }
   }
 
   function handleSubmit(event: Event) {
