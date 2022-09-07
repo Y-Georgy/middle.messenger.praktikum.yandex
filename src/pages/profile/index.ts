@@ -11,6 +11,7 @@ import { Router } from "../../modules/Router/Router";
 import store, { StoreEvents } from '../../modules/store/store';
 import { userApi } from "../../modules/Api/UserApi";
 import { TUser } from "../../types/types";
+import { profileApi, TProfileValues } from "../../modules/Api/ProfileApi";
 
 export type TProfilePageProps = {
   isCanChangeData: boolean,
@@ -90,8 +91,12 @@ const profilePage = () => {
     onChangeValues(form);
 
     if (!stateForm.isDisabled) {
-      console.log(values);
-      isCanChangeData = false
+      profileApi.changeUserProfile(values as TProfileValues)
+        .then(newProfileData => {
+          store.set('user', newProfileData)
+          isCanChangeData = false
+        })
+        .catch(console.log)
     }
 
     page.setProps({
