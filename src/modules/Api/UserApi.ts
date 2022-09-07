@@ -1,3 +1,4 @@
+import { Router } from "../Router/Router";
 import { HTTPTransport } from "./Api";
 
 type TOptionsUserAPI = {
@@ -23,6 +24,7 @@ export type TLoginValues = {
   password: string,
 }
 
+const router = new Router();
 class UserAPI extends HTTPTransport {
   _baseUrl: string;
   _headers: {
@@ -43,6 +45,10 @@ class UserAPI extends HTTPTransport {
       } catch (e) {
         return res.responseText;
       }
+    }
+
+    if (res.status === 401) {
+      router.go('/login')
     }
 
     const errText: string | undefined = JSON.parse(res.responseText).reason;
