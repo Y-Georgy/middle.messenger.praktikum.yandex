@@ -8,6 +8,7 @@ import Avatar from "../../components/avatar";
 import { useValidator } from "../../modules/hooks/useValidator";
 import * as styles from "./styles.module.scss";
 import { Router } from "../../modules/Router/Router";
+import { profileApi, TPasswords } from "../../modules/Api/ProfileApi";
 
 type TChangePasswordContentProps = {
   avatar: Avatar,
@@ -37,15 +38,22 @@ const changePasswordPage = () => {
     const form = event.target as HTMLElement;
     onChangeValues(form);
 
+
+    if (!stateForm.isDisabled) {
+      profileApi.changeUserPassword(values as TPasswords)
+        .then((res: string) => {
+          if (res === "OK") {
+            router.go("/profile");
+          }
+        })
+        .catch(console.log)
+    }
+
     page.setProps({
       content: new ChangePasswordContent(
         changePasswordContentProps(errors, stateForm.isDisabled, values)
       ).render()
     })
-
-    if (!stateForm.isDisabled) {
-      console.log(values);
-    }
   }
 
   function handleBlurOrFocus( event: Event ) {

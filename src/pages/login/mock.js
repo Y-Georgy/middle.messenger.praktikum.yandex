@@ -6,7 +6,7 @@
 //     first_name: "Georgy",
 //     second_name: "Yasdas",
 //     phone: "89032221133",
-//     password: "Aasdasd6",
+//     password: "G12345678",
 //     repeatPassword: "Aasdsdfsd545"
 // }
 
