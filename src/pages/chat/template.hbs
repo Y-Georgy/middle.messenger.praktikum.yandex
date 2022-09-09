@@ -1,5 +1,11 @@
 <nav>
-  <a href="#" class="{{styles.link}}" id="link-profile">Профиль</a>
+  <div class="{{styles.navHeader}}">
+    <button type="button" class="{{styles.btnAddChat}}" id="addChat">
+      <i></i>
+      <i></i>
+    </button>
+    <a href="#" class="{{styles.link}}" id="link-profile">Профиль</a>
+  </div>
   <input type="text" placeholder="Поиск" />
   <ul>
     {{#each recipients}}
