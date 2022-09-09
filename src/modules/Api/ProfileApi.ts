@@ -36,15 +36,29 @@ class ProfileApi extends HTTPTransport {
   }
 
   _handleResponse(res: {status: number, responseText: string}) {
-    if (res.status === 200) {
+    const isJson = (str: any): boolean => {
       try {
-        return JSON.parse(res.responseText)
+          JSON.parse(str);
       } catch (e) {
+          return false;
+      }
+      return true;
+    }
+
+    if (res.status === 200) {
+      if (isJson(res.responseText)) {
+        return JSON.parse(res.responseText)
+      } else {
         return res.responseText;
       }
     }
 
-    const errText: string | undefined = JSON.parse(res.responseText).reason;
+    let errText: string | undefined = '';
+    if (isJson(res.responseText)) {
+      errText = JSON.parse(res.responseText).reason
+    } else {
+      errText = res.responseText
+    }
     return Promise.reject(errText ? errText : `Произошла ошибка ${res.status}`)
   }
 
@@ -65,6 +79,15 @@ class ProfileApi extends HTTPTransport {
         headers: this._headers,
         data: passwords
       }
+    ).then(this._handleResponse)
+  }
+
+  changeAvatar(form: HTMLFormElement) {
+    const data = new FormData(form);
+
+    return this.put(
+      `${this._baseUrl}/api/v2/user/profile/avatar`,
+      { data }
     ).then(this._handleResponse)
   }
 }

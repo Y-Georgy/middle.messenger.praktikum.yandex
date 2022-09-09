@@ -32,7 +32,7 @@ const profilePage = () => {
   const router = new Router();
 
   let isCanChangeData = false;
-  const isOpenChangeAvatarPopup = true;
+  let isOpenChangeAvatarPopup = false;
   class Page extends Component {
     constructor(props: TProfilePageProps) {
       super(props);
@@ -60,6 +60,7 @@ const profilePage = () => {
     .catch(err => console.log('errGetUser', err))
 
   function handleClick(event: Event) {
+
     const target = event.target as HTMLElement
     if (target.id === 'btn-back') {
       router.back();
@@ -86,29 +87,46 @@ const profilePage = () => {
         .catch(console.log)
     }
     if (target.id === 'changeAvatar') {
-      console.log('сработал я');
-
+      isOpenChangeAvatarPopup = true;
+      page.setProps({
+        content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
+      })
     }
   }
 
   function handleSubmit(event: Event) {
     event.preventDefault();
 
-    const form = event.target as HTMLElement;
-    onChangeValues(form);
+    const form = event.target as HTMLFormElement;
+    if (form.id === "avatarForm") {
+      const avatarInput: HTMLInputElement | null  = form.querySelector('#avatar');
+      if (avatarInput !== null && avatarInput.files?.length) {
+        profileApi.changeAvatar(form)
+          .then(newProfileData => {
+            store.set('user', newProfileData)
+            isOpenChangeAvatarPopup = false;
+            page.setProps({
+              content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
+            })
+          })
+          .catch(console.log)
+      }
+    } else if (form.id === "profileForm") {
+      onChangeValues(form);
 
-    if (!stateForm.isDisabled) {
-      profileApi.changeUserProfile(values as TProfileValues)
-        .then(newProfileData => {
-          store.set('user', newProfileData)
-          isCanChangeData = false
-        })
-        .catch(console.log)
+      if (!stateForm.isDisabled) {
+        profileApi.changeUserProfile(values as TProfileValues)
+          .then(newProfileData => {
+            store.set('user', newProfileData)
+            isCanChangeData = false
+          })
+          .catch(console.log)
+      }
+
+      page.setProps({
+        content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
+      })
     }
-
-    page.setProps({
-      content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
-    })
   }
 
   function handleBlurOrFocus( event: Event ) {

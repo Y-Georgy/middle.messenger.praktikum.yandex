@@ -3,7 +3,7 @@ type METHODS = 'GET' | 'PUT' | 'POST' | 'DELETE';
 type Options = {
   method?: METHODS;
   headers?: { [key: string]: string };
-  data?: Record<string, unknown>;
+  data?: Record<string, unknown> | FormData;
   timeout?: number;
 };
 
@@ -21,7 +21,7 @@ function queryStringify(data: Record<string, unknown>) {
 export class HTTPTransport {
   get = (url: string, options: Options = { method: 'GET' }) => {
     const { data } = options;
-    if (data && Object.keys(data).length > 0) url += queryStringify(data);
+    if (data && Object.keys(data).length > 0 && !(data instanceof FormData)) url += queryStringify(data);
     return this.request(url, {...options, method: 'GET'}, options.timeout);
   };
 
@@ -66,7 +66,11 @@ export class HTTPTransport {
       xhr.ontimeout = reject;
 
       if (data) {
-        xhr.send(JSON.stringify(data));
+        if (data instanceof FormData) {
+          xhr.send(data);
+        } else {
+          xhr.send(JSON.stringify(data));
+        }
       } else {
         xhr.send();
       }
