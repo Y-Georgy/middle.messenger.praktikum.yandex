@@ -5,6 +5,7 @@ import { TUnknownFuncVoid } from "../../types/types";
 import { useValidator } from "../../modules/hooks/useValidator";
 import * as styles from "./styles.module.scss";
 import { Router } from "../../modules/Router/Router";
+import { chatsApi } from "../../modules/Api/ChatsApi";
 
 type TMessage = {
   text: string,
@@ -44,6 +45,10 @@ type TChatProps = {
 const chatPage = () => {
   const { errors, values, stateForm, init: validatorInit, onChangeValues } = useValidator();
   const router = new Router();
+
+  chatsApi.getChats()
+    .then(console.log)
+    .catch(console.log)
 
   const recipients: Array<TRecipient> = [
     {
