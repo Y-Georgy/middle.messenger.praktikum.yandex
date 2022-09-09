@@ -64,19 +64,16 @@ const profilePage = () => {
     const target = event.target as HTMLElement
     if (target.id === 'btn-back') {
       router.back();
-    }
-    if (target.id === 'linkChangeData') {
+    } else if (target.id === 'linkChangeData') {
       event.preventDefault();
       isCanChangeData = true;
       page.setProps({
         content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
       })
-    }
-    if (target.id === 'link-change-password') {
+    } else if (target.id === 'link-change-password') {
       event.preventDefault();
       router.go("/change-password");
-    }
-    if (target.id === 'link-logout') {
+    } else if(target.id === 'link-logout') {
       event.preventDefault();
       userApi.logout()
         .then((res: string) => {
@@ -85,9 +82,13 @@ const profilePage = () => {
           }
         })
         .catch(console.log)
-    }
-    if (target.id === 'changeAvatar') {
+    } else if (target.id === 'changeAvatar') {
       isOpenChangeAvatarPopup = true;
+      page.setProps({
+        content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
+      })
+    } else if (target.id === 'popupOverlay') {
+      isOpenChangeAvatarPopup = false;
       page.setProps({
         content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
       })
