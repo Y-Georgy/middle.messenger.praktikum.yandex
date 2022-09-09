@@ -1,6 +1,6 @@
 <nav>
   <div class="{{styles.navHeader}}">
-    <button type="button" class="{{styles.btnAddChat}}" id="addChat" title="Создать чат">
+    <button type="button" class="{{styles.btnPlus}}" id="addChat" title="Создать чат">
       <i></i>
       <i></i>
     </button>
@@ -42,11 +42,27 @@
       {{/if}}
     </div>
     <h2>{{currentRecipent.name}}</h2>
-    <button>
+    <button class="{{styles.buttonOpenPopup}}">
       <span class="{{styles.dot}}"></span>
       <span class="{{styles.dot}}"></span>
       <span class="{{styles.dot}}"></span>
     </button>
+    <ul class="{{styles.recipentsPopup}}">
+      <li>
+        <button type="button" class="{{styles.btnPlus}}" id="addUser">
+          <i></i>
+          <i></i>
+        </button>
+        <p>Добавить пользователя</p>
+      </li>
+      <li>
+        <button type="button" class="{{styles.btnPlus}} {{styles.btnPlus}}_remove" id="removeUser">
+          <i></i>
+          <i></i>
+        </button>
+        <p>Удалить пользователя</p>
+      </li>
+    </ul>
   </div>
   <ul class="{{styles.messages}}">
     {{#each currentRecipent.messages}}
