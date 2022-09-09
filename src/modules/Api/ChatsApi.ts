@@ -67,6 +67,15 @@ class ChatsApi extends HTTPTransport {
       }
     ).then(this._handleResponse)
   }
+
+  getChatToken(chatId: number) {
+    return this.post(
+      `${this._baseUrl}/api/v2/chats/token/${chatId}`,
+      {
+        headers: this._headers,
+      }
+    ).then(this._handleResponse)
+  }
 }
 
 export const chatsApi = new ChatsApi({
