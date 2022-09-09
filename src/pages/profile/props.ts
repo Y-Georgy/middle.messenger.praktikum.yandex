@@ -4,6 +4,7 @@ import ButtonSubmit from "../../components/buttonSubmit";
 import { TProfilePageProps } from ".";
 import PopupContent from "./popupContent";
 import Popup from "../../components/popup";
+import { IMAGE_PRE_URL } from "../../modules/constants";
 
 type TData = {
   email?: string,
@@ -12,6 +13,7 @@ type TData = {
   second_name?: string,
   display_name?: string,
   phone?: string,
+  avatar?: string,
 }
 
 export const getProps = (errors: TData, values: TData, isCanChangeData: boolean, isDisabledForm: boolean, isOpenChangeAvatarPopup: boolean): TProfilePageProps => ({
@@ -21,7 +23,7 @@ export const getProps = (errors: TData, values: TData, isCanChangeData: boolean,
     form: "profile",
     disabled: isDisabledForm
   }).render(),
-  avatar: new Avatar({ imageLink: ''}).render(),
+  avatar: new Avatar({ imageLink: values.avatar ? `${IMAGE_PRE_URL}${values.avatar}` : ''}).render(),
   inputEmail: new Input({
     name: "email",
     label: "Почта",

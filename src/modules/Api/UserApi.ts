@@ -1,3 +1,4 @@
+import { BACKEND_URL } from "../constants";
 import { Router } from "../Router/Router";
 import { HTTPTransport } from "./Api";
 
@@ -95,7 +96,7 @@ class UserAPI extends HTTPTransport {
 }
 
 export const userApi = new UserAPI({
-  baseUrl: "https://ya-praktikum.tech",
+  baseUrl: BACKEND_URL,
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'

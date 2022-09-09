@@ -1,3 +1,4 @@
+import { BACKEND_URL } from "../constants";
 import { HTTPTransport } from "./Api";
 
 type TOptionsProfileAPI = {
@@ -93,7 +94,7 @@ class ProfileApi extends HTTPTransport {
 }
 
 export const profileApi = new ProfileApi({
-  baseUrl: "https://ya-praktikum.tech",
+  baseUrl: BACKEND_URL,
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
