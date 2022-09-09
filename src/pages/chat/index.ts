@@ -22,21 +22,19 @@ export type TCurrentRecipent = {
   messages: TMessage[]
 }
 
-export type TRecipient = {
-  name: string,
-  avatarLink: string,
-  lastMessage: {
-    text: string,
-    isMy: boolean,
-    time: string
-  },
-  unreadCount: number,
+export type TChat = {
+  id: number,
+  title: string,
+  avatar: string | null,
+  created_by: number,
+  unread_count: number,
+  last_message: null,
   styles: Record<string, string>
 }
 
 type TChatProps = {
   events: Record<string, TUnknownFuncVoid>,
-  recipients: TRecipient[],
+  chats: TChat[],
   currentRecipent: TCurrentRecipent,
   error: string | undefined,
   isDisabledFormMessage: boolean
@@ -49,40 +47,32 @@ const chatPage = () => {
   let isOpenAddUserPopup = false;
   let isOpenRemoveUserPopup = false;
   let isOpenAddChatPopup = false;
+  let chats: TChat[] = [];
 
-  chatsApi.getChats()
-    .then(console.log)
+  function updateChats() {
+    chatsApi.getChats()
+    .then(chatsData => {
+      const chatsArr = chatsData.map((el: any): TChat => {
+        el.styles = styles
+        return el;
+      });
+      chats = chatsArr;
+      page.setProps(
+        getProps(
+          errors,
+          stateForm.isDisabled,
+          chats,
+          currentRecipent,
+          isOpenAddUserPopup,
+          isOpenRemoveUserPopup,
+          isOpenAddChatPopup
+        )
+      )
+    })
     .catch(console.log)
+  }
 
-  const recipients: Array<TRecipient> = [
-    {
-      name: "Андрей",
-      avatarLink:
-        "https://sun1-97.userapi.com/s/v1/if1/Y_wWjvbJ8Erwfj0N_VQ0VhiJ5KQO1UJTwVaUcY72SkXJEAUAk4IHSFGKjjl-1OtVlPMShw.jpg?size=200x200&quality=96&crop=1,1,1339,1339&ava=1",
-      lastMessage: { text: "Текст сообщения", isMy: false, time: "10:21" },
-      unreadCount: 2,
-      styles
-    },
-    {
-      name: "Андрей 2",
-      avatarLink: "",
-      lastMessage: {
-        text: "Текст очень и очень длинного сообщения. Текст очень и очень длинного сообщения",
-        isMy: true,
-        time: "10:22",
-      },
-      unreadCount: 2,
-      styles
-    },
-    {
-      name: "Андрей",
-      avatarLink:
-        "https://sun1-97.userapi.com/s/v1/if1/Y_wWjvbJ8Erwfj0N_VQ0VhiJ5KQO1UJTwVaUcY72SkXJEAUAk4IHSFGKjjl-1OtVlPMShw.jpg?size=200x200&quality=96&crop=1,1,1339,1339&ava=1",
-      lastMessage: { text: "Текст сообщения", isMy: false, time: "10:21" },
-      unreadCount: 0,
-      styles
-    },
-  ];
+  updateChats();
 
   let currentRecipent: TCurrentRecipent = {
     name: "Андрей",
@@ -162,7 +152,7 @@ const chatPage = () => {
         getProps(
           errors,
           stateForm.isDisabled,
-          recipients,
+          chats,
           currentRecipent,
           isOpenAddUserPopup,
           isOpenRemoveUserPopup,
@@ -178,7 +168,7 @@ const chatPage = () => {
         getProps(
           errors,
           stateForm.isDisabled,
-          recipients,
+          chats,
           currentRecipent,
           isOpenAddUserPopup,
           isOpenRemoveUserPopup,
@@ -196,7 +186,10 @@ const chatPage = () => {
       const input = form.querySelector('input');
       if (input && input.value) {
         chatsApi.createChat(input.value)
-          .then(console.log)
+          .then(() => {
+            isOpenAddChatPopup = false;
+            updateChats();
+          })
           .catch(console.log)
       }
 
@@ -216,7 +209,7 @@ const chatPage = () => {
             getProps(
               errors,
               stateForm.isDisabled,
-              recipients,
+              chats,
               currentRecipent,
               isOpenAddUserPopup,
               isOpenRemoveUserPopup,
@@ -229,7 +222,7 @@ const chatPage = () => {
         getProps(
           errors,
           stateForm.isDisabled,
-          recipients,
+          chats,
           currentRecipent,
           isOpenAddUserPopup,
           isOpenRemoveUserPopup,
@@ -247,7 +240,7 @@ const chatPage = () => {
     ...getProps(
       errors,
       stateForm.isDisabled,
-      recipients,
+      chats,
       currentRecipent,
       isOpenAddUserPopup,
       isOpenRemoveUserPopup,

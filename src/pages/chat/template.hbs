@@ -8,27 +8,27 @@
   </div>
   <input type="text" placeholder="Поиск" />
   <ul>
-    {{#each recipients}}
+    {{#each chats}}
       <li>
         <div class="{{this.styles.recipient}}">
           <div class="{{this.styles.avatarOverlay}}">
-            {{#if this.avatarLink}}
+            {{#if this.avatar}}
               <img
                 class="{{styles.avatar}}"
-                src="{{this.avatarLink}}"
+                src="{{this.avatar}}"
                 alt="Аватар пользователя"
               />
             {{/if}}
           </div>
           <div>
-            <h3 class="{{styles.name}}">{{this.name}}</h3>
+            <h3 class="{{styles.name}}">{{this.title}}</h3>
             <p class="{{styles.message}}">
-              {{#if this.lastMessage.isMy}}<span>Вы: </span>{{/if}}
-              {{this.lastMessage.text}}
+              {{#if this.last_message.isMy}}<span>Вы: </span>{{/if}}
+              {{this.last_message.text}}
             </p>
           </div>
-          <p class="{{styles.time}}">{{this.lastMessage.time}}</p>
-          {{#if this.unreadCount}}<p class="{{styles.unreadCount}}">{{this.unreadCount}}</p>{{/if}}
+          <p class="{{styles.time}}">{{this.last_message.time}}</p>
+          {{#if this.unread_count}}<p class="{{styles.unreadCount}}">{{this.unread_count}}</p>{{/if}}
         </div>
       </li>
     {{/each}}
