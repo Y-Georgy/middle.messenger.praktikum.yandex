@@ -1,5 +1,4 @@
 import Title from "../../components/authTitle";
-import Link from "../../components/link";
 import ButtonSubmit from "../../components/buttonSubmit";
 import Input from "../../components/authInput";
 

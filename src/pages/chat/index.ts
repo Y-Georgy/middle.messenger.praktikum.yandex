@@ -152,31 +152,38 @@ const chatPage = () => {
     if (target.id === 'link-profile') {
       event.preventDefault();
       router.go("/profile");
+    } else if (target.id === 'addChat') {
+      console.log('addChat');
     }
   }
 
   function handleSubmit(event: Event) {
     event.preventDefault();
     const form = event.target as HTMLElement;
-    onChangeValues(form);
 
-    if (!stateForm.isDisabled) {
-      console.log(values);
-      // Здесь пушим новое сообщение в чат
-    } else {
-      setTimeout(() => {
-        // TODO
-        validatorInit({
-          message: ' '
-        })
-        page.setProps(
-          getProps(errors, stateForm.isDisabled, recipients, currentRecipent)
-        )
-      }, 2000)
+    if (form.id === "addChatForm") {
+      console.log("123");
+    } else if (form.id === "newMessage"){
+      onChangeValues(form);
+
+      if (!stateForm.isDisabled) {
+        console.log(values);
+        // Здесь пушим новое сообщение в чат
+      } else {
+        setTimeout(() => {
+          // TODO
+          validatorInit({
+            message: ' '
+          })
+          page.setProps(
+            getProps(errors, stateForm.isDisabled, recipients, currentRecipent)
+          )
+        }, 2000)
+      }
+      page.setProps(
+        getProps(errors, stateForm.isDisabled, recipients, currentRecipent)
+      )
     }
-    page.setProps(
-      getProps(errors, stateForm.isDisabled, recipients, currentRecipent)
-    )
   }
 
   const page = new ChatPage({

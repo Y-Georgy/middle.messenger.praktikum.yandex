@@ -61,10 +61,13 @@
     </li>
     {{/each}}
   </ul>
-  <form class="{{styles.newMessageForm}}" name="newMessage">
+  <form class="{{styles.newMessageForm}}" name="newMessage" id="newMessage">
     {{#if error}}<span class="{{styles.error}}">{{error}}</span>{{/if}}
     <button class="{{styles.attach}}" type="button"></button>
     <input class="{{styles.inputText}}" type="text" placeholder="Сообщение" name="message" id="message" />
     <button class="{{styles.submit}}" type="submit" {{#if isDisabledFormMessage}}disabled{{/if}}></button>
   </form>
 </div>
+{{{ popupAddUser }}}
+{{{ popupRemoveUser }}}
+{{{ popupAddChat }}}
