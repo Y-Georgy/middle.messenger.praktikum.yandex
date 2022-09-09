@@ -46,6 +46,10 @@ const chatPage = () => {
   const { errors, values, stateForm, init: validatorInit, onChangeValues } = useValidator();
   const router = new Router();
 
+  let isOpenAddUserPopup = false;
+  let isOpenRemoveUserPopup = false;
+  let isOpenAddChatPopup = false;
+
   chatsApi.getChats()
     .then(console.log)
     .catch(console.log)
@@ -153,7 +157,34 @@ const chatPage = () => {
       event.preventDefault();
       router.go("/profile");
     } else if (target.id === 'addChat') {
-      console.log('addChat');
+      isOpenAddChatPopup = true;
+      page.setProps(
+        getProps(
+          errors,
+          stateForm.isDisabled,
+          recipients,
+          currentRecipent,
+          isOpenAddUserPopup,
+          isOpenRemoveUserPopup,
+          isOpenAddChatPopup
+        )
+      )
+    } else if (target.id === 'popupOverlay') {
+      isOpenAddUserPopup = false;
+      isOpenRemoveUserPopup = false;
+      isOpenAddChatPopup = false;
+
+      page.setProps(
+        getProps(
+          errors,
+          stateForm.isDisabled,
+          recipients,
+          currentRecipent,
+          isOpenAddUserPopup,
+          isOpenRemoveUserPopup,
+          isOpenAddChatPopup
+        )
+      )
     }
   }
 
@@ -162,7 +193,13 @@ const chatPage = () => {
     const form = event.target as HTMLElement;
 
     if (form.id === "addChatForm") {
-      console.log("123");
+      const input = form.querySelector('input');
+      if (input && input.value) {
+        chatsApi.createChat(input.value)
+          .then(console.log)
+          .catch(console.log)
+      }
+
     } else if (form.id === "newMessage"){
       onChangeValues(form);
 
@@ -176,12 +213,28 @@ const chatPage = () => {
             message: ' '
           })
           page.setProps(
-            getProps(errors, stateForm.isDisabled, recipients, currentRecipent)
+            getProps(
+              errors,
+              stateForm.isDisabled,
+              recipients,
+              currentRecipent,
+              isOpenAddUserPopup,
+              isOpenRemoveUserPopup,
+              isOpenAddChatPopup
+            )
           )
         }, 2000)
       }
       page.setProps(
-        getProps(errors, stateForm.isDisabled, recipients, currentRecipent)
+        getProps(
+          errors,
+          stateForm.isDisabled,
+          recipients,
+          currentRecipent,
+          isOpenAddUserPopup,
+          isOpenRemoveUserPopup,
+          isOpenAddChatPopup
+        )
       )
     }
   }
@@ -191,7 +244,15 @@ const chatPage = () => {
       submit: handleSubmit,
       click: handleClick
     },
-    ...getProps(errors, stateForm.isDisabled, recipients, currentRecipent)
+    ...getProps(
+      errors,
+      stateForm.isDisabled,
+      recipients,
+      currentRecipent,
+      isOpenAddUserPopup,
+      isOpenRemoveUserPopup,
+      isOpenAddChatPopup
+    )
   });
   return page;
 }

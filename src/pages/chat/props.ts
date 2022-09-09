@@ -8,20 +8,28 @@ type TData = {
   message?: string | undefined
 }
 
-export const getProps = (errors: TData, isDisabledFormMessage: boolean, recipients: TRecipient[], currentRecipent: TCurrentRecipent) => ({
+export const getProps = (
+  errors: TData,
+  isDisabledFormMessage: boolean,
+  recipients: TRecipient[],
+  currentRecipent: TCurrentRecipent,
+  isOpenAddUserPopup: boolean,
+  isOpenRemoveUserPopup: boolean,
+  isOpenAddChatPopup: boolean
+) => ({
   recipients: recipients,
   currentRecipent: currentRecipent,
   error: errors.message,
   isDisabledFormMessage: isDisabledFormMessage,
   popupAddUser: new Popup({
-    isOpen: false,
+    isOpen: isOpenAddUserPopup,
     content: new PopupContent({
       title: "Добавить пользователя",
       formId: "addUserForm",
       input: new Input({
         name: "login",
         label: "Логин",
-        value: "123",
+        value: "",
         errorText: '',
         type: "text",
       }).render(),
@@ -32,14 +40,14 @@ export const getProps = (errors: TData, isDisabledFormMessage: boolean, recipien
     }).render()
   }).render(),
   popupRemoveUser: new Popup({
-    isOpen: false,
+    isOpen: isOpenRemoveUserPopup,
     content: new PopupContent({
       title: "Удалить пользователя",
       formId: "removeUserForm",
       input: new Input({
         name: "login",
         label: "Логин",
-        value: "123",
+        value: "",
         errorText: '',
         type: "text",
       }).render(),
@@ -50,14 +58,14 @@ export const getProps = (errors: TData, isDisabledFormMessage: boolean, recipien
     }).render()
   }).render(),
   popupAddChat: new Popup({
-    isOpen: true,
+    isOpen: isOpenAddChatPopup,
     content: new PopupContent({
       title: "Создать чат",
       formId: "addChatForm",
       input: new Input({
-        name: "name",
+        name: "title",
         label: "Название чата",
-        value: "123",
+        value: "",
         errorText: '',
         type: "text",
       }).render(),
