@@ -42,25 +42,25 @@
       {{/if}}
     </div>
     <h2>{{currentRecipent.name}}</h2>
-    <button class="{{styles.buttonOpenPopup}}">
-      <span class="{{styles.dot}}"></span>
-      <span class="{{styles.dot}}"></span>
-      <span class="{{styles.dot}}"></span>
+    <button class="{{styles.buttonOpenPopup}}" id="buttonOpenPopup">
+      <span class="{{styles.dot}}" id="buttonOpenPopup"></span>
+      <span class="{{styles.dot}}" id="buttonOpenPopup"></span>
+      <span class="{{styles.dot}}" id="buttonOpenPopup"></span>
     </button>
-    <ul class="{{styles.recipentsPopup}}">
-      <li>
+    <ul class="{{styles.recipentsPopup}}{{#if isOpenChatUsersPopup}} {{styles.recipentsPopup}}_opened{{/if}}">
+      <li id="addUser">
         <button type="button" class="{{styles.btnPlus}}" id="addUser">
-          <i></i>
-          <i></i>
+          <i id="addUser"></i>
+          <i id="addUser"></i>
         </button>
-        <p>Добавить пользователя</p>
+        <p id="addUser">Добавить пользователя</p>
       </li>
-      <li>
+      <li id="removeUser">
         <button type="button" class="{{styles.btnPlus}} {{styles.btnPlus}}_remove" id="removeUser">
-          <i></i>
-          <i></i>
+          <i id="removeUser"></i>
+          <i id="removeUser"></i>
         </button>
-        <p>Удалить пользователя</p>
+        <p id="removeUser">Удалить пользователя</p>
       </li>
     </ul>
   </div>

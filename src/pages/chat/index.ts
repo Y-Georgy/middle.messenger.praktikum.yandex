@@ -47,6 +47,7 @@ const chatPage = () => {
   let isOpenAddUserPopup = false;
   let isOpenRemoveUserPopup = false;
   let isOpenAddChatPopup = false;
+  let isOpenChatUsersPopup = false;
   let chats: TChat[] = [];
 
   function updateChats() {
@@ -57,17 +58,7 @@ const chatPage = () => {
         return el;
       });
       chats = chatsArr;
-      page.setProps(
-        getProps(
-          errors,
-          stateForm.isDisabled,
-          chats,
-          currentRecipent,
-          isOpenAddUserPopup,
-          isOpenRemoveUserPopup,
-          isOpenAddChatPopup
-        )
-      )
+      updateProps()
     })
     .catch(console.log)
   }
@@ -148,33 +139,19 @@ const chatPage = () => {
       router.go("/profile");
     } else if (target.id === 'addChat') {
       isOpenAddChatPopup = true;
-      page.setProps(
-        getProps(
-          errors,
-          stateForm.isDisabled,
-          chats,
-          currentRecipent,
-          isOpenAddUserPopup,
-          isOpenRemoveUserPopup,
-          isOpenAddChatPopup
-        )
-      )
+      updateProps();
     } else if (target.id === 'popupOverlay') {
       isOpenAddUserPopup = false;
       isOpenRemoveUserPopup = false;
       isOpenAddChatPopup = false;
-
-      page.setProps(
-        getProps(
-          errors,
-          stateForm.isDisabled,
-          chats,
-          currentRecipent,
-          isOpenAddUserPopup,
-          isOpenRemoveUserPopup,
-          isOpenAddChatPopup
-        )
-      )
+      updateProps();
+    } else if (target.id === 'buttonOpenPopup') {
+      isOpenChatUsersPopup = !isOpenChatUsersPopup;
+      updateProps();
+    } else if (target.id === 'addUser') {
+      console.log('addUser');
+    } else if (target.id === 'removeUser') {
+      console.log('removeUser');
     }
   }
 
@@ -205,30 +182,10 @@ const chatPage = () => {
           validatorInit({
             message: ' '
           })
-          page.setProps(
-            getProps(
-              errors,
-              stateForm.isDisabled,
-              chats,
-              currentRecipent,
-              isOpenAddUserPopup,
-              isOpenRemoveUserPopup,
-              isOpenAddChatPopup
-            )
-          )
+          updateProps()
         }, 2000)
       }
-      page.setProps(
-        getProps(
-          errors,
-          stateForm.isDisabled,
-          chats,
-          currentRecipent,
-          isOpenAddUserPopup,
-          isOpenRemoveUserPopup,
-          isOpenAddChatPopup
-        )
-      )
+      updateProps()
     }
   }
 
@@ -244,9 +201,25 @@ const chatPage = () => {
       currentRecipent,
       isOpenAddUserPopup,
       isOpenRemoveUserPopup,
-      isOpenAddChatPopup
+      isOpenAddChatPopup,
+      isOpenChatUsersPopup
     )
   });
+
+  function updateProps() {
+    page.setProps(
+      getProps(
+        errors,
+        stateForm.isDisabled,
+        chats,
+        currentRecipent,
+        isOpenAddUserPopup,
+        isOpenRemoveUserPopup,
+        isOpenAddChatPopup,
+        isOpenChatUsersPopup
+      )
+    )
+  }
   return page;
 }
 

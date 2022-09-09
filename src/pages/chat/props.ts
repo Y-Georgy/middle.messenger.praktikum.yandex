@@ -15,10 +15,12 @@ export const getProps = (
   currentRecipent: TCurrentRecipent,
   isOpenAddUserPopup: boolean,
   isOpenRemoveUserPopup: boolean,
-  isOpenAddChatPopup: boolean
+  isOpenAddChatPopup: boolean,
+  isOpenChatUsersPopup: boolean
 ) => ({
   chats: chats,
   currentRecipent: currentRecipent,
+  isOpenChatUsersPopup: isOpenChatUsersPopup,
   error: errors.message,
   isDisabledFormMessage: isDisabledFormMessage,
   popupAddUser: new Popup({
