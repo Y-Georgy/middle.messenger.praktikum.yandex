@@ -8,7 +8,7 @@ import { TUnknownFuncVoid } from "../../types/types";
 import * as styles from "./styles.module.scss";
 import { useValidator } from "../../modules/hooks/useValidator";
 import { Router } from "../../modules/Router/Router";
-import { TLoginValues, TRegisterValues, userApi } from "../../modules/Api/UserApi";
+import { TLoginValues, TRegisterValues, authApi } from "../../modules/Api/authApi";
 
 type TProps = {
   events: Record<string, TUnknownFuncVoid>,
@@ -45,10 +45,10 @@ const registerPage = () => {
     onChangeValues(form);
 
     if (!stateForm.isDisabled) {
-      userApi.register(values as TRegisterValues)
+      authApi.register(values as TRegisterValues)
         .then(() => { // res: {id: number}
           const {login, password} = values
-          return userApi.login({login, password} as TLoginValues)
+          return authApi.login({login, password} as TLoginValues)
             .then((res: string) => {
               if (res === "OK") {
                 router.go("/");

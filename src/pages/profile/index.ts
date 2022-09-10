@@ -9,7 +9,7 @@ import { useValidator } from "../../modules/hooks/useValidator";
 import * as styles from "./styles.module.scss";
 import { Router } from "../../modules/Router/Router";
 import store, { StoreEvents } from '../../modules/store/store';
-import { userApi } from "../../modules/Api/UserApi";
+import { authApi } from "../../modules/Api/authApi";
 import { TUser } from "../../types/types";
 import { profileApi, TProfileValues } from "../../modules/Api/ProfileApi";
 import Popup from "../../components/popup";
@@ -53,7 +53,7 @@ const profilePage = () => {
     })
   }
 
-  userApi.getUser()
+  authApi.getUser()
     .then((res: TUser) => {
       store.set('user', res)
     })
@@ -75,7 +75,7 @@ const profilePage = () => {
       router.go("/change-password");
     } else if(target.id === 'link-logout') {
       event.preventDefault();
-      userApi.logout()
+      authApi.logout()
         .then((res: string) => {
           if (res === "OK") {
             router.go("/login");

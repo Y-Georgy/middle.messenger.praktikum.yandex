@@ -7,7 +7,7 @@ import Title from "../../components/authTitle";
 import Input from "../../components/authInput";
 import { useValidator } from "../../modules/hooks/useValidator";
 import { Router } from "../../modules/Router/Router";
-import { TLoginValues, userApi } from "../../modules/Api/UserApi";
+import { TLoginValues, authApi } from "../../modules/Api/authApi";
 
 type TProps = {
   events: Record<string, TUnknownFuncVoid>,
@@ -38,7 +38,7 @@ const loginPage = () => {
     onChangeValues(form);
 
     if (!stateForm.isDisabled) {
-      userApi.login(values as TLoginValues)
+      authApi.login(values as TLoginValues)
         .then((res: string) => {
           if (res === "OK") {
             router.go("/");

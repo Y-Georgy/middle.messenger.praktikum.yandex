@@ -2,7 +2,7 @@ import { BACKEND_URL } from "../constants";
 import { Router } from "../Router/Router";
 import { HTTPTransport } from "./Api";
 
-type TOptionsUserAPI = {
+type TOptionsAuthAPI = {
   baseUrl: string,
   headers: {
     'Accept': string
@@ -26,14 +26,14 @@ export type TLoginValues = {
 }
 
 const router = new Router();
-class UserAPI extends HTTPTransport {
+class AuthAPI extends HTTPTransport {
   _baseUrl: string;
   _headers: {
     'Accept': string
     'Content-Type': string
   };
 
-  constructor({ baseUrl, headers }: TOptionsUserAPI) {
+  constructor({ baseUrl, headers }: TOptionsAuthAPI) {
     super();
     this._baseUrl = baseUrl
     this._headers = headers
@@ -95,7 +95,7 @@ class UserAPI extends HTTPTransport {
   }
 }
 
-export const userApi = new UserAPI({
+export const authApi = new AuthAPI({
   baseUrl: BACKEND_URL,
   headers: {
     'Accept': 'application/json',
