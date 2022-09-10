@@ -11,7 +11,7 @@ import { Router } from "../../modules/Router/Router";
 import store, { StoreEvents } from '../../modules/store/store';
 import { authApi } from "../../modules/Api/authApi";
 import { TUser } from "../../types/types";
-import { profileApi, TProfileValues } from "../../modules/Api/ProfileApi";
+import { userApi, TUserValues } from "../../modules/Api/UserApi";
 import Popup from "../../components/popup";
 
 export type TProfilePageProps = {
@@ -102,7 +102,7 @@ const profilePage = () => {
     if (form.id === "avatarForm") {
       const avatarInput: HTMLInputElement | null  = form.querySelector('#avatar');
       if (avatarInput !== null && avatarInput.files?.length) {
-        profileApi.changeAvatar(form)
+        userApi.changeAvatar(form)
           .then(newProfileData => {
             store.set('user', newProfileData)
             isOpenChangeAvatarPopup = false;
@@ -116,7 +116,7 @@ const profilePage = () => {
       onChangeValues(form);
 
       if (!stateForm.isDisabled) {
-        profileApi.changeUserProfile(values as TProfileValues)
+        userApi.changeUserProfile(values as TUserValues)
           .then(newProfileData => {
             store.set('user', newProfileData)
             isCanChangeData = false

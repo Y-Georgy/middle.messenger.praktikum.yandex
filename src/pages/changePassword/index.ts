@@ -8,7 +8,7 @@ import Avatar from "../../components/avatar";
 import { useValidator } from "../../modules/hooks/useValidator";
 import * as styles from "./styles.module.scss";
 import { Router } from "../../modules/Router/Router";
-import { profileApi, TPasswords } from "../../modules/Api/ProfileApi";
+import { userApi, TPasswords } from "../../modules/Api/UserApi";
 
 type TChangePasswordContentProps = {
   avatar: Avatar,
@@ -40,7 +40,7 @@ const changePasswordPage = () => {
 
 
     if (!stateForm.isDisabled) {
-      profileApi.changeUserPassword(values as TPasswords)
+      userApi.changeUserPassword(values as TPasswords)
         .then((res: string) => {
           if (res === "OK") {
             router.go("/profile");

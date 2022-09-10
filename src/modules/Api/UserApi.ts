@@ -1,7 +1,7 @@
 import { BACKEND_URL } from "../constants";
 import { HTTPTransport } from "./Api";
 
-type TOptionsProfileAPI = {
+type TOptionsUserAPI = {
   baseUrl: string,
   headers: {
     'Accept': string
@@ -9,7 +9,7 @@ type TOptionsProfileAPI = {
   }
 }
 
-export type TProfileValues = {
+export type TUserValues = {
   first_name: string,
   second_name: string,
   login: string,
@@ -23,14 +23,14 @@ export type TPasswords = {
   newPassword: string
 }
 
-class ProfileApi extends HTTPTransport {
+class UserApi extends HTTPTransport {
   _baseUrl: string;
   _headers: {
     'Accept': string
     'Content-Type': string
   };
 
-  constructor({ baseUrl, headers }: TOptionsProfileAPI) {
+  constructor({ baseUrl, headers }: TOptionsUserAPI) {
     super();
     this._baseUrl = baseUrl
     this._headers = headers
@@ -63,7 +63,7 @@ class ProfileApi extends HTTPTransport {
     return Promise.reject(errText ? errText : `Произошла ошибка ${res.status}`)
   }
 
-  changeUserProfile(profileValues: TProfileValues) {
+  changeUserProfile(profileValues: TUserValues) {
     return this.put(
       `${this._baseUrl}/api/v2/user/profile`,
       {
@@ -93,7 +93,7 @@ class ProfileApi extends HTTPTransport {
   }
 }
 
-export const profileApi = new ProfileApi({
+export const userApi = new UserApi({
   baseUrl: BACKEND_URL,
   headers: {
     'Accept': 'application/json',
