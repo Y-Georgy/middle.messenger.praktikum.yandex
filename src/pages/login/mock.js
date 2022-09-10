@@ -20,3 +20,14 @@
 //   "email": "123@123.ru",
 //   "phone": "89032221133"
 // }
+
+// const getUserData = {
+    // "id": 12833,
+    // "first_name": "Kate",
+    // "second_name": "Kateee",
+    // "display_name": null,
+    // "login": "kate",
+    // "avatar": null,
+    // "email": "kate@123.ru",
+    // "phone": "89032222222"
+// }

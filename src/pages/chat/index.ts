@@ -7,6 +7,7 @@ import * as styles from "./styles.module.scss";
 import { Router } from "../../modules/Router/Router";
 import { chatsApi } from "../../modules/Api/ChatsApi";
 import store from "../../modules/store/store";
+import { userApi } from "../../modules/Api/UserApi";
 
 type TMessage = {
   text: string,
@@ -162,17 +163,46 @@ const chatPage = () => {
       isOpenChatUsersPopup = !isOpenChatUsersPopup;
       updateProps();
     } else if (target.id === 'addUser') {
-      console.log('addUser');
+      isOpenAddUserPopup = true;
+      isOpenChatUsersPopup = false;
+      updateProps();
     } else if (target.id === 'removeUser') {
-      console.log('removeUser');
+      isOpenRemoveUserPopup = true;
+      isOpenChatUsersPopup = false;
+      updateProps();
     }
   }
 
   function handleSubmit(event: Event) {
     event.preventDefault();
-    const form = event.target as HTMLElement;
 
-    if (form.id === "addChatForm") {
+    const form = event.target as HTMLElement;
+    if (form.id === "addUserForm") {
+      const input = form.querySelector('input');
+      if (input && input.value) {
+        const login = input.value;
+        userApi.searchUsersByLogin(login)
+          .then(users => {
+            const user = users.find((user: { login: string }) => user.login === login);
+            if (user) {
+              userApi.addUserToChat(user.id, 250) // TODO добавить id текущего чата в аргументы
+                .then(res => {
+                  if (res === 'OK') {
+                    isOpenAddUserPopup = false;
+                    updateProps();
+                  }
+                })
+                .catch(console.log)
+            }
+          })
+          .catch(console.log)
+      }
+    } else if (form.id === "removeUserForm") {
+      const input = form.querySelector('input');
+      if (input && input.value) {
+        console.log('Удаления пользователя по логину:',input.value);
+      }
+    } else if (form.id === "addChatForm") {
       const input = form.querySelector('input');
       if (input && input.value) {
         chatsApi.createChat(input.value)
@@ -182,7 +212,6 @@ const chatPage = () => {
           })
           .catch(console.log)
       }
-
     } else if (form.id === "newMessage"){
       onChangeValues(form);
 

@@ -63,14 +63,14 @@ const registerPage = () => {
     )
   }
 
-  // function handleBlurOrFocus(event: Event) {
-  //   const input = event.target as HTMLElement;
-  //   onChangeValues(input);
+  function handleBlurOrFocus(event: Event) {
+    const input = event.target as HTMLElement;
+    onChangeValues(input);
 
-  //   page.setProps(
-  //     getProps(errors, values, stateForm.isDisabled)
-  //   )
-  // }
+    page.setProps(
+      getProps(errors, values, stateForm.isDisabled)
+    )
+  }
 
   function handleClick(event: Event) {
     const target = event.target as HTMLElement
@@ -83,8 +83,8 @@ const registerPage = () => {
   const page = new Page({
       events: {
         submit: handleSubmit,
-        // blur: handleBlurOrFocus,
-        // focus: handleBlurOrFocus,
+        blur: handleBlurOrFocus,
+        focus: handleBlurOrFocus,
         click: handleClick
       },
       ...getProps(errors, values, stateForm.isDisabled)

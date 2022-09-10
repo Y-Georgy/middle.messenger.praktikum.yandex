@@ -91,6 +91,29 @@ class UserApi extends HTTPTransport {
       { data }
     ).then(this._handleResponse)
   }
+
+  searchUsersByLogin(userLogin: string) {
+    return this.post(
+      `${this._baseUrl}/api/v2/user/search`,
+      {
+        headers: this._headers,
+        data: { login: userLogin }
+      }
+    ).then(this._handleResponse)
+  }
+
+  addUserToChat(userId: number, chatId: number) {
+    return this.put(
+      `${this._baseUrl}/api/v2/chats/users`,
+      {
+        headers: this._headers,
+        data: {
+          users: [ userId ],
+          chatId: chatId
+        }
+      }
+    ).then(this._handleResponse)
+  }
 }
 
 export const userApi = new UserApi({
