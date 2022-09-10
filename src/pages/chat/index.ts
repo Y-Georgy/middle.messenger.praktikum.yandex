@@ -6,6 +6,7 @@ import { useValidator } from "../../modules/hooks/useValidator";
 import * as styles from "./styles.module.scss";
 import { Router } from "../../modules/Router/Router";
 import { chatsApi } from "../../modules/Api/ChatsApi";
+import store from "../../modules/store/store";
 
 type TMessage = {
   text: string,
@@ -132,7 +133,19 @@ const chatPage = () => {
     }
   }
 
-  function handleClick(event: Event) {
+  function handleClick(event: any) {
+    const chatElem = event.path.find((el: HTMLElement) => el.id ? el.id.includes('selectChat') : false);
+    if (chatElem) {
+      const chatId = chatElem.id.split('_')[1];
+      chatsApi.getChatToken(chatId)
+        .then(data => {
+          console.log('userId', store.getState().user.id);
+          console.log('token', data.token);
+          console.log('chatId', chatId);
+        })
+        .catch(console.log)
+
+    }
     const target = event.target as HTMLElement
     if (target.id === 'link-profile') {
       event.preventDefault();
