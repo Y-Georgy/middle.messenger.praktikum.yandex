@@ -8,15 +8,7 @@ import { Router } from "../../modules/Router/Router";
 import { chatsApi } from "../../modules/Api/ChatsApi";
 import store from "../../modules/store/store";
 import { userApi } from "../../modules/Api/UserApi";
-
-type TMessage = {
-  text: string,
-  isMy: boolean,
-  time: string,
-  date: string,
-  day: string,
-  styles: Record<string, string>
-}
+import { letsSocket } from "../../modules/Api/ws";
 
 export type TCurrentRecipent = {
   name: string,
@@ -31,6 +23,24 @@ export type TChat = {
   created_by: number,
   unread_count: number,
   last_message: null,
+  styles: Record<string, string>
+}
+
+export interface TMessageApi {
+  id: number,
+  user_id: number,
+  chat_id: number,
+  type: "message",
+  time: string,
+  content: string,
+  is_read: boolean,
+  file: null,
+}
+
+export interface TMessage extends TMessageApi {
+  day?: string,
+  date?: string,
+  isMy: boolean,
   styles: Record<string, string>
 }
 
@@ -52,6 +62,14 @@ const chatPage = () => {
   let isOpenChatUsersPopup = false;
   let chats: TChat[] = [];
 
+  function onMessage(messages: TMessageApi[]) {
+    currentRecipent = {
+      ...currentRecipent,
+      messages: convertMessages(messages)
+    }
+    updateProps();
+  }
+
   function updateChats() {
     chatsApi.getChats()
     .then(chatsData => {
@@ -71,44 +89,22 @@ const chatPage = () => {
     name: "Андрей",
     avatarLink:
       "https://sun1-97.userapi.com/s/v1/if1/Y_wWjvbJ8Erwfj0N_VQ0VhiJ5KQO1UJTwVaUcY72SkXJEAUAk4IHSFGKjjl-1OtVlPMShw.jpg?size=200x200&quality=96&crop=1,1,1339,1339&ava=1",
-    messages: [
-      {
-        text: "Текст сообщения",
-        isMy: false,
-        time: "10:21",
-        date: "19 июля",
-        day: '',
-        styles
-      },
-      {
-        text: "Текст очень и очень длинного сообщения. Текст очень и очень длинного сообщения.",
-        isMy: false,
-        time: "10:22",
-        date: "20 июля",
-        day: '',
-        styles
-      },
-      {
-        text: "Текст очень и очень длинного сообщения.",
-        isMy: true,
-        time: "10:23",
-        date: "20 июля",
-        day: '',
-        styles
-      },
-      {
-        text: "Текст очень и очень длинного сообщения. Текст очень и очень длинного сообщения. Текст очень и очень длинного сообщения.",
-        isMy: false,
-        time: "10:24",
-        date: "20 июля",
-        day: '',
-        styles
-      },
-    ],
+    messages: []
   };
-  currentRecipent = {
-    ...currentRecipent,
-    messages: currentRecipent.messages.map((item, i, arr) => {
+
+  function convertMessages(messages: TMessageApi[]): TMessage[] {
+    console.log('convertMessages', messages);
+
+    const currentUserId = store.getState().user.id;
+    const arr = messages.map((item: TMessage) => {
+      item.date = item.time.split("T")[0].replace(/-/gi,".");
+      item.time = item.time.split("T")[1].split("+")[0];
+      item.styles = styles;
+      item.isMy = item.user_id === currentUserId;
+      return item;
+    })
+
+    return arr.map((item: TMessage, i: number, arr: TMessage[]) => {
       if (i === 0) {
         item.day = item.date;
         return item;
@@ -119,8 +115,8 @@ const chatPage = () => {
       } else {
         return item;
       }
-    }),
-  };
+    })
+  }
 
   class ChatPage extends Component {
     constructor(props: TChatProps) {
@@ -135,14 +131,14 @@ const chatPage = () => {
   }
 
   function handleClick(event: any) {
-    const chatElem = event.path.find((el: HTMLElement) => el.id ? el.id.includes('selectChat') : false);
+    const chatElem = event.path ? event.path.find((el: HTMLElement) => el.id ? el.id.includes('selectChat') : false) : false;
     if (chatElem) {
       const chatId = chatElem.id.split('_')[1];
       chatsApi.getChatToken(chatId)
         .then(data => {
-          console.log('userId', store.getState().user.id);
-          console.log('token', data.token);
-          console.log('chatId', chatId);
+          const userId = store.getState().user.id;
+          const token = data.token;
+          letsSocket(userId, chatId, token, onMessage)
         })
         .catch(console.log)
 
@@ -185,7 +181,7 @@ const chatPage = () => {
           .then(users => {
             const user = users.find((user: { login: string }) => user.login === login);
             if (user) {
-              userApi.addUserToChat(user.id, 250) // TODO добавить id текущего чата в аргументы
+              userApi.addUserToChat(user.id, 249) // TODO добавить id текущего чата в аргументы
                 .then(res => {
                   if (res === 'OK') {
                     isOpenAddUserPopup = false;
