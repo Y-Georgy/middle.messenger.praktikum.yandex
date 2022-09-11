@@ -1,7 +1,7 @@
 import template from "./template.hbs";
 import Component from "../../modules/Core/Component";
 import { getProps } from "./props";
-import { TUnknownFuncVoid } from "../../types/types";
+import { TUnknownFuncVoid, TUser } from "../../types/types";
 import { useValidator } from "../../modules/hooks/useValidator";
 import * as styles from "./styles.module.scss";
 import { Router } from "../../modules/Router/Router";
@@ -17,13 +17,20 @@ export type TCurrentChat = {
   messages: TMessage[]
 }
 
+type TLastMessage = {
+  content: string
+  id: number
+  time: string
+  user: TUser
+}
+
 export type TChat = {
   id: number,
   title: string,
   avatar: string | null,
   created_by: number,
   unread_count: number,
-  last_message: null,
+  last_message: null | TLastMessage,
   styles: Record<string, string>,
   selected?: boolean
 }
@@ -88,6 +95,15 @@ const chatPage = () => {
     chatsApi.getChats()
       .then(chatsData => {
         const chatsArr = chatsData.map((el: any): TChat => {
+          if (el.last_message) {
+            el.last_message.isMy = el.last_message.user.login === store.getState().user.login
+          }
+
+          if (el.last_message && el.last_message.time.includes("T") && el.last_message.time.includes("+")) {
+            const date = el.last_message.time.split("T")[0].replace(/-/gi,".");
+            const time = el.last_message.time.split("T")[1].split("+")[0];
+            el.last_message.time = date + ' ' + time;
+          }
           el.styles = styles
           return el;
         });

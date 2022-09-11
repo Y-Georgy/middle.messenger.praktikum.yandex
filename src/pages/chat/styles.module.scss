@@ -124,6 +124,12 @@
             cursor: pointer;
           }
 
+          .lastMessage {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          }
+
           .avatarOverlay {
             display: flex;
             width: 47px;

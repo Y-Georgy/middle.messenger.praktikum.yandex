@@ -20,11 +20,11 @@
               />
             {{/if}}
           </div>
-          <div>
+          <div class="{{styles.lastMessage}}">
             <h3 class="{{styles.name}}">{{this.title}}</h3>
             <p class="{{styles.message}}">
               {{#if this.last_message.isMy}}<span>Вы: </span>{{/if}}
-              {{this.last_message.text}}
+              {{this.last_message.content}}
             </p>
           </div>
           <p class="{{styles.time}}">{{this.last_message.time}}</p>
