@@ -8,7 +8,7 @@ import { Router } from "../../modules/Router/Router";
 import { chatsApi } from "../../modules/Api/ChatsApi";
 import store from "../../modules/store/store";
 import { userApi } from "../../modules/Api/UserApi";
-import { letsSocket } from "../../modules/Api/ws";
+import { letsSocket } from "../../modules/Api/websocket";
 
 export type TCurrentRecipent = {
   name: string,
@@ -52,6 +52,8 @@ type TChatProps = {
   isDisabledFormMessage: boolean
 }
 
+type TSend = (message: string) => void
+
 const chatPage = () => {
   const { errors, values, stateForm, init: validatorInit, onChangeValues } = useValidator();
   const router = new Router();
@@ -61,13 +63,24 @@ const chatPage = () => {
   let isOpenAddChatPopup = false;
   let isOpenChatUsersPopup = false;
   let chats: TChat[] = [];
+  let send: null | TSend = null;
 
   function onMessage(messages: TMessageApi[]) {
-    currentRecipent = {
-      ...currentRecipent,
-      messages: convertMessages(messages)
+    if (Array.isArray(messages)) {
+      currentRecipent = {
+        ...currentRecipent,
+        messages: convertMessages(messages.reverse())
+      }
+      updateProps();
+    } else if (typeof messages === 'object') {
+      const arr = [...currentRecipent.messages, messages];
+      currentRecipent = {
+        ...currentRecipent,
+        messages: convertMessages(arr)
+      }
+      updateProps();
     }
-    updateProps();
+
   }
 
   function updateChats() {
@@ -97,8 +110,10 @@ const chatPage = () => {
 
     const currentUserId = store.getState().user.id;
     const arr = messages.map((item: TMessage) => {
-      item.date = item.time.split("T")[0].replace(/-/gi,".");
-      item.time = item.time.split("T")[1].split("+")[0];
+      if (item.time.includes("T") && item.time.includes("+")) {
+        item.date = item.time.split("T")[0].replace(/-/gi,".");
+        item.time = item.time.split("T")[1].split("+")[0];
+      }
       item.styles = styles;
       item.isMy = item.user_id === currentUserId;
       return item;
@@ -138,7 +153,8 @@ const chatPage = () => {
         .then(data => {
           const userId = store.getState().user.id;
           const token = data.token;
-          letsSocket(userId, chatId, token, onMessage)
+          const socket = letsSocket(userId, chatId, token, onMessage);
+          send = socket.send;
         })
         .catch(console.log)
 
@@ -214,6 +230,9 @@ const chatPage = () => {
       if (!stateForm.isDisabled) {
         console.log(values);
         // Здесь пушим новое сообщение в чат
+        if (send && values.message) {
+          send(values.message)
+        }
       } else {
         setTimeout(() => {
           // TODO

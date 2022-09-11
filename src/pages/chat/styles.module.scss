@@ -197,7 +197,7 @@
   .chat {
     display: flex;
     flex-direction: column;
-    padding: 10px 20px;
+    padding: 10px 0 10px 20px;
     flex: 1 1 auto;
     box-sizing: border-box;
     height: 100vh;
@@ -208,6 +208,8 @@
       width: 100%;
       padding-bottom: 10px;
       position: relative;
+      padding-right: 10px;
+      box-sizing: border-box;
 
       .avatarOverlay {
         display: flex;
@@ -276,6 +278,7 @@
         position: absolute;
         bottom: -100px;
         right: -10px;
+        z-index: 2;
 
         &_opened {
           display: flex;
@@ -308,7 +311,25 @@
     .messages {
       list-style-type: none;
       margin: 0;
-      padding: 0;
+      padding: 0 20px 0 0;
+      max-height: calc(100vh - 133px);
+      overflow: auto;
+
+      &::-webkit-scrollbar-track {
+        background-color: #F8F8F8;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: #E6E6E6;
+        background-image:url(../../../static/icons/scroll-icon.png);
+        background-position:center;
+        background-repeat:no-repeat;
+      }
+
+      &::-webkit-scrollbar{
+        width: 6px;
+      }
 
       li {
         display: flex;
@@ -330,6 +351,7 @@
           position: relative;
           margin: 10px auto 10px 0;
           max-width: 402px;
+          min-width: 40px;
 
           p {
             font-size: 12px;
@@ -367,6 +389,8 @@
       padding: 11px 0 0;
       margin-top: auto;
       position: relative;
+      padding-right: 10px;
+      box-sizing: border-box;
 
       .error {
         position: absolute;
