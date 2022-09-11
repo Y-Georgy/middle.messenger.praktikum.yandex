@@ -76,6 +76,32 @@ class ChatsApi extends HTTPTransport {
       }
     ).then(this._handleResponse)
   }
+
+  addUserToChat(userId: number, chatId: number) {
+    return this.put(
+      `${this._baseUrl}/api/v2/chats/users`,
+      {
+        headers: this._headers,
+        data: {
+          users: [ userId ],
+          chatId: chatId
+        }
+      }
+    ).then(this._handleResponse)
+  }
+
+  deleteUserFromChat(userId: number, chatId: number) {
+    return this.delete(
+      `${this._baseUrl}/api/v2/chats/users`,
+      {
+        headers: this._headers,
+        data: {
+          users: [ userId ],
+          chatId: chatId
+        }
+      }
+    ).then(this._handleResponse)
+  }
 }
 
 export const chatsApi = new ChatsApi({

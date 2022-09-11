@@ -216,7 +216,7 @@ const chatPage = () => {
           .then(users => {
             const user = users.find((user: { login: string }) => user.login === login);
             if (user && currentChat.id) {
-              userApi.addUserToChat(user.id, currentChat.id)
+              chatsApi.addUserToChat(user.id, currentChat.id)
                 .then(res => {
                   if (res === 'OK') {
                     isOpenAddUserPopup = false;
@@ -231,7 +231,22 @@ const chatPage = () => {
     } else if (form.id === "removeUserForm") {
       const input = form.querySelector('input');
       if (input && input.value) {
-        console.log('Удаления пользователя по логину:',input.value);
+        const login = input.value;
+          userApi.searchUsersByLogin(login)
+            .then(users => {
+              const user = users.find((user: { login: string }) => user.login === login);
+              if (user && currentChat.id) {
+                chatsApi.deleteUserFromChat(user.id, currentChat.id)
+                  .then(res => {
+                    if (res === 'OK') {
+                      isOpenRemoveUserPopup = false;
+                      updateProps();
+                    }
+                  })
+                  .catch(console.log)
+              }
+            })
+            .catch(console.log)
       }
     } else if (form.id === "addChatForm") {
       const input = form.querySelector('input');

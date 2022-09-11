@@ -31,3 +31,7 @@
     // "email": "kate@123.ru",
     // "phone": "89032222222"
 // }
+// const getUserData = {
+    // "login": "georgy2",
+    // password: "A12345678",
+// }
