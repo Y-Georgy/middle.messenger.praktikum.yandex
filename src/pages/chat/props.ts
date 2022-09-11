@@ -1,4 +1,4 @@
-import { TChat, TCurrentRecipent } from ".";
+import { TChat, TCurrentChat } from ".";
 import Popup from "../../components/popup";
 import PopupContent from "./popupContent";
 import ButtonSubmit from "../../components/buttonSubmit";
@@ -12,14 +12,14 @@ export const getProps = (
   errors: TData,
   isDisabledFormMessage: boolean,
   chats: TChat[],
-  currentRecipent: TCurrentRecipent,
+  currentChat: TCurrentChat,
   isOpenAddUserPopup: boolean,
   isOpenRemoveUserPopup: boolean,
   isOpenAddChatPopup: boolean,
   isOpenChatUsersPopup: boolean
 ) => ({
   chats: chats,
-  currentRecipent: currentRecipent,
+  currentChat: currentChat,
   isOpenChatUsersPopup: isOpenChatUsersPopup,
   error: errors.message,
   isDisabledFormMessage: isDisabledFormMessage,

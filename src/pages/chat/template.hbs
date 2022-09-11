@@ -10,7 +10,7 @@
   <ul>
     {{#each chats}}
       <li id="selectChat_{{this.id}}">
-        <div class="{{this.styles.recipient}}">
+        <div class="{{this.styles.recipient}}{{#if this.selected}} {{this.styles.recipient}}_selected{{/if}}">
           <div class="{{this.styles.avatarOverlay}}">
             {{#if this.avatar}}
               <img
@@ -35,13 +35,13 @@
   </ul>
 </nav>
 <div class="{{styles.chat}}">
-  <div class="{{styles.currentRecipent}}">
+  <div class="{{styles.currentChat}}">
     <div class="{{styles.avatarOverlay}}">
-      {{#if currentRecipent.avatarLink}}
-      <img class="{{styles.avatar}}" src="{{currentRecipent.avatarLink}}" alt="Аватар пользователя" />
+      {{#if currentChat.avatarLink}}
+      <img class="{{styles.avatar}}" src="{{currentChat.avatarLink}}" alt="Аватар пользователя" />
       {{/if}}
     </div>
-    <h2>{{currentRecipent.name}}</h2>
+    <h2>{{currentChat.name}}</h2>
     <button class="{{styles.buttonOpenPopup}}" id="buttonOpenPopup">
       <span class="{{styles.dot}}" id="buttonOpenPopup"></span>
       <span class="{{styles.dot}}" id="buttonOpenPopup"></span>
@@ -65,7 +65,7 @@
     </ul>
   </div>
   <ul class="{{styles.messages}}">
-    {{#each currentRecipent.messages}}
+    {{#each currentChat.messages}}
     <li>
       {{#if this.day}}
         <h5>{{this.day}}</h5>

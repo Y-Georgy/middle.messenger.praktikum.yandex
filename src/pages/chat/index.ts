@@ -10,9 +10,10 @@ import store from "../../modules/store/store";
 import { userApi } from "../../modules/Api/UserApi";
 import { letsSocket } from "../../modules/Api/websocket";
 
-export type TCurrentRecipent = {
+export type TCurrentChat = {
+  id: number,
   name: string,
-  avatarLink: string,
+  avatarLink: string | null,
   messages: TMessage[]
 }
 
@@ -23,7 +24,8 @@ export type TChat = {
   created_by: number,
   unread_count: number,
   last_message: null,
-  styles: Record<string, string>
+  styles: Record<string, string>,
+  selected?: boolean
 }
 
 export interface TMessageApi {
@@ -47,7 +49,7 @@ export interface TMessage extends TMessageApi {
 type TChatProps = {
   events: Record<string, TUnknownFuncVoid>,
   chats: TChat[],
-  currentRecipent: TCurrentRecipent,
+  currentChat: TCurrentChat,
   error: string | undefined,
   isDisabledFormMessage: boolean
 }
@@ -67,41 +69,66 @@ const chatPage = () => {
 
   function onMessage(messages: TMessageApi[]) {
     if (Array.isArray(messages)) {
-      currentRecipent = {
-        ...currentRecipent,
+      currentChat = {
+        ...currentChat,
         messages: convertMessages(messages.reverse())
       }
       updateProps();
     } else if (typeof messages === 'object') {
-      const arr = [...currentRecipent.messages, messages];
-      currentRecipent = {
-        ...currentRecipent,
+      const arr = [...currentChat.messages, messages];
+      currentChat = {
+        ...currentChat,
         messages: convertMessages(arr)
       }
       updateProps();
     }
-
   }
 
   function updateChats() {
     chatsApi.getChats()
-    .then(chatsData => {
-      const chatsArr = chatsData.map((el: any): TChat => {
-        el.styles = styles
-        return el;
-      });
-      chats = chatsArr;
-      updateProps()
-    })
-    .catch(console.log)
+      .then(chatsData => {
+        const chatsArr = chatsData.map((el: any): TChat => {
+          el.styles = styles
+          return el;
+        });
+
+        chats = chatsArr;
+        beginChat(chatsArr[0].id);
+        updateProps();
+      })
+      .catch(console.log)
   }
 
   updateChats();
 
-  let currentRecipent: TCurrentRecipent = {
-    name: "Андрей",
-    avatarLink:
-      "https://sun1-97.userapi.com/s/v1/if1/Y_wWjvbJ8Erwfj0N_VQ0VhiJ5KQO1UJTwVaUcY72SkXJEAUAk4IHSFGKjjl-1OtVlPMShw.jpg?size=200x200&quality=96&crop=1,1,1339,1339&ava=1",
+  function beginChat(chatId: number) {
+    chats = chats.map(item => {
+      item.selected = item.id === chatId;
+      if (item.selected) {
+        currentChat = {
+          ...currentChat,
+          name: item.title,
+          avatarLink: item.avatar,
+          id: chatId
+        }
+      }
+      return item;
+    })
+
+    chatsApi.getChatToken(chatId)
+      .then(data => {
+        const userId = store.getState().user.id;
+        const token = data.token;
+        const socket = letsSocket(userId, chatId, token, onMessage);
+        send = socket.send;
+      })
+      .catch(console.log)
+  }
+
+  let currentChat: TCurrentChat = {
+    id: 0,
+    name: "",
+    avatarLink: null,
     messages: []
   };
 
@@ -149,15 +176,7 @@ const chatPage = () => {
     const chatElem = event.path ? event.path.find((el: HTMLElement) => el.id ? el.id.includes('selectChat') : false) : false;
     if (chatElem) {
       const chatId = chatElem.id.split('_')[1];
-      chatsApi.getChatToken(chatId)
-        .then(data => {
-          const userId = store.getState().user.id;
-          const token = data.token;
-          const socket = letsSocket(userId, chatId, token, onMessage);
-          send = socket.send;
-        })
-        .catch(console.log)
-
+      beginChat(Number(chatId));
     }
     const target = event.target as HTMLElement
     if (target.id === 'link-profile') {
@@ -196,8 +215,8 @@ const chatPage = () => {
         userApi.searchUsersByLogin(login)
           .then(users => {
             const user = users.find((user: { login: string }) => user.login === login);
-            if (user) {
-              userApi.addUserToChat(user.id, 249) // TODO добавить id текущего чата в аргументы
+            if (user && currentChat.id) {
+              userApi.addUserToChat(user.id, currentChat.id)
                 .then(res => {
                   if (res === 'OK') {
                     isOpenAddUserPopup = false;
@@ -255,7 +274,7 @@ const chatPage = () => {
       errors,
       stateForm.isDisabled,
       chats,
-      currentRecipent,
+      currentChat,
       isOpenAddUserPopup,
       isOpenRemoveUserPopup,
       isOpenAddChatPopup,
@@ -269,7 +288,7 @@ const chatPage = () => {
         errors,
         stateForm.isDisabled,
         chats,
-        currentRecipent,
+        currentChat,
         isOpenAddUserPopup,
         isOpenRemoveUserPopup,
         isOpenAddChatPopup,
