@@ -23,7 +23,7 @@ class ChatsApi extends HTTPTransport {
   }
 
   _handleResponse(res: {status: number, responseText: string}) {
-    const isJson = (str: any): boolean => {
+    const isJson = (str: string): boolean => {
       try {
           JSON.parse(str);
       } catch (e) {
