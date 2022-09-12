@@ -3,6 +3,7 @@ import Popup from "../../components/popup";
 import PopupContent from "./popupContent";
 import ButtonSubmit from "../../components/buttonSubmit";
 import Input from "../../components/authInput";
+import ToolTip, { TToolTip } from "../../components/tooltip";
 
 type TData = {
   message?: string | undefined
@@ -16,8 +17,10 @@ export const getProps = (
   isOpenAddUserPopup: boolean,
   isOpenRemoveUserPopup: boolean,
   isOpenAddChatPopup: boolean,
-  isOpenChatUsersPopup: boolean
+  isOpenChatUsersPopup: boolean,
+  message: TToolTip
 ) => ({
+  toolTip: new ToolTip(message).render(),
   chats: chats,
   currentChat: currentChat,
   isOpenChatUsersPopup: isOpenChatUsersPopup,

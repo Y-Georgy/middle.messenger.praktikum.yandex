@@ -9,6 +9,7 @@ import { chatsApi } from "../../modules/Api/ChatsApi";
 import store from "../../modules/store/store";
 import { userApi } from "../../modules/Api/UserApi";
 import { letsSocket } from "../../modules/Api/websocket";
+import ToolTip, { TToolTip } from "../../components/tooltip";
 
 export type TCurrentChat = {
   id: number,
@@ -58,7 +59,8 @@ type TChatProps = {
   chats: TChat[],
   currentChat: TCurrentChat,
   error: string | undefined,
-  isDisabledFormMessage: boolean
+  isDisabledFormMessage: boolean,
+  toolTip: ToolTip
 }
 
 type TSend = (message: string) => void
@@ -73,6 +75,22 @@ const chatPage = () => {
   let isOpenChatUsersPopup = false;
   let chats: TChat[] = [];
   let send: null | TSend = null;
+  const message: TToolTip = {
+    isDisplay: false,
+    isSuccess: false,
+    text: ""
+  }
+
+  function displayToolTip(isSuccess: boolean, text: string) {
+    message.text = text;
+    message.isSuccess = isSuccess;
+    message.isDisplay = true;
+    updateProps();
+    setTimeout(() => {
+      message.isDisplay = false;
+      updateProps();
+    }, 3000)
+  }
 
   function onMessage(messages: TMessageApi[]) {
     if (Array.isArray(messages)) {
@@ -231,12 +249,14 @@ const chatPage = () => {
         userApi.searchUsersByLogin(login)
           .then(users => {
             const user = users.find((user: { login: string }) => user.login === login);
+            if (!user) displayToolTip(false, "Пользователь не найден");
             if (user && currentChat.id) {
               chatsApi.addUserToChat(user.id, currentChat.id)
                 .then(res => {
                   if (res === 'OK') {
                     isOpenAddUserPopup = false;
                     updateProps();
+                    displayToolTip(true, "Пользователь успешно добавлен");
                   }
                 })
                 .catch(console.log)
@@ -251,12 +271,14 @@ const chatPage = () => {
           userApi.searchUsersByLogin(login)
             .then(users => {
               const user = users.find((user: { login: string }) => user.login === login);
+              if (!user) displayToolTip(false, "Пользователь не найден");
               if (user && currentChat.id) {
                 chatsApi.deleteUserFromChat(user.id, currentChat.id)
                   .then(res => {
                     if (res === 'OK') {
                       isOpenRemoveUserPopup = false;
                       updateProps();
+                      displayToolTip(true, "Пользователь успешно удален");
                     }
                   })
                   .catch(console.log)
@@ -309,7 +331,8 @@ const chatPage = () => {
       isOpenAddUserPopup,
       isOpenRemoveUserPopup,
       isOpenAddChatPopup,
-      isOpenChatUsersPopup
+      isOpenChatUsersPopup,
+      message
     )
   });
 
@@ -323,7 +346,8 @@ const chatPage = () => {
         isOpenAddUserPopup,
         isOpenRemoveUserPopup,
         isOpenAddChatPopup,
-        isOpenChatUsersPopup
+        isOpenChatUsersPopup,
+        message
       )
     )
   }
