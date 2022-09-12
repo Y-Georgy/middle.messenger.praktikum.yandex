@@ -1,5 +1,5 @@
 import { BACKEND_URL } from "../constants";
-import { HTTPTransport } from "./Api";
+import { handleStandardResponse, HTTPTransport } from "./Api";
 
 type TOptionsChatsAPI = {
   baseUrl: string,
@@ -22,40 +22,13 @@ class ChatsApi extends HTTPTransport {
     this._headers = headers
   }
 
-  _handleResponse(res: {status: number, responseText: string}) {
-    const isJson = (str: string): boolean => {
-      try {
-          JSON.parse(str);
-      } catch (e) {
-          return false;
-      }
-      return true;
-    }
-
-    if (res.status === 200) {
-      if (isJson(res.responseText)) {
-        return JSON.parse(res.responseText)
-      } else {
-        return res.responseText;
-      }
-    }
-
-    let errText: string | undefined = '';
-    if (isJson(res.responseText)) {
-      errText = JSON.parse(res.responseText).reason
-    } else {
-      errText = res.responseText
-    }
-    return Promise.reject(errText ? errText : `Произошла ошибка ${res.status}`)
-  }
-
   getChats() {
     return this.get(
       `${this._baseUrl}/api/v2/chats`,
       {
         headers: this._headers,
       }
-    ).then(this._handleResponse)
+    ).then(handleStandardResponse)
   }
 
   createChat(title: string) {
@@ -65,7 +38,7 @@ class ChatsApi extends HTTPTransport {
         headers: this._headers,
         data: { title }
       }
-    ).then(this._handleResponse)
+    ).then(handleStandardResponse)
   }
 
   getChatToken(chatId: number) {
@@ -74,7 +47,7 @@ class ChatsApi extends HTTPTransport {
       {
         headers: this._headers,
       }
-    ).then(this._handleResponse)
+    ).then(handleStandardResponse)
   }
 
   addUserToChat(userId: number, chatId: number) {
@@ -87,7 +60,7 @@ class ChatsApi extends HTTPTransport {
           chatId: chatId
         }
       }
-    ).then(this._handleResponse)
+    ).then(handleStandardResponse)
   }
 
   deleteUserFromChat(userId: number, chatId: number) {
@@ -100,7 +73,7 @@ class ChatsApi extends HTTPTransport {
           chatId: chatId
         }
       }
-    ).then(this._handleResponse)
+    ).then(handleStandardResponse)
   }
 }
 

@@ -1,5 +1,5 @@
 import { BACKEND_URL } from "../constants";
-import { HTTPTransport } from "./Api";
+import { handleStandardResponse, HTTPTransport } from "./Api";
 
 type TOptionsUserAPI = {
   baseUrl: string,
@@ -36,33 +36,6 @@ class UserApi extends HTTPTransport {
     this._headers = headers
   }
 
-  _handleResponse(res: {status: number, responseText: string}) {
-    const isJson = (str: string): boolean => {
-      try {
-          JSON.parse(str);
-      } catch (e) {
-          return false;
-      }
-      return true;
-    }
-
-    if (res.status === 200) {
-      if (isJson(res.responseText)) {
-        return JSON.parse(res.responseText)
-      } else {
-        return res.responseText;
-      }
-    }
-
-    let errText: string | undefined = '';
-    if (isJson(res.responseText)) {
-      errText = JSON.parse(res.responseText).reason
-    } else {
-      errText = res.responseText
-    }
-    return Promise.reject(errText ? errText : `Произошла ошибка ${res.status}`)
-  }
-
   changeUserProfile(profileValues: TUserValues) {
     return this.put(
       `${this._baseUrl}/api/v2/user/profile`,
@@ -70,7 +43,7 @@ class UserApi extends HTTPTransport {
         headers: this._headers,
         data: profileValues
       }
-    ).then(this._handleResponse)
+    ).then(handleStandardResponse)
   }
 
   changeUserPassword(passwords: TPasswords) {
@@ -80,7 +53,7 @@ class UserApi extends HTTPTransport {
         headers: this._headers,
         data: passwords
       }
-    ).then(this._handleResponse)
+    ).then(handleStandardResponse)
   }
 
   changeAvatar(form: HTMLFormElement) {
@@ -89,7 +62,7 @@ class UserApi extends HTTPTransport {
     return this.put(
       `${this._baseUrl}/api/v2/user/profile/avatar`,
       { data }
-    ).then(this._handleResponse)
+    ).then(handleStandardResponse)
   }
 
   searchUsersByLogin(userLogin: string) {
@@ -99,7 +72,7 @@ class UserApi extends HTTPTransport {
         headers: this._headers,
         data: { login: userLogin }
       }
-    ).then(this._handleResponse)
+    ).then(handleStandardResponse)
   }
 }
 
