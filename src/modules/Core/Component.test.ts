@@ -15,7 +15,7 @@ describe('Проверяем Component', () => {
 
   class NewComponent extends Component<{ title: string }> {
     constructor(props: { title: string }) {
-      super(props, "div", {});
+      super(props, "div");
     }
 
     render() {

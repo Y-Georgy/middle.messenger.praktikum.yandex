@@ -166,8 +166,8 @@ class Component<PropsType extends Record<string, unknown>> {
   }
 
   _addEvents() {
-    const {events} = this.props;
-    if (events) {
+    const {events = {}} = this.props;
+    if (events && typeof events === 'object' && Object.keys(events).length) {
       Object.keys(events).forEach(eventName => {
         this._element.addEventListener(eventName, events[eventName as keyof typeof events], true);
       });
@@ -175,8 +175,8 @@ class Component<PropsType extends Record<string, unknown>> {
   }
 
   _removeEvents() {
-    const {events} = this.props;
-    if (events) {
+    const {events = {}} = this.props;
+    if (events && typeof events === 'object' && Object.keys(events).length) {
       Object.keys(events).forEach(eventName => {
         this._element.removeEventListener(eventName, events[eventName as keyof typeof events], true);
       });
