@@ -33,7 +33,7 @@ const profilePage = () => {
 
   let isCanChangeData = false;
   let isOpenChangeAvatarPopup = false;
-  class Page extends Component {
+  class Page extends Component<TProfilePageProps> {
     constructor(props: TProfilePageProps) {
       super(props);
     }

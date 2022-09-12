@@ -10,7 +10,7 @@ import { Router } from "../../modules/Router/Router";
 import { TLoginValues, authApi } from "../../modules/Api/authApi";
 
 type TProps = {
-  events: Record<string, TUnknownFuncVoid>,
+  events?: Record<string, TUnknownFuncVoid>,
   title: Title,
   inputLogin: Input,
   inputPassword: Input
@@ -19,7 +19,7 @@ type TProps = {
 const loginPage = () => {
   const { errors, values, stateForm, onChangeValues } = useValidator();
   const router = new Router();
-  class Page extends Component {
+  class Page extends Component<TProps> {
     constructor(props: TProps) {
       super(props, "form", {
         name: "login",

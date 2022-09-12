@@ -6,7 +6,7 @@ type TProps = {
   href: string,
   text: string
 }
-class Link extends Component {
+class Link extends Component<TProps> {
   constructor(props: TProps) {
     super(props, "div");
   }

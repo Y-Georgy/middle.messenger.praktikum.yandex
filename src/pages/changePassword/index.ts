@@ -21,7 +21,7 @@ type TChangePasswordContentProps = {
 const changePasswordPage = () => {
   const { errors, values, stateForm, onChangeValues } = useValidator();
   const router = new Router();
-  class ChangePasswordContent extends Component {
+  class ChangePasswordContent extends Component<TChangePasswordContentProps> {
     constructor(props: TChangePasswordContentProps) {
       super(props, "section", {
         class: styles.profile,
@@ -52,7 +52,7 @@ const changePasswordPage = () => {
     page.setProps({
       content: new ChangePasswordContent(
         changePasswordContentProps(errors, stateForm.isDisabled, values)
-      ).render()
+      ).render(),
     })
   }
 

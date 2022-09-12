@@ -7,7 +7,7 @@ type Props = {
   disabled: boolean,
   form?: string
 }
-class Button extends Component {
+class Button extends Component<Props> {
   constructor(props: Props) {
     super(props, "div");
   }

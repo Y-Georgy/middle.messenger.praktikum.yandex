@@ -6,7 +6,7 @@ import * as styles from "./styles.module.scss";
 type TProps = {
   button: ButtonSubmit
 }
-class PopupContent extends Component {
+class PopupContent extends Component<TProps> {
   constructor(props: TProps) {
     super(props, "div");
   }

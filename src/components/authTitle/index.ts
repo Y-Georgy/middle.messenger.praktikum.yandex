@@ -5,7 +5,7 @@ import Component from "../../modules/Core/Component";
 type TProps = {
   title: string;
 }
-class Title extends Component {
+class Title extends Component<TProps> {
   constructor(props: TProps) {
     super(props, "div");
   }

@@ -6,7 +6,7 @@ type TProps = {
   content: unknown,
   isOpen: boolean
 }
-class Popup extends Component {
+class Popup extends Component<TProps> {
   constructor(props: TProps) {
     super(props, "div");
   }

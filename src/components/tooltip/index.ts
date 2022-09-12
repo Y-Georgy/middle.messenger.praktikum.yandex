@@ -7,7 +7,7 @@ export type TToolTip = {
   isDisplay: boolean,
   text: string
 }
-class ToolTip extends Component {
+class ToolTip extends Component<TToolTip> {
   constructor(props: TToolTip) {
     super(props, "div");
   }

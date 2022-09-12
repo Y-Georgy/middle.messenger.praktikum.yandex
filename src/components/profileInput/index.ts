@@ -10,7 +10,7 @@ type TProps = {
   disabled: boolean,
   error?: string
 }
-class ProfileInput extends Component {
+class ProfileInput extends Component<TProps> {
   constructor(props: TProps) {
     super(props, "div");
   }

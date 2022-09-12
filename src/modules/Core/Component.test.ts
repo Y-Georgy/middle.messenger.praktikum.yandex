@@ -13,7 +13,7 @@ describe('Проверяем Component', () => {
     global.document = dom.window.document;
   })
 
-  class NewComponent extends Component {
+  class NewComponent extends Component<{ title: string }> {
     constructor(props: { title: string }) {
       super(props, "div", {});
     }

@@ -11,7 +11,7 @@ type Tprops = {
 const page404 = () => {
   const router = new Router();
 
-  class Page404 extends Component {
+  class Page404 extends Component<Tprops> {
     constructor(props: Tprops) {
       super(props, "section", {
         class: styles.section

@@ -11,7 +11,7 @@ type TProps = {
 
 const page500 = () => {
   const router = new Router();
-  class Page500 extends Component {
+  class Page500 extends Component<TProps> {
     constructor(props: TProps) {
       super(props, "section", {
         class: styles.section

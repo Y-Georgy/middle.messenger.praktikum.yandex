@@ -5,10 +5,10 @@ type TProps = {rootQuery: string}
 
 class Route {
   _pathname: string;
-  _page: Component;
+  _page: Component<Record<string, unknown>>;
   _props: TProps;
 
-  constructor(pathname: string, page: Component, props: TProps) {
+  constructor(pathname: string, page: Component<Record<string, unknown>>, props: TProps) {
     this._pathname = pathname;
     this._page = page;
     this._props = props;
@@ -53,7 +53,7 @@ export class Router {
     Router.__instance = this;
   }
 
-  use(pathname: string, page: Component) {
+  use(pathname: string, page: Component<Record<string, unknown>>) {
     const route = new Route(pathname, page, {rootQuery: this._rootQuery});
     this.routes.push(route);
     return this;

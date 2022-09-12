@@ -9,7 +9,7 @@ type TProps = {
   errorText?: string;
   type: string;
 }
-class Input extends Component {
+class Input extends Component<TProps> {
   constructor(props: TProps) {
     super(props, "div");
   }

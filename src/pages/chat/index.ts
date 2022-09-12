@@ -55,7 +55,7 @@ export interface TMessage extends TMessageApi {
 }
 
 type TChatProps = {
-  events: Record<string, TUnknownFuncVoid>,
+  events?: Record<string, TUnknownFuncVoid>,
   chats: TChat[],
   currentChat: TCurrentChat,
   error: string | undefined,
@@ -194,7 +194,7 @@ const chatPage = () => {
     })
   }
 
-  class ChatPage extends Component {
+  class ChatPage extends Component<TChatProps> {
     constructor(props: TChatProps) {
       super(props, "section", {
         class: styles.section

@@ -5,7 +5,7 @@ import Component from "../../modules/Core/Component";
 type TProps = {
   imageLink: string;
 }
-class Avatar extends Component {
+class Avatar extends Component<TProps> {
   constructor(props: TProps) {
     super(props, "div");
   }

@@ -1,14 +1,14 @@
 import { expect } from "chai";
-import Component from "../Core/Component";
 import { Router } from "./Router";
 import { JSDOM } from "jsdom";
+import Component from "../Core/Component";
 
 describe('Проверяем переходы у Роута', () => {
   const getRouterTest = () => {
     const router = new Router('#main')
     router
-      .use("/testPathOne", { getContent: () => '' } as unknown as Component)
-      .use("/testPathTwo", { getContent: () => '' } as unknown as Component)
+      .use("/testPathOne", { getContent: () => '' } as unknown as Component<Record<string, unknown>>)
+      .use("/testPathTwo", { getContent: () => '' } as unknown as Component<Record<string, unknown>>)
       .start();
     return router;
   }
