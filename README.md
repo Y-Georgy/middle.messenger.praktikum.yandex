@@ -33,7 +33,7 @@ stylelint
 5. `npm run build`
 6. `npm run start`
 
-#### Использование linter и stylelint
+#### Использование linter, stylelint, mocka
 - npm run lint
 - npm run stylelint
 - npm run test

@@ -48,9 +48,7 @@ const profilePage = () => {
   function handleStoreUpdate() {
     const initValues = store.getState().user;
     initValidator(initValues)
-    page.setProps({
-      content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
-    })
+    updateProps();
   }
 
   authApi.getUser()
@@ -60,16 +58,13 @@ const profilePage = () => {
     .catch(err => console.log('errGetUser', err))
 
   function handleClick(event: Event) {
-
     const target = event.target as HTMLElement
     if (target.id === 'btn-back') {
       router.back();
     } else if (target.id === 'linkChangeData') {
       event.preventDefault();
       isCanChangeData = true;
-      page.setProps({
-        content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
-      })
+      updateProps();
     } else if (target.id === 'link-change-password') {
       event.preventDefault();
       router.go("/change-password");
@@ -84,14 +79,11 @@ const profilePage = () => {
         .catch(console.log)
     } else if (target.id === 'changeAvatar') {
       isOpenChangeAvatarPopup = true;
-      page.setProps({
-        content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
-      })
+      updateProps();
+
     } else if (target.id === 'popupOverlay') {
       isOpenChangeAvatarPopup = false;
-      page.setProps({
-        content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
-      })
+      updateProps();
     }
   }
 
@@ -106,9 +98,7 @@ const profilePage = () => {
           .then(newProfileData => {
             store.set('user', newProfileData)
             isOpenChangeAvatarPopup = false;
-            page.setProps({
-              content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
-            })
+            updateProps();
           })
           .catch(console.log)
       }
@@ -119,21 +109,21 @@ const profilePage = () => {
         userApi.changeUserProfile(values as TUserValues)
           .then(newProfileData => {
             store.set('user', newProfileData)
-            isCanChangeData = false
+            isCanChangeData = false;
+            updateProps();
           })
           .catch(console.log)
       }
-
-      page.setProps({
-        content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
-      })
     }
   }
 
   function handleBlurOrFocus( event: Event ) {
     const input = event.target as HTMLElement;
     onChangeValues(input);
+    updateProps();
+  }
 
+  function updateProps() {
     page.setProps({
       content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
     })

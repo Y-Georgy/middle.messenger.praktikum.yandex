@@ -20,7 +20,7 @@ export const getProps = (errors: TData, values: TData, isCanChangeData: boolean,
   isCanChangeData: isCanChangeData,
   buttonSubmit: new ButtonSubmit({
     text: "Сохранить",
-    form: "profile",
+    form: "profileForm",
     disabled: isDisabledForm
   }).render(),
   avatar: new Avatar({ imageLink: values.avatar ? `${IMAGE_PRE_URL}${values.avatar}` : ''}).render(),
