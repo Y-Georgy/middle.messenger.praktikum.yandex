@@ -1,14 +1,7 @@
 import { BACKEND_URL } from "../constants";
 import { Router } from "../Router/Router";
 import { HTTPTransport } from "./Api";
-
-type TOptionsAuthAPI = {
-  baseUrl: string,
-  headers: {
-    'Accept': string
-    'Content-Type': string
-  }
-}
+import { TOptionsAPI, TResponse } from "./types";
 
 export type TRegisterValues = {
   first_name: string,
@@ -33,13 +26,13 @@ class AuthAPI extends HTTPTransport {
     'Content-Type': string
   };
 
-  constructor({ baseUrl, headers }: TOptionsAuthAPI) {
+  constructor({ baseUrl, headers }: TOptionsAPI) {
     super();
     this._baseUrl = baseUrl
     this._headers = headers
   }
 
-  _handleResponse(res: {status: number, responseText: string}) {
+  _handleResponse(res: TResponse) {
     if (res.status === 200) {
       try {
         return JSON.parse(res.responseText)

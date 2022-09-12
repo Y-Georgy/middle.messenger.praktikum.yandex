@@ -1,13 +1,6 @@
 import { BACKEND_URL } from "../constants";
 import { handleStandardResponse, HTTPTransport } from "./Api";
-
-type TOptionsChatsAPI = {
-  baseUrl: string,
-  headers: {
-    'Accept': string
-    'Content-Type': string
-  }
-}
+import { TOptionsAPI } from "./types";
 
 class ChatsApi extends HTTPTransport {
   private _baseUrl: string;
@@ -16,7 +9,7 @@ class ChatsApi extends HTTPTransport {
     'Content-Type': string
   };
 
-  constructor({ baseUrl, headers }: TOptionsChatsAPI) {
+  constructor({ baseUrl, headers }: TOptionsAPI) {
     super();
     this._baseUrl = baseUrl
     this._headers = headers

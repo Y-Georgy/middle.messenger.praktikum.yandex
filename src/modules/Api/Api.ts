@@ -1,3 +1,5 @@
+import { TResponse } from "./types";
+
 type METHODS = 'GET' | 'PUT' | 'POST' | 'DELETE';
 
 type Options = {
@@ -75,7 +77,7 @@ export class HTTPTransport {
   };
 }
 
-export function handleStandardResponse(res: {status: number, responseText: string}) {
+export function handleStandardResponse(res: TResponse) {
   const isJson = (str: string): boolean => {
     try {
       JSON.parse(str);

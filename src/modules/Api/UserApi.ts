@@ -1,13 +1,6 @@
 import { BACKEND_URL } from "../constants";
 import { handleStandardResponse, HTTPTransport } from "./Api";
-
-type TOptionsUserAPI = {
-  baseUrl: string,
-  headers: {
-    'Accept': string
-    'Content-Type': string
-  }
-}
+import { TOptionsAPI } from "./types";
 
 export type TUserValues = {
   first_name: string,
@@ -30,7 +23,7 @@ class UserApi extends HTTPTransport {
     'Content-Type': string
   };
 
-  constructor({ baseUrl, headers }: TOptionsUserAPI) {
+  constructor({ baseUrl, headers }: TOptionsAPI) {
     super();
     this._baseUrl = baseUrl
     this._headers = headers
