@@ -48,7 +48,7 @@ class AuthAPI extends HTTPTransport {
       }
     }
 
-    if (res.status === 401) {
+    if (res.status === 401 && window.location.pathname !== "/register") {
       router.go('/login')
     }
 
