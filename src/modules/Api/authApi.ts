@@ -27,8 +27,8 @@ export type TLoginValues = {
 
 const router = new Router();
 class AuthAPI extends HTTPTransport {
-  _baseUrl: string;
-  _headers: {
+  private _baseUrl: string;
+  private _headers: {
     'Accept': string
     'Content-Type': string
   };
