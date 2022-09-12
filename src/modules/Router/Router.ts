@@ -21,10 +21,6 @@ class Route {
     }
   }
 
-  // leave() {
-  //   this._page.hide();
-  // }
-
   match(pathname: string) {
     return pathname === this._pathname;
   }

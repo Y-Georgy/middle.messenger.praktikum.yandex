@@ -37,9 +37,6 @@ export class HTTPTransport {
     return this.request(url, {...options, method: 'DELETE'}, options.timeout);
   };
 
-  // options:
-  // headers — obj
-  // data — obj
   request = (url: string, options: Options = { method: 'GET' }, timeout = 5000) => {
     const {method, data, headers = {}} = options;
 
