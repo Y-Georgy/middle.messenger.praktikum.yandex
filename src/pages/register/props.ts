@@ -69,4 +69,4 @@ export const getProps = (errors: TData, values: TData, isDisabledForm: boolean) 
       type: "password",
     }).render(),
   }
-)
+);

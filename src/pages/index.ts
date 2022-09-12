@@ -17,4 +17,3 @@ router
   .use("/500", page500())
   .use("*", page404())
   .start();
-

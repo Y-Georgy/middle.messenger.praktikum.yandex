@@ -152,12 +152,7 @@ class Component {
         return true;
       },
       deleteProperty() {
-        // if (prop.startsWith('_')) {
-          throw new Error('нет доступа');
-        // } else {
-        //  delete target[prop];
-        //  return true;
-        // }
+        throw new Error('нет доступа');
       },
     });
   }
@@ -173,7 +168,6 @@ class Component {
   }
 
   hide() {
-    // this.getContent().style.display = "none";
     this._element.style.display = "none";
     this.isHidden = true;
   }
@@ -193,7 +187,6 @@ class Component {
       this._element.removeEventListener(eventName, events[eventName], true);
     });
   }
-
 }
 
 export default Component;

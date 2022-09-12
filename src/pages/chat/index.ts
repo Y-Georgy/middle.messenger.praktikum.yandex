@@ -300,14 +300,11 @@ const chatPage = () => {
       onChangeValues(form);
 
       if (!stateForm.isDisabled) {
-        console.log(values);
-        // Здесь пушим новое сообщение в чат
         if (send && values.message) {
           send(values.message)
         }
       } else {
         setTimeout(() => {
-          // TODO
           validatorInit({
             message: ' '
           })
@@ -355,4 +352,3 @@ const chatPage = () => {
 }
 
 export default chatPage;
-

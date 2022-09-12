@@ -55,5 +55,3 @@ describe('Проверяем Component', () => {
     expect(newComponent.isHidden).to.eq(false);
   });
 });
-
-

@@ -80,4 +80,4 @@ export const getProps = (
       }).render()
     }).render()
   }).render()
-})
+});

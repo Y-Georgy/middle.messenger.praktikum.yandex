@@ -7,7 +7,6 @@ function render(query: string, component: Component) {
     root.append(component.getContent());
   }
 
-  // component.dispatchComponentDidMount();
   return root;
 }
 
