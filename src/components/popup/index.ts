@@ -1,11 +1,12 @@
 import template from "./template.hbs";
-import Component from "../../utils/Component";
+import Component from "../../modules/Core/Component";
 import * as styles from "./styles.module.scss";
 
 type TProps = {
-  content: unknown
+  content: unknown,
+  isOpen: boolean
 }
-class Popup extends Component {
+class Popup extends Component<TProps> {
   constructor(props: TProps) {
     super(props, "div");
   }

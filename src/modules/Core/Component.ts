@@ -1,17 +1,6 @@
 import EventBus from "./EventBus";
 
-type TProps = {
-  [key: string]: unknown
-  events?: Record<string, (e: Event) => void>
-}
-
-type TMeta = {
-  tagName: string,
-  attributes: Record<string, string | number>,
-  props: TProps
-};
-
-class Component {
+class Component<PropsType extends Record<string, unknown>> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -20,11 +9,16 @@ class Component {
   };
 
   _element: HTMLElement;
-  _meta: TMeta;
-  props: TProps;
+  _meta: {
+    tagName: string,
+    attributes: Record<string, string | number>,
+    props: PropsType
+  };
+  props: PropsType;
   eventBus: () => EventBus;
+  isHidden: boolean;
 
-  constructor( props: TProps = {}, tagName = "div", attributes = {}) {
+  constructor( props: PropsType, tagName = "div", attributes = {}) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
@@ -38,6 +32,7 @@ class Component {
 
     this._registerEvents(eventBus);
     eventBus.emit(Component.EVENTS.INIT);
+    this.isHidden = false;
   }
 
   _registerEvents(eventBus: EventBus) {
@@ -77,7 +72,7 @@ class Component {
     this.eventBus().emit(Component.EVENTS.FLOW_CDM);
   }
 
-  _componentDidUpdate(oldProps: TProps, newProps: TProps) {
+  _componentDidUpdate(oldProps: PropsType, newProps: PropsType) {
     const isRender = this.componentDidUpdate(oldProps, newProps);
     if (!isRender) {
       return
@@ -86,13 +81,13 @@ class Component {
   }
 
   // Может переопределять пользователь, необязательно трогать
-  componentDidUpdate(oldProps: TProps, newProps: TProps) {
+  componentDidUpdate(oldProps: PropsType, newProps: PropsType) {
     return Object.entries(newProps).some(([key, prop]) => (
       oldProps[key] !== prop
     ))
   }
 
-  setProps = (nextProps: TProps) => {
+  setProps = (nextProps: PropsType) => {
     if (!nextProps) {
       return;
     }
@@ -125,7 +120,7 @@ class Component {
     return this.element;
   }
 
-  _makePropsProxy(props: TProps) {
+  _makePropsProxy(props: PropsType) {
     // Можно и так передать this
     // Такой способ больше не применяется с приходом ES6+
     // eslint-disable-next-line @typescript-eslint/no-this-alias
@@ -145,17 +140,12 @@ class Component {
           throw new Error('Нет прав');
         }
         const oldValue = {...target};
-        target[prop] = value;
+        target[prop as keyof PropsType] = value;
         self.eventBus().emit(Component.EVENTS.FLOW_CDU, oldValue, target)
         return true;
       },
       deleteProperty() {
-        // if (prop.startsWith('_')) {
-          throw new Error('нет доступа');
-        // } else {
-        //  delete target[prop];
-        //  return true;
-        // }
+        throw new Error('нет доступа');
       },
     });
   }
@@ -166,30 +156,32 @@ class Component {
   }
 
   show() {
-    this.getContent().style.display = "block";
+    this.getContent().style.display = "flex";
+    this.isHidden = false;
   }
 
   hide() {
-    // this.getContent().style.display = "none";
     this._element.style.display = "none";
+    this.isHidden = true;
   }
 
   _addEvents() {
     const {events = {}} = this.props;
-
-    Object.keys(events).forEach(eventName => {
-      this._element.addEventListener(eventName, events[eventName], true);
-    });
+    if (events && typeof events === 'object' && Object.keys(events).length) {
+      Object.keys(events).forEach(eventName => {
+        this._element.addEventListener(eventName, events[eventName as keyof typeof events], true);
+      });
+    }
   }
 
   _removeEvents() {
     const {events = {}} = this.props;
-
-    Object.keys(events).forEach(eventName => {
-      this._element.removeEventListener(eventName, events[eventName], true);
-    });
+    if (events && typeof events === 'object' && Object.keys(events).length) {
+      Object.keys(events).forEach(eventName => {
+        this._element.removeEventListener(eventName, events[eventName as keyof typeof events], true);
+      });
+    }
   }
-
 }
 
 export default Component;

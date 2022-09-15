@@ -1,0 +1,18 @@
+@import "../../../styles/variables.scss";
+
+.title {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+  margin: 0 0 43px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  button {
+    margin-top: -14px;
+    margin-bottom: 0;
+  }
+}

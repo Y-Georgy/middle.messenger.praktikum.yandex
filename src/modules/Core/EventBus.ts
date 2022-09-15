@@ -1,4 +1,4 @@
-import { TUnknownFuncVoid } from "../types/types";
+import { TUnknownFuncVoid } from "../../types/types";
 
 class EventBus {
   listeners: Record<string, TUnknownFuncVoid[]>

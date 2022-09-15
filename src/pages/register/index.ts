@@ -1,20 +1,21 @@
 import template from "./template.hbs";
-import Component from "../../utils/Component";
+import Component from "../../modules/Core/Component";
 import { getProps } from "./props";
 import buttonSubmit from "../../components/buttonSubmit";
 import Title from "../../components/authTitle";
-import Link from "../../components/link";
 import Input from "../../components/authInput";
 import { TUnknownFuncVoid } from "../../types/types";
 import * as styles from "./styles.module.scss";
-import { useValidator } from "../../hooks/useValidator";
+import { useValidator } from "../../modules/hooks/useValidator";
+import { Router } from "../../modules/Router/Router";
+import { TLoginValues, TRegisterValues, authApi } from "../../modules/Api/authApi";
 
 type TProps = {
-  events: Record<string, TUnknownFuncVoid>,
+  events?: Record<string, TUnknownFuncVoid>,
   title: Title,
   buttonSubmit: buttonSubmit,
-  link: Link,
   inputLogin: Input,
+  inputEmail: Input,
   inputName: Input,
   inputSecondName: Input,
   inputPhone: Input,
@@ -24,7 +25,8 @@ type TProps = {
 
 const registerPage = () => {
   const { errors, values, stateForm, onChangeValues } = useValidator();
-  class Page extends Component {
+  const router = new Router();
+  class Page extends Component<TProps> {
     constructor(props: TProps) {
       super(props, "form", {
         name: "register",
@@ -43,7 +45,17 @@ const registerPage = () => {
     onChangeValues(form);
 
     if (!stateForm.isDisabled) {
-      console.log(values);
+      authApi.register(values as TRegisterValues)
+        .then(() => { // res: {id: number}
+          const {login, password} = values
+          return authApi.login({login, password} as TLoginValues)
+            .then((res: string) => {
+              if (res === "OK") {
+                router.go("/");
+              }
+            })
+          })
+        .catch(err => console.log('err', err))
     }
 
     page.setProps(
@@ -60,11 +72,20 @@ const registerPage = () => {
     )
   }
 
+  function handleClick(event: Event) {
+    const target = event.target as HTMLElement
+    if (target.id === 'link-login') {
+      event.preventDefault();
+      router.go("/login");
+    }
+  }
+
   const page = new Page({
       events: {
         submit: handleSubmit,
         blur: handleBlurOrFocus,
         focus: handleBlurOrFocus,
+        click: handleClick
       },
       ...getProps(errors, values, stateForm.isDisabled)
     }

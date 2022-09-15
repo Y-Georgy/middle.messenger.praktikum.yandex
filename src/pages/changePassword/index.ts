@@ -1,12 +1,14 @@
 import ProfileLayout from "../../layouts/profile";
 import template from "./template.hbs";
-import Component from "../../utils/Component";
+import Component from "../../modules/Core/Component";
 import { changePasswordContentProps } from "./props";
 import Input from "../../components/profileInput";
 import ButtonSubmit from "../../components/buttonSubmit";
 import Avatar from "../../components/avatar";
-import { useValidator } from "../../hooks/useValidator";
+import { useValidator } from "../../modules/hooks/useValidator";
 import * as styles from "./styles.module.scss";
+import { Router } from "../../modules/Router/Router";
+import { userApi, TPasswords } from "../../modules/Api/UserApi";
 
 type TChangePasswordContentProps = {
   avatar: Avatar,
@@ -18,7 +20,8 @@ type TChangePasswordContentProps = {
 
 const changePasswordPage = () => {
   const { errors, values, stateForm, onChangeValues } = useValidator();
-  class ChangePasswordContent extends Component {
+  const router = new Router();
+  class ChangePasswordContent extends Component<TChangePasswordContentProps> {
     constructor(props: TChangePasswordContentProps) {
       super(props, "section", {
         class: styles.profile,
@@ -35,15 +38,22 @@ const changePasswordPage = () => {
     const form = event.target as HTMLElement;
     onChangeValues(form);
 
+
+    if (!stateForm.isDisabled) {
+      userApi.changeUserPassword(values as TPasswords)
+        .then((res: string) => {
+          if (res === "OK") {
+            router.go("/profile");
+          }
+        })
+        .catch(console.log)
+    }
+
     page.setProps({
       content: new ChangePasswordContent(
         changePasswordContentProps(errors, stateForm.isDisabled, values)
-      ).render()
+      ).render(),
     })
-
-    if (!stateForm.isDisabled) {
-      console.log(values);
-    }
   }
 
   function handleBlurOrFocus( event: Event ) {
@@ -57,11 +67,19 @@ const changePasswordPage = () => {
     })
   }
 
+  function handleClick(event: Event) {
+    const target = event.target as HTMLElement
+    if (target.id === 'btn-back') {
+      router.back();
+    }
+  }
+
   const page = new ProfileLayout({
     events: {
       submit: handleSubmit,
       blur: handleBlurOrFocus,
       focus: handleBlurOrFocus,
+      click: handleClick,
     },
     content: new ChangePasswordContent(
       changePasswordContentProps(errors, stateForm.isDisabled, values)

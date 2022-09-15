@@ -1,24 +1,25 @@
 import template from "./template.hbs";
-import Component from "../../utils/Component";
+import Component from "../../modules/Core/Component";
 import * as styles from "./styles.module.scss";
 import { getProps } from "./props";
 import { TUnknownFuncVoid } from "../../types/types";
 import Title from "../../components/authTitle";
-import Link from "../../components/link";
 import Input from "../../components/authInput";
-import { useValidator } from "../../hooks/useValidator";
+import { useValidator } from "../../modules/hooks/useValidator";
+import { Router } from "../../modules/Router/Router";
+import { TLoginValues, authApi } from "../../modules/Api/authApi";
 
 type TProps = {
-  events: Record<string, TUnknownFuncVoid>,
+  events?: Record<string, TUnknownFuncVoid>,
   title: Title,
-  link: Link,
   inputLogin: Input,
   inputPassword: Input
 }
 
 const loginPage = () => {
   const { errors, values, stateForm, onChangeValues } = useValidator();
-  class Page extends Component {
+  const router = new Router();
+  class Page extends Component<TProps> {
     constructor(props: TProps) {
       super(props, "form", {
         name: "login",
@@ -37,7 +38,13 @@ const loginPage = () => {
     onChangeValues(form);
 
     if (!stateForm.isDisabled) {
-      console.log(values);
+      authApi.login(values as TLoginValues)
+        .then((res: string) => {
+          if (res === "OK") {
+            router.go("/");
+          }
+        })
+        .catch(err => console.log('err', err))
     }
     page.setProps(
       getProps(errors, values, stateForm.isDisabled)
@@ -52,11 +59,20 @@ const loginPage = () => {
     )
   }
 
+  function handleClick(event: Event) {
+    const target = event.target as HTMLElement
+    if (target.id === 'link-register') {
+      event.preventDefault();
+      router.go("/register");
+    }
+  }
+
   const page = new Page({
     events: {
       submit: handleSubmit,
       blur: handleBlurOrFocus,
       focus: handleBlurOrFocus,
+      click: handleClick
     },
     ...getProps(errors, values, stateForm.isDisabled)
   });

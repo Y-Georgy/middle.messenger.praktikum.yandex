@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .register {
   display: flex;
   flex-direction: column;
@@ -9,4 +11,19 @@
   box-sizing: border-box;
   margin: 0 auto;
   align-self: center;
+
+  a {
+    color: $blue;
+    font-size: 11px;
+    line-height: 11px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 0.8;
+      transition: opacity 0.3s ease-out;
+      cursor: pointer;
+    }
+  }
 }

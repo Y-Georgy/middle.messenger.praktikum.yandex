@@ -1,12 +1,12 @@
 import template from "./template.hbs";
-import Component from "../../utils/Component"
+import Component from "../../modules/Core/Component"
 import * as styles from "./styles.module.scss";
 
 type TProps = {
   href: string,
   text: string
 }
-class Link extends Component {
+class Link extends Component<TProps> {
   constructor(props: TProps) {
     super(props, "div");
   }

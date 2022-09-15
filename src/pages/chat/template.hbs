@@ -1,64 +1,90 @@
 <nav>
-  <a href="/profile">Профиль</a>
+  <div class="{{styles.navHeader}}">
+    <button type="button" class="{{styles.btnPlus}}" id="addChat" title="Создать чат">
+      <i id="addChat"></i>
+      <i id="addChat"></i>
+    </button>
+    <a href="#" class="{{styles.link}}" id="link-profile">Профиль</a>
+  </div>
   <input type="text" placeholder="Поиск" />
   <ul>
-    {{#each recipients}}
-      <li>
-        <div class="{{this.styles.recipient}}">
+    {{#each chats}}
+      <li id="selectChat_{{this.id}}">
+        <div class="{{this.styles.recipient}}{{#if this.selected}} {{this.styles.recipient}}_selected{{/if}}">
           <div class="{{this.styles.avatarOverlay}}">
-            {{#if this.avatarLink}}
+            {{#if this.avatar}}
               <img
                 class="{{styles.avatar}}"
-                src="{{this.avatarLink}}"
+                src="{{this.avatar}}"
                 alt="Аватар пользователя"
               />
             {{/if}}
           </div>
-          <div>
-            <h3 class="{{styles.name}}">{{this.name}}</h3>
+          <div class="{{styles.lastMessage}}">
+            <h3 class="{{styles.name}}">{{this.title}}</h3>
             <p class="{{styles.message}}">
-              {{#if this.lastMessage.isMy}}<span>Вы: </span>{{/if}}
-              {{this.lastMessage.text}}
+              {{#if this.last_message.isMy}}<span>Вы: </span>{{/if}}
+              {{this.last_message.content}}
             </p>
           </div>
-          <p class="{{styles.time}}">{{this.lastMessage.time}}</p>
-          {{#if this.unreadCount}}<p class="{{styles.unreadCount}}">{{this.unreadCount}}</p>{{/if}}
+          <p class="{{styles.time}}">{{this.last_message.time}}</p>
+          {{#if this.unread_count}}<p class="{{styles.unreadCount}}">{{this.unread_count}}</p>{{/if}}
         </div>
       </li>
     {{/each}}
   </ul>
 </nav>
 <div class="{{styles.chat}}">
-  <div class="{{styles.currentRecipent}}">
+  <div class="{{styles.currentChat}}">
     <div class="{{styles.avatarOverlay}}">
-      {{#if currentRecipent.avatarLink}}
-      <img class="{{styles.avatar}}" src="{{currentRecipent.avatarLink}}" alt="Аватар пользователя" />
+      {{#if currentChat.avatarLink}}
+      <img class="{{styles.avatar}}" src="{{currentChat.avatarLink}}" alt="Аватар пользователя" />
       {{/if}}
     </div>
-    <h2>{{currentRecipent.name}}</h2>
-    <button>
-      <span class="{{styles.dot}}"></span>
-      <span class="{{styles.dot}}"></span>
-      <span class="{{styles.dot}}"></span>
+    <h2>{{currentChat.name}}</h2>
+    <button class="{{styles.buttonOpenPopup}}" id="buttonOpenPopup">
+      <span class="{{styles.dot}}" id="buttonOpenPopup"></span>
+      <span class="{{styles.dot}}" id="buttonOpenPopup"></span>
+      <span class="{{styles.dot}}" id="buttonOpenPopup"></span>
     </button>
+    <ul class="{{styles.recipentsPopup}}{{#if isOpenChatUsersPopup}} {{styles.recipentsPopup}}_opened{{/if}}">
+      <li id="addUser">
+        <button type="button" class="{{styles.btnPlus}}" id="addUser">
+          <i id="addUser"></i>
+          <i id="addUser"></i>
+        </button>
+        <p id="addUser">Добавить пользователя</p>
+      </li>
+      <li id="removeUser">
+        <button type="button" class="{{styles.btnPlus}} {{styles.btnPlus}}_remove" id="removeUser">
+          <i id="removeUser"></i>
+          <i id="removeUser"></i>
+        </button>
+        <p id="removeUser">Удалить пользователя</p>
+      </li>
+    </ul>
   </div>
   <ul class="{{styles.messages}}">
-    {{#each currentRecipent.messages}}
+    {{#each currentChat.messages}}
     <li>
       {{#if this.day}}
         <h5>{{this.day}}</h5>
       {{/if}}
-      <div class="{{styles.message}}{{#if isMy}} {{styles.messageRight}}{{/if}}">
-        <p>{{this.text}}</p>
-        <span>{{this.time}}</span>
+      <div class="{{styles.message}}{{#if this.isMy}} {{styles.messageRight}}{{/if}}">
+        <p>{{this.content}}</p>
+        <span class="{{styles.span}}">{{this.time}}</span>
       </div>
     </li>
     {{/each}}
   </ul>
-  <form class="{{styles.newMessageForm}}" name="newMessage">
+  <form class="{{styles.newMessageForm}}" name="newMessage" id="newMessage">
     {{#if error}}<span class="{{styles.error}}">{{error}}</span>{{/if}}
     <button class="{{styles.attach}}" type="button"></button>
     <input class="{{styles.inputText}}" type="text" placeholder="Сообщение" name="message" id="message" />
     <button class="{{styles.submit}}" type="submit" {{#if isDisabledFormMessage}}disabled{{/if}}></button>
   </form>
 </div>
+{{{ popupAddUser }}}
+{{{ popupRemoveUser }}}
+{{{ popupAddChat }}}
+{{{ toolTip }}}

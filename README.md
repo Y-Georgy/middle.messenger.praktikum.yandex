@@ -33,10 +33,9 @@ stylelint
 5. `npm run build`
 6. `npm run start`
 
-#### Использование linter и stylelint
-- node_modules/.bin/eslint .
-- npx stylelint "**/*.scss"
-
-
+#### Использование linter, stylelint, mocka
+- npm run lint
+- npm run stylelint
+- npm run test
 
 ![N|Solid](https://img.shields.io/badge/-©%202022-red)

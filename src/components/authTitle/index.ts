@@ -1,11 +1,11 @@
 import template from "./template.hbs";
 import * as styles from "./styles.module.scss";
-import Component from "../../utils/Component";
+import Component from "../../modules/Core/Component";
 
 type TProps = {
   title: string;
 }
-class Title extends Component {
+class Title extends Component<TProps> {
   constructor(props: TProps) {
     super(props, "div");
   }

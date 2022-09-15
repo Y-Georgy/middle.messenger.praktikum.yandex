@@ -1,5 +1,5 @@
 import template from "./template.hbs";
-import Component from "../../utils/Component";
+import Component from "../../modules/Core/Component";
 import * as styles from "./styles.module.scss";
 
 type TProps = {
@@ -10,7 +10,7 @@ type TProps = {
   disabled: boolean,
   error?: string
 }
-class ProfileInput extends Component {
+class ProfileInput extends Component<TProps> {
   constructor(props: TProps) {
     super(props, "div");
   }

@@ -1,9 +1,11 @@
+import { TResponse } from "./types";
+
 type METHODS = 'GET' | 'PUT' | 'POST' | 'DELETE';
 
 type Options = {
-  method: METHODS;
+  method?: METHODS;
   headers?: { [key: string]: string };
-  data?: Record<string, undefined>;
+  data?: Record<string, unknown> | FormData;
   timeout?: number;
 };
 
@@ -21,7 +23,7 @@ function queryStringify(data: Record<string, unknown>) {
 export class HTTPTransport {
   get = (url: string, options: Options = { method: 'GET' }) => {
     const { data } = options;
-    if (data && Object.keys(data).length > 0) url += queryStringify(data);
+    if (data && Object.keys(data).length > 0 && !(data instanceof FormData)) url += queryStringify(data);
     return this.request(url, {...options, method: 'GET'}, options.timeout);
   };
 
@@ -37,9 +39,6 @@ export class HTTPTransport {
     return this.request(url, {...options, method: 'DELETE'}, options.timeout);
   };
 
-  // options:
-  // headers — obj
-  // data — obj
   request = (url: string, options: Options = { method: 'GET' }, timeout = 5000) => {
     const {method, data, headers = {}} = options;
 
@@ -50,6 +49,7 @@ export class HTTPTransport {
       }
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
+      xhr.withCredentials = true
 
       Object.keys(headers).forEach(key => {
         xhr.setRequestHeader(key, headers[key]);
@@ -64,11 +64,42 @@ export class HTTPTransport {
       xhr.timeout = timeout;
       xhr.ontimeout = reject;
 
-      if (method === 'GET') {
+      if (data) {
+        if (data instanceof FormData) {
+          xhr.send(data);
+        } else {
+          xhr.send(JSON.stringify(data));
+        }
+      } else {
         xhr.send();
-      } else if (data) {
-        xhr.send(JSON.stringify(data));
       }
     });
   };
+}
+
+export function handleStandardResponse(res: TResponse) {
+  const isJson = (str: string): boolean => {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
+  if (res.status === 200) {
+    if (isJson(res.responseText)) {
+      return JSON.parse(res.responseText)
+    } else {
+      return res.responseText;
+    }
+  }
+
+  let errText: string | undefined = '';
+  if (isJson(res.responseText)) {
+    errText = JSON.parse(res.responseText).reason
+  } else {
+    errText = res.responseText
+  }
+  return Promise.reject(errText ? errText : `Произошла ошибка ${res.status}`)
 }

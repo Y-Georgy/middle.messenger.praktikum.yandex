@@ -1,5 +1,4 @@
 import Title from "../../components/authTitle";
-import Link from "../../components/link";
 import ButtonSubmit from "../../components/buttonSubmit";
 import Input from "../../components/authInput";
 
@@ -13,10 +12,6 @@ export const getProps = (errors: TData, values: TData, isDisabledForm: boolean) 
   buttonSubmit: new ButtonSubmit({
     text: "Вход",
     disabled: isDisabledForm
-  }).render(),
-  link: new Link({
-    href: "register",
-    text: "Зарегистрироваться",
   }).render(),
   inputLogin: new Input({
     name: "login",

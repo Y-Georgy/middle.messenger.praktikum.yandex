@@ -1,12 +1,18 @@
 import ProfileLayout from "../../layouts/profile";
 import template from "./template.hbs";
-import Component from "../../utils/Component";
+import Component from "../../modules/Core/Component";
 import { getProps } from "./props";
 import ButtonSubmit from "../../components/buttonSubmit";
 import Avatar from "../../components/avatar";
 import Input from "../../components/authInput";
-import { useValidator } from "../../hooks/useValidator";
+import { useValidator } from "../../modules/hooks/useValidator";
 import * as styles from "./styles.module.scss";
+import { Router } from "../../modules/Router/Router";
+import store, { StoreEvents } from '../../modules/store/store';
+import { authApi } from "../../modules/Api/authApi";
+import { TUser } from "../../types/types";
+import { userApi, TUserValues } from "../../modules/Api/UserApi";
+import Popup from "../../components/popup";
 
 export type TProfilePageProps = {
   isCanChangeData: boolean,
@@ -18,23 +24,16 @@ export type TProfilePageProps = {
   inputSecondName: Input
   inputDisplayName: Input
   inputPhone: Input
+  popup: Popup
 }
 
 const profilePage = () => {
   const { errors, values, init: initValidator, stateForm, onChangeValues } = useValidator();
-
-  const initValues = {
-    email: 'username@mail.com',
-    login: 'login',
-    first_name: 'First-Name',
-    second_name: 'Second-Name',
-    display_name: 'Nick',
-    phone: '+79991112233',
-  }
-  initValidator(initValues)
+  const router = new Router();
 
   let isCanChangeData = false;
-  class Page extends Component {
+  let isOpenChangeAvatarPopup = false;
+  class Page extends Component<TProfilePageProps> {
     constructor(props: TProfilePageProps) {
       super(props);
     }
@@ -44,38 +43,89 @@ const profilePage = () => {
     }
   }
 
-  function handleChangeData(event: Event) {
+  store.on(StoreEvents.Updated, handleStoreUpdate);
+
+  function handleStoreUpdate() {
+    const initValues = store.getState().user;
+    initValidator(initValues)
+    updateProps();
+  }
+
+  authApi.getUser()
+    .then((res: TUser) => {
+      store.set('user', res)
+    })
+    .catch(err => console.log('errGetUser', err))
+
+  function handleClick(event: Event) {
     const target = event.target as HTMLElement
-    if (target.id === 'linkChangeData') {
+    if (target.id === 'btn-back') {
+      router.back();
+    } else if (target.id === 'linkChangeData') {
+      event.preventDefault();
       isCanChangeData = true;
-      page.setProps({
-        content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled)).render()
-      })
+      updateProps();
+    } else if (target.id === 'link-change-password') {
+      event.preventDefault();
+      router.go("/change-password");
+    } else if(target.id === 'link-logout') {
+      event.preventDefault();
+      authApi.logout()
+        .then((res: string) => {
+          if (res === "OK") {
+            router.go("/login");
+          }
+        })
+        .catch(console.log)
+    } else if (target.id === 'changeAvatar') {
+      isOpenChangeAvatarPopup = true;
+      updateProps();
+
+    } else if (target.id === 'popupOverlay') {
+      isOpenChangeAvatarPopup = false;
+      updateProps();
     }
   }
 
   function handleSubmit(event: Event) {
     event.preventDefault();
 
-    const form = event.target as HTMLElement;
-    onChangeValues(form);
+    const form = event.target as HTMLFormElement;
+    if (form.id === "avatarForm") {
+      const avatarInput: HTMLInputElement | null  = form.querySelector('#avatar');
+      if (avatarInput !== null && avatarInput.files?.length) {
+        userApi.changeAvatar(form)
+          .then(newProfileData => {
+            store.set('user', newProfileData)
+            isOpenChangeAvatarPopup = false;
+            updateProps();
+          })
+          .catch(console.log)
+      }
+    } else if (form.id === "profileForm") {
+      onChangeValues(form);
 
-    if (!stateForm.isDisabled) {
-      console.log(values);
-      isCanChangeData = false
+      if (!stateForm.isDisabled) {
+        userApi.changeUserProfile(values as TUserValues)
+          .then(newProfileData => {
+            store.set('user', newProfileData)
+            isCanChangeData = false;
+            updateProps();
+          })
+          .catch(console.log)
+      }
     }
-
-    page.setProps({
-      content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled)).render()
-    })
   }
 
   function handleBlurOrFocus( event: Event ) {
     const input = event.target as HTMLElement;
     onChangeValues(input);
+    updateProps();
+  }
 
+  function updateProps() {
     page.setProps({
-      content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled)).render()
+      content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
     })
   }
 
@@ -84,13 +134,12 @@ const profilePage = () => {
       submit: handleSubmit,
       blur: handleBlurOrFocus,
       focus: handleBlurOrFocus,
-      click: handleChangeData,
+      click: handleClick,
     },
-    content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled)).render()
+    content: new Page(getProps(errors, values, isCanChangeData, stateForm.isDisabled, isOpenChangeAvatarPopup)).render()
   });
 
   return page;
 }
 
 export default profilePage;
-
