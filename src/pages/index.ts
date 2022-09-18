@@ -7,7 +7,11 @@ import page500 from "./500";
 import page404 from "./404";
 import { Router } from "../modules/Router/Router";
 
-const router = new Router("#main");
+const mainElem = document.createElement("main");
+mainElem.id = "main";
+document.body.appendChild(mainElem);
+
+const router = new Router("body");
 router
   .use("/", chatPage())
   .use("/login", loginPage())
