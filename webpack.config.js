@@ -49,8 +49,8 @@ module.exports = {
       },
       // шрифты и SVG
       {
-        test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
-        type: 'asset/inline',
+        test: /\.(woff|woff2|eot|ttf|otf|svg|)$/,
+        type: 'asset',
       },
       // scss
       {
