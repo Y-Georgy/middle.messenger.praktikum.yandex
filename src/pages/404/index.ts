@@ -1,6 +1,5 @@
-import template from "./template.hbs";
-import * as styles from "./styles.module.scss";
-import Component from "../../modules/Core/Component";
+const template = require("./template.hbs");
+import styles from "./styles.module.scss";import Component from "../../modules/Core/Component";
 import { TUnknownFuncVoid } from "../../types/types";
 import { Router } from "../../modules/Router/Router";
 

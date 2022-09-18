@@ -1,12 +1,11 @@
-import template from "./template.hbs";
+const template = require("./template.hbs");
 import Component from "../../modules/Core/Component";
 import { getProps } from "./props";
 import buttonSubmit from "../../components/buttonSubmit";
 import Title from "../../components/authTitle";
 import Input from "../../components/authInput";
 import { TUnknownFuncVoid } from "../../types/types";
-import * as styles from "./styles.module.scss";
-import { useValidator } from "../../modules/hooks/useValidator";
+import styles from "./styles.module.scss";import { useValidator } from "../../modules/hooks/useValidator";
 import { Router } from "../../modules/Router/Router";
 import { TLoginValues, TRegisterValues, authApi } from "../../modules/Api/authApi";
 

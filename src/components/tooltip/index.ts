@@ -1,13 +1,12 @@
-import template from "./template.hbs";
+const template = require("./template.hbs");
 import Component from "../../modules/Core/Component"
-import * as styles from "./styles.module.scss";
-
+import styles from "./styles.module.scss";
 export type TToolTip = {
   isSuccess: boolean,
   isDisplay: boolean,
   text: string
 }
-class ToolTip extends Component<TToolTip> {
+export class ToolTip extends Component<TToolTip> {
   constructor(props: TToolTip) {
     super(props, "div");
   }
@@ -16,5 +15,3 @@ class ToolTip extends Component<TToolTip> {
     return template({ ...this.props, styles });
   }
 }
-
-export default ToolTip;

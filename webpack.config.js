@@ -1,15 +1,17 @@
 /* eslint-disable no-undef */
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require("path");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 
 module.exports = {
   mode: "development",
   entry: "./src/pages/index.ts",
+  devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "chat.bundle.js",
+    publicPath: ''
   },
   resolve: {
     extensions: [".ts", ".js", ".json"],
@@ -20,10 +22,11 @@ module.exports = {
       watch: true,
     },
     compress: true,
-    port: 4000,
-    https: true,
+    port: 3000,
+    // https: true,
     open: true,
-    hot: true
+    hot: true,
+    historyApiFallback: true
   },
   module: {
     rules: [
@@ -41,7 +44,7 @@ module.exports = {
       },
       // изображения
       {
-        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+        test: /\.(?:ico|gif|png|jpg|jpeg|svg)$/i,
         type: 'asset/resource',
       },
       // шрифты и SVG
@@ -64,5 +67,10 @@ module.exports = {
       { test: /\.hbs$/, loader: "handlebars-loader" }
     ],
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/pages/index.html'
+    }),
+    new CleanWebpackPlugin(),
+  ]
 };

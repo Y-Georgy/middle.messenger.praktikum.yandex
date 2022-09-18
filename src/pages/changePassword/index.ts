@@ -1,13 +1,12 @@
 import ProfileLayout from "../../layouts/profile";
-import template from "./template.hbs";
+const template = require("./template.hbs");
 import Component from "../../modules/Core/Component";
 import { changePasswordContentProps } from "./props";
 import Input from "../../components/profileInput";
 import ButtonSubmit from "../../components/buttonSubmit";
 import Avatar from "../../components/avatar";
 import { useValidator } from "../../modules/hooks/useValidator";
-import * as styles from "./styles.module.scss";
-import { Router } from "../../modules/Router/Router";
+import styles from "./styles.module.scss";import { Router } from "../../modules/Router/Router";
 import { userApi, TPasswords } from "../../modules/Api/UserApi";
 
 type TChangePasswordContentProps = {
