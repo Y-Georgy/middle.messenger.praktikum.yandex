@@ -24,7 +24,7 @@ module.exports = {
     },
     compress: true,
     port: 3000,
-    // https: true,
+    https: true,
     open: true,
     hot: true,
     historyApiFallback: true
