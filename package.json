@@ -17,9 +17,9 @@
     }
   },
   "scripts": {
-    "prestart": "parcel build",
+    "prestart": "webpack",
     "start": "ts-node ./src/pages/app.ts",
-    "devserver": "parcel build && nodemon ./src/pages/app.ts ",
+    "devserver": "webpack && nodemon ./src/pages/app.ts ",
     "dev": "webpack serve",
     "build": "webpack --mode production",
     "test": "mocha",
@@ -46,6 +46,7 @@
     "handlebars-loader": "1.7.2",
     "html-webpack-plugin": "5.5.0",
     "jsdom": "20.0.0",
+    "mini-css-extract-plugin": "^2.6.1",
     "mocha": "10.0.0",
     "nodemon": "2.0.19",
     "parcel": "latest",
