@@ -1,7 +1,6 @@
-import template from "./template.hbs";
+const template = require("./template.hbs");
 import Component from "../../modules/Core/Component";
-import * as styles from "./styles.module.scss";
-import { getProps } from "./props";
+import styles from "./styles.module.scss";import { getProps } from "./props";
 import { TUnknownFuncVoid } from "../../types/types";
 import Title from "../../components/authTitle";
 import Input from "../../components/authInput";

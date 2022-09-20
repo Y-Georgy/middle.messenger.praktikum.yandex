@@ -1,7 +1,6 @@
-import template from "./template.hbs";
+const template = require("./template.hbs");
 import Component from "../../modules/Core/Component";
-import * as styles from "./styles.module.scss";
-
+import styles from "./styles.module.scss";
 type TProps = {
   events?: Record<string, (event: Event) => void>
   content: unknown;

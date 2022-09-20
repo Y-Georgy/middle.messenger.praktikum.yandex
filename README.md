@@ -6,6 +6,7 @@
 ![N|Solid](https://img.shields.io/badge/-Георгий%20Ядрихинский-blue)
 [![N|Solid](https://img.shields.io/badge/-Посмотреть%20макет%20Figma-green)](https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link)
 [![N|Solid](https://img.shields.io/badge/-Посмотреть%20сайт%20на%20Netlify-orange)](https://project-chat.netlify.app/)
+[![N|Solid](https://img.shields.io/badge/-Посмотреть%20сайт%20на%20Netlify-yellow)](https://georgy-chat.herokuapp.com/)
 
 #### Описание
 
@@ -18,10 +19,13 @@ TypeScript
 JavaScript
 Handlebars
 Express.js
-Parcel
+Webpack
+Docker
 SASS
-linter
-stylelint
+Linter
+Stylelint
+Pre-commit
+
 ```
 
 #### Запуск
@@ -30,12 +34,7 @@ stylelint
 2. `cd middle.messenger.praktikum.yandex`
 3. `git checkout deploy`
 4. `npm install`
-5. `npm run build`
-6. `npm run start`
+5. `npm run start`
 
-#### Использование linter, stylelint, mocka
-- npm run lint
-- npm run stylelint
-- npm run test
 
 ![N|Solid](https://img.shields.io/badge/-©%202022-red)

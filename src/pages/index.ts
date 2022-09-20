@@ -6,8 +6,9 @@ import changePasswordPage from "./changePassword";
 import page500 from "./500";
 import page404 from "./404";
 import { Router } from "../modules/Router/Router";
+import "./index.scss";
 
-const router = new Router("#main");
+const router = new Router("body");
 router
   .use("/", chatPage())
   .use("/login", loginPage())

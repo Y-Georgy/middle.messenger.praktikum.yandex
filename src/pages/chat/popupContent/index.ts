@@ -1,8 +1,7 @@
-import template from "./template.hbs";
+const template = require("./template.hbs");
 import Component from "../../../modules/Core/Component"
 import ButtonSubmit from "../../../components/buttonSubmit";
-import * as styles from "./styles.module.scss";
-import Input from "../../../components/authInput";
+import styles from "./styles.module.scss";import Input from "../../../components/authInput";
 
 
 type TProps = {

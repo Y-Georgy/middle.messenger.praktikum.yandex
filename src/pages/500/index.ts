@@ -1,8 +1,7 @@
-import template from "./template.hbs";
+const template = require("./template.hbs");
 import Component from "../../modules/Core/Component";
 import { TUnknownFuncVoid } from "../../types/types";
-import * as styles from "./styles.module.scss";
-import { Router } from "../../modules/Router/Router";
+import styles from "./styles.module.scss";import { Router } from "../../modules/Router/Router";
 
 type TProps = {
   events: Record<string, TUnknownFuncVoid>,

@@ -1,15 +1,15 @@
-import template from "./template.hbs";
+const template = require("./template.hbs");
 import Component from "../../modules/Core/Component";
 import { getProps } from "./props";
 import { TUnknownFuncVoid, TUser } from "../../types/types";
 import { useValidator } from "../../modules/hooks/useValidator";
-import * as styles from "./styles.module.scss";
+import styles from "./styles.module.scss";
 import { Router } from "../../modules/Router/Router";
 import { chatsApi } from "../../modules/Api/ChatsApi";
 import store from "../../modules/store/store";
 import { userApi } from "../../modules/Api/UserApi";
 import { letsSocket } from "../../modules/Api/websocket";
-import ToolTip, { TToolTip } from "../../components/tooltip";
+import { ToolTip, TToolTip } from "../../components/tooltip";
 
 export type TCurrentChat = {
   id: number,

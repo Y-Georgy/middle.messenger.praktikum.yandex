@@ -3,7 +3,7 @@ import Popup from "../../components/popup";
 import PopupContent from "./popupContent";
 import ButtonSubmit from "../../components/buttonSubmit";
 import Input from "../../components/authInput";
-import ToolTip, { TToolTip } from "../../components/tooltip";
+import { ToolTip, TToolTip } from "../../components/tooltip";
 
 type TData = {
   message?: string | undefined
